@@ -1,0 +1,46 @@
+module alu (
+    input a[32],
+    input b[32],
+    input alufn[6],
+    output out[32],
+    output v,
+    output n,
+    output z
+) {
+    sig unit_select[2]
+    adder_32b adder_mod
+    bool_unit bool_mod
+    shift_unit shift_mod
+    compare_unit comp_mod
+    mult_unit mult_mod
+    nmux mux4
+    always {
+        unit_select = alufn[5:4]
+        adder_mod.a = a
+        adder_mod.b = b
+        adder_mod.alufn0 = alufn[0]
+        v = adder_mod.v
+        n = adder_mod.n
+        z = adder_mod.z
+        mult_mod.a = a
+        mult_mod.b = b
+        mult_mod.a = a
+        mult_mod.b = b
+        shift_mod.a = a
+        shift_mod.b = b
+        shift_mod.alufn10 = alufn[1:0]
+        comp_mod.v = adder_mod.v
+        comp_mod.n = adder_mod.n
+        comp_mod.z = adder_mod.z
+        comp_mod.alufn21 = alufn[2:1]
+        bool_mod.a = a
+        bool_mod.b = b
+        bool_mod.alufn30 = alufn[3:0]
+        mux4.in[0] = (alufn[1])? mult_mod.out : adder_mod.s
+        mux4.in[1] = bool_mod.out
+        mux4.in[2] = shift_mod.out
+        mux4.in[3] = comp_mod.out
+        mux4.select = unit_select
+        out = mux4.out
+    }
+}

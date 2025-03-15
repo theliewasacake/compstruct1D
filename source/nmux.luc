@@ -1,0 +1,11 @@
+module nmux #(
+    SELECT = 4
+)(
+    input in[SELECT],
+    input select[$clog2(SELECT)+1],
+    output out
+) {
+    always {
+        out = in[select]
+    }
+}

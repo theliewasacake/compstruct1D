@@ -1,0 +1,15 @@
+module bool_unit (
+    input a[32],
+    input b[32],
+    input alufn30[4],
+    output out[32]
+) {
+    nmux mux4[32] 
+    always {
+        mux4.in = 32x{{alufn30}}
+        repeat(i, 32){
+            mux4.select[i] = c{b[i],a[i]}
+        }
+        out = $flatten(mux4.out)
+    }
+}

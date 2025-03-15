@@ -1,0 +1,18 @@
+module shift_unit (
+    input a[32],
+    input b[32],
+    input alufn10[2],
+    output out[32]
+) {
+    sig shl[32]
+    sig shr[32]
+    sig sra[32]
+    #SELECT(2){
+        nmux mux2[5][3][32]
+    }
+    always {
+        repeat(i,5){
+            mux2.select[i][2:0] = 3x{{32h1}}
+        }
+    }
+}
