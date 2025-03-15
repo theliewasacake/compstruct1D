@@ -4,15 +4,49 @@ module shift_unit (
     input alufn10[2],
     output out[32]
 ) {
-    sig shl[32]
-    sig shr[32]
-    sig sra[32]
     #SELECT(2){
-        nmux mux2[5][3][32]
+        nmux shl_mux2[5][32]
+        nmux shr_mux2[5][32]
+        nmux sra_mux2[5][32]
     }
+    nmux outmux[32]
+    sig shl_muxsig1[5][32]
+    sig shr_muxsig1[5][32]
+    sig sra_muxsig1[5][32]
+    sig zeros[32]
+    sig sign_ext[32]
     always {
+        zeros = 32b0
+        sign_ext = 32x{a[31]}
         repeat(i,5){
-            mux2.select[i][2:0] = 3x{{32h1}}
+            shl_mux2.select[i] = 32x{{$resize(b[(4-i)],2)}}
+            shr_mux2.select[i] = 32x{{$resize(b[(4-i)],2)}}
+            sra_mux2.select[i] = 32x{{$resize(b[(4-i)],2)}}
+            if(i==0){
+                shl_muxsig1[i] = c{a[15:0],16b0}
+                shr_muxsig1[i] = c{16b0,a[31:16]}
+                sra_muxsig1[i] = c{sign_ext[15:0],a[31:16]}
+            }else{
+                shl_muxsig1[i] = c{shl_muxsig1[i-1][31-$pow(2,(4-i)):0], zeros[$pow(2,(4-i))-1:0]}
+                shr_muxsig1[i] = c{zeros[$pow(2,(4-i))-1:0], shr_muxsig1[i-1][31:$pow(2,(4-i))]}
+                sra_muxsig1[i] = c{sign_ext[$pow(2,(4-i))-1:0], sra_muxsig1[i-1][31:$pow(2,(4-i))]}
+            }
+            repeat(j,32){
+                shl_mux2.in[i][j][0] = a[j] 
+                shl_mux2.in[i][j][1] = shl_muxsig1[i][j]
+                shr_mux2.in[i][j][0] = a[j] 
+                shr_mux2.in[i][j][1] = shr_muxsig1[i][j] 
+                sra_mux2.in[i][j][0] = a[j] 
+                sra_mux2.in[i][j][1] = sra_muxsig1[i][j] 
+            }
         }
+        outmux.select = 32x{{$resize(alufn10,3)}}
+        repeat(k,32){
+            outmux.in[k][0] = shl_mux2.out[4][k] 
+            outmux.in[k][1] = shr_mux2.out[4][k] 
+            outmux.in[k][2] = sra_mux2.out[4][k] 
+            outmux.in[k][3] = 0
+        }
+        out = outmux.out
     }
 }

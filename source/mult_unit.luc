@@ -4,6 +4,6 @@ module mult_unit (
     output out[32]
 ) {
     always {
-        out = 0
+        out = a*b
     }
 }
