@@ -1,0 +1,27 @@
+module rca #(
+    SIZE = 32 : SIZE > 0
+)(
+    input a[SIZE],
+    input b[SIZE],
+    input cin,      // Carry-in (0 for addition, 1 for subtraction)
+    output s[SIZE],   // Sum result
+    output cout     // Carry-out
+) {
+    sig carry[SIZE+1]; // Carry signals between full adders
+    sig start = 0
+    sig step = 1
+
+    fa fa[SIZE]; // 32 instances of full adders
+
+    always {
+        carry[0] = cin
+        repeat (i, SIZE, start, step) {
+            fa.a[i] = a[i]
+            fa.b[i] = b[i]
+            fa.cin[i] = carry[i]  // Connect carry to each FA
+            carry[i+1] = fa.cout[i]
+        }
+        s = fa.s
+        cout = carry[SIZE]
+    }
+}
