@@ -2,7 +2,7 @@ module adder_32b (
     input a[32],
     input b[32],
     input alufn0,
-    output s[32],
+    output out[32],
     output v,
     output n,
     output z
@@ -15,12 +15,12 @@ module adder_32b (
         t = 0
         xb = b^32x{alufn0}
         v = 0
-        s = 0
+        out = 0
         z = 0
         n = 0
         repeat(i,8){
             adder_4b.a[i] = a[i*4+:4]
-            adder_4b.b[i] = b[i*4+:4]
+            adder_4b.b[i] = xb[i*4+:4]
             if(i==0){
                 ci2[i] = alufn0
             }else{
@@ -30,7 +30,7 @@ module adder_32b (
         }
         t = $flatten(adder_4b.s) 
         v = (a[-1]&xb[-1]&~t[-1])|(~a[-1]&~xb[-1]&t[-1])
-        s = t
+        out = t
         z = ~|t
         n = t[-1]
     }

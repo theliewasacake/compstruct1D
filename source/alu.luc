@@ -13,7 +13,7 @@ module alu (
     shift_unit shift_mod
     compare_unit comp_mod
     mult_unit mult_mod
-    nmux mux4
+    nmux mux4[32]
     always {
         unit_select = alufn[5:4]
         adder_mod.a = a
@@ -36,11 +36,13 @@ module alu (
         bool_mod.a = a
         bool_mod.b = b
         bool_mod.alufn30 = alufn[3:0]
-        mux4.in[0] = (alufn[1])? mult_mod.out : adder_mod.s
-        mux4.in[1] = bool_mod.out
-        mux4.in[2] = shift_mod.out
-        mux4.in[3] = comp_mod.out
-        mux4.select = unit_select
+        repeat(i,32){
+            mux4.in[i][0] = (alufn[1])? mult_mod.out[i] : adder_mod.out[i]
+            mux4.in[i][1] = bool_mod.out[i]
+            mux4.in[i][2] = shift_mod.out[i]
+            mux4.in[i][3] = comp_mod.out
+            mux4.select[i] = unit_select
+        }
         out = mux4.out
     }
 }

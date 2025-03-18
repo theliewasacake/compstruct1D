@@ -71,9 +71,15 @@ OPTRACE "Creating in-memory project" END { }
 OPTRACE "Adding files" START { }
 read_verilog -library xil_defaultlib -sv {
   C:/Users/jc050/Documents/SUTD/50.002/betaCPU/build/vivado/betaCPU.srcs/sources_1/imports/source/adder_32b.sv
+  C:/Users/jc050/Documents/SUTD/50.002/betaCPU/build/vivado/betaCPU.srcs/sources_1/imports/source/alu.sv
+  C:/Users/jc050/Documents/SUTD/50.002/betaCPU/build/vivado/betaCPU.srcs/sources_1/imports/source/bool_unit.sv
   C:/Users/jc050/Documents/SUTD/50.002/betaCPU/build/vivado/betaCPU.srcs/sources_1/imports/source/cl_4b_adder.sv
+  C:/Users/jc050/Documents/SUTD/50.002/betaCPU/build/vivado/betaCPU.srcs/sources_1/imports/source/compare_unit.sv
+  C:/Users/jc050/Documents/SUTD/50.002/betaCPU/build/vivado/betaCPU.srcs/sources_1/imports/source/mult_unit.sv
+  C:/Users/jc050/Documents/SUTD/50.002/betaCPU/build/vivado/betaCPU.srcs/sources_1/imports/source/nmux.sv
   C:/Users/jc050/Documents/SUTD/50.002/betaCPU/build/vivado/betaCPU.srcs/sources_1/imports/source/partial_cl_adder.sv
   C:/Users/jc050/Documents/SUTD/50.002/betaCPU/build/vivado/betaCPU.srcs/sources_1/imports/source/reset_conditioner.sv
+  C:/Users/jc050/Documents/SUTD/50.002/betaCPU/build/vivado/betaCPU.srcs/sources_1/imports/source/shift_unit.sv
   C:/Users/jc050/Documents/SUTD/50.002/betaCPU/build/vivado/betaCPU.srcs/sources_1/imports/source/alchitry_top.sv
 }
 OPTRACE "Adding files" END { }

@@ -82,6 +82,24 @@
                     "type": "DiskFile",
                     "path": "source/nmux.luc"
                 }
+            },
+            {
+                "file": {
+                    "type": "DiskFile",
+                    "path": "source/test1.luc"
+                }
+            },
+            {
+                "file": {
+                    "type": "DiskFile",
+                    "path": "source/mux2.luc"
+                }
+            },
+            {
+                "file": {
+                    "type": "DiskFile",
+                    "path": "source/shift_unit_1.luc"
+                }
             }
         ],
         "constraintFiles": [
