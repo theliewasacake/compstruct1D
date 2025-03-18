@@ -1,0 +1,153 @@
+module alu_manual_tester(
+    input clk,          // Clock
+    input rst,          // Reset
+    input io_button[5], // Buttons
+    input io_dip[3][8], // DIP switches
+    output io_led[3][8], // LEDs
+    output io_segment[8],
+    output io_select[4],
+    output led[8]
+) {
+    const CLOCK_DIVIDER = $is_sim() ? 11 : 26
+    const SEVEN_SEG_DIV = $is_sim() ? 16 : 16
+    sig slow_clock
+    const SLOW_CLOCK_DEFAULT_SPEED = $is_sim() ? 7 : 26     // put 8  for sim, 28 for hardware
+    const CLK_FREQ = $is_sim() ? 1000 : 100000000 // put 1000 only for sim, 100M on hardware
+    const SIZE = 8
+    const SEG_REFRESH = $is_sim() ? 2 : 10
+    enum Toggle{
+        HIGH_A,
+        LOW_A,
+        HIGH_B,
+        LOW_B,
+        WAIT
+    }
+    .clk(clk){
+        edge_detector slow_clock_edge(#RISE(1), #FALL(0))
+        edge_detector io_button_edge[5](#RISE(5x{{1}}), #FALL(5x{{0}}))
+        button_conditioner io_button_cond[5](#CLK_FREQ(5x{{CLK_FREQ}}))
+        .rst(rst){
+            dff seg_multiplex[2](#INIT(0))
+            counter slow_clk(#SIZE(1), #DIV(CLOCK_DIVIDER))
+            counter seg_clk(#SIZE(1), #DIV(SEG_REFRESH))
+            dff counter[SIZE]
+            dff speed_pointer[$clog2(SIZE)](#INIT(SLOW_CLOCK_DEFAULT_SPEED))
+            dff slow_clock_enable(#INIT(0))
+            dff state[$width(Toggle)](#INIT(Toggle.WAIT))
+            dff a_low[16]        // Stores lower 16 bits of A
+            dff a_high[16]       // Stores upper 16 bits of A
+            dff b_low[16]        // Stores lower 16 bits of B
+            dff b_high[16]       // Stores upper 16 bits of B
+            multi_seven_seg seg(#DIV(SEVEN_SEG_DIV))
+        }
+        edge_detector seg_clk_edge(#RISE(1), #FALL(0), .in(seg_clk.value))
+    }
+    bin_to_dec decimal_renderer(#DIGITS(4), #LEADING_ZEROS(1))
+    decoder seg_selector(#WIDTH(2), .in(seg_multiplex.q))
+    seven_seg encoder[4](.char((decimal_renderer.digits)))
+
+    alu alu
+
+    always {
+        seg_multiplex.d = seg_multiplex.q
+        
+        if(seg_clk_edge.out){
+                seg_multiplex.d = seg_multiplex.q + 1
+        }
+        // Construct full 32-bit inputs
+        io_button_cond.in = io_button
+        io_button_edge.in = io_button_cond.out
+        counter.d = counter.q + 1
+        speed_pointer.d = speed_pointer.q
+        a_high.d = a_high.q
+        a_low.d = a_low.q
+        b_high.d = b_high.q
+        b_low.d = b_low.q
+        slow_clock_enable.d = slow_clock_enable.q
+        state.d = state.q
+        
+        slow_clock = counter.q[speed_pointer.q]
+
+        case (slow_clock_enable.q){
+            0:
+                slow_clock_edge.in = 0 // always don't increment or decrement
+            1: 
+                slow_clock_edge.in =  slow_clock 
+            default:
+                slow_clock_edge.in = 0
+        }
+        
+        alu.a = 0
+        alu.b = 0
+        alu.alufn = 0
+
+        io_led[0] = alu.out[7:0]
+        io_led[1] = a_low.q[7:0]
+        io_led[2] = a_low.q[15:8]
+
+        io_segment = 0
+        io_select = 4hF
+        led = 0
+
+        // Store DIP input based on FSM state
+        case (state.q) {
+            Toggle.WAIT:
+                if (io_button_edge.out[1]) {
+                    state.d = Toggle.HIGH_A
+                }
+                alu.a = c{a_high.q, a_low.q}
+                alu.b = c{b_high.q, b_low.q}
+                alu.alufn = io_dip[2][5:0]
+                led = alu.out[7:0]
+                io_led[0] = alu.out[15:8]
+                io_led[1] = alu.out[23:16]
+                io_led[2] = alu.out[31:24]
+            Toggle.HIGH_A:
+                if (io_button_edge.out[0]) {
+                    state.d = Toggle.LOW_A
+                }
+                io_led[0] = 0
+                a_high.d = c{io_dip[1], io_dip[0]}
+            Toggle.LOW_A:
+                if (io_button_edge.out[2]) {
+                    state.d = Toggle.HIGH_B
+                }
+                io_led[0] = 0
+                a_low.d = c{io_dip[1], io_dip[0]}
+            Toggle.HIGH_B:
+                if (io_button_edge.out[0]) {
+                    state.d = Toggle.LOW_B
+                }
+                io_led[0] = 0
+                b_high.d = c{io_dip[1], io_dip[0]}
+            Toggle.LOW_B:
+                if (io_button_edge.out[2]) {
+                    state.d = Toggle.WAIT
+                }
+                io_led[0] = 0
+                b_low.d = c{io_dip[1], io_dip[0]}
+        }
+        if(c{alu.z,alu.v,alu.n} == 3b000)
+            decimal_renderer.value = 4h0
+        else if(c{alu.z,alu.v,alu.n} == 3b001)
+            decimal_renderer.value = 4h1
+        else if(c{alu.z,alu.v,alu.n} == 3b010)
+            decimal_renderer.value = 4hA
+        else if(c{alu.z,alu.v,alu.n} == 3b011)
+            decimal_renderer.value = 4hB
+        else if(c{alu.z,alu.v,alu.n} == 3b100)
+            decimal_renderer.value = 100
+        else if(c{alu.z,alu.v,alu.n} == 3b101)
+            decimal_renderer.value = 101
+        else if(c{alu.z,alu.v,alu.n} == 3b110)
+            decimal_renderer.value = 110
+        else if(c{alu.z,alu.v,alu.n} == 3b111)
+            decimal_renderer.value = 111
+        else
+            decimal_renderer.value = 0
+        
+        seg.values = decimal_renderer.digits
+        io_segment = ~encoder.segs[seg_multiplex.q]
+        io_select = ~seg_selector.out
+    }
+}

@@ -1,0 +1,37 @@
+module adder (
+    input a[32],
+    input b[32],
+    input alufn[6],        // Subtraction control: 0 = Add, 1 = Subtract
+    output s[32],     // Sum or Difference
+    output z,         // Zero flag
+    output v,         // Overflow flag
+    output n          // Negative flag
+) {
+    sig b_neg[32]  // Negated version of b for subtraction
+    sig overflow   // Overflow detection
+
+    rca rca_unit
+
+    always {
+        rca_unit.a = a
+        //b_neg = b ^ alufn[0]
+        b_neg = b ^ 32x{alufn[0]} //if alufn0 = 0 b input stays the same but if alufn0 = 1 b input flip for every bit
+
+        rca_unit.b = b_neg
+        rca_unit.cin = alufn[0]
+        s = rca_unit.s
+
+        // Zero flag: True if all bits of `s` are 0
+        z = (rca_unit.s == 32x{0})
+
+        // Overflow flag: (a[31] == b_neg[31]) && (s[31] != a[31])
+        //overflow = (((alufn[0] ^ b[31]) & a[31]) & ~rca_unit.s[31]) | ((~(alufn[0] ^ b[31]) & ~a[31]) & rca_unit.s[31])
+        //overflow = ((a[31] ^ b[31]) & (~rca_unit.s[31])) | (~(a[31] ^ b[31]) & rca_unit.s[31])
+        //overflow = (a[31] == b_neg[31]) && (a[31] != rca_unit.s[31])
+        overflow = (a[31] == b_neg[31]) && (rca_unit.s[31] != a[31])
+        v = overflow
+
+        // Negative flag: True if result is negative (MSB of s is 1)
+        n = rca_unit.s[31]
+    }
+}
