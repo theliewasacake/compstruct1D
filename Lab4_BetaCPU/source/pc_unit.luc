@@ -1,0 +1,88 @@
+module pc_unit (
+    input clk,  // clock
+    input rst,  // reset
+    input slowclk, // slowclock to advance pc
+    input id[16],
+    input pcsel[3],
+    input reg_data_1[32],
+    output pc_4[32],
+    output pc_4_sxtc[32],
+    output pcsel_out[32], // for debug only, does not exist in pc_unit
+    output ia[32]
+) {
+    
+    dff pc[32](#INIT(0),.clk(clk)) // PC Register
+    
+    sig pcsel_out_sig[32]
+    sig pc_4sxtc3_2sig[32]
+    sig pc_4sxtc_sig[32]
+    sig pc_4sig[32]
+    sig pc_4raw[32]
+    
+    sig intermediate[32]
+    
+    sig mux1[32]
+
+    always {
+        // default connections to silence errors
+        mux1 = 32x{0}
+        pc.d = pc.q
+        pc_4sxtc3_2sig = 32x{0}
+        pcsel_out_sig = 32x{0}
+        pc_4sxtc_sig = 32x{0}
+        intermediate = 32x{0}
+        
+        // increment pc by 4
+        pc_4raw = pc.q + 4
+        pc_4sig = c{pc.q[31], pc_4raw[30:0]}
+        
+        // Calculate PC+4 + sign-extended immediate (for branches)
+        pc_4sxtc3_2sig = c{14x{id[15]}, id[15:0], 2b00}// SXT(C) = sign-extend and shift left by 2
+
+        // Final branch target calculation (preserving supervisor bit)
+        intermediate = pc_4sig + pc_4sxtc3_2sig
+        pc_4sxtc_sig = c{pc.q[31], intermediate[30:2], 2b00}
+        
+        case(pcsel){
+            3b000:
+                pcsel_out_sig = pc_4sig
+            3b001:
+                pcsel_out_sig = pc_4sxtc_sig
+            3b010:
+                case(pc.q[31]){
+                    1b0:
+                        mux1[31] = 1b0
+                    1b1:
+                        if(reg_data_1[31] == 0){
+                            mux1[31] = 1b0
+                        }
+                        else{
+                            mux1[31] = 1b1
+                        }
+                }
+                mux1[30:0] = c{reg_data_1[30:2], 2b00}
+                pcsel_out_sig = mux1
+            3b011:
+                pcsel_out_sig = 32h80000004
+            3b100:
+                pcsel_out_sig = 32h80000008
+            default:
+                pcsel_out_sig = pc.q
+        }
+        
+        if(rst){
+            pc.d = 32h80000000
+        }
+        else{
+            if(slowclk){
+                pc.d = c{pcsel_out_sig[31:2], b00};
+            }
+        }
+        
+        // output connections
+        ia = pc.q
+        pc_4 =  pc_4sig
+        pc_4_sxtc = pc_4sxtc_sig
+        pcsel_out = pc.q
+    }
+}

@@ -1,0 +1,69 @@
+module alu (
+    input a[32],
+    input b[32],
+    input alufn[6],
+    output out[32],
+    output z,
+    output v,
+    output n
+) {
+
+    mux_4 mux_4[32]
+    mux_2 mux_2[32]
+    //adder adder
+    adder_32b adder
+    compare compare
+    boolean boolean
+    shifter shifter
+    multiplier multiplier
+    
+    always {
+        // implement alu logic here
+
+        z = adder.z
+        v = adder.v
+        n = adder.n
+        
+        compare.z = adder.z
+        compare.v = adder.v
+        compare.n = adder.n
+        compare.alufn = alufn
+        
+        adder.a = a
+        adder.b = b
+        adder.alufn = alufn
+        
+        boolean.a = a
+        boolean.b = b
+        boolean.alufn = alufn
+        
+        shifter.a = a
+        shifter.b = b[4:0]
+        shifter.alufn = alufn
+        
+        multiplier.a = a
+        multiplier.b = b
+        
+        repeat(i,32){
+            //mux_2.in[i][0] = adder.s[i]
+            mux_2.in[i][0] = adder.out[i]
+            mux_2.in[i][1] = multiplier.mul[i]
+            mux_2.s0[i] = alufn[1]
+        }
+        repeat(i,32){
+            mux_4.in[i][0] = mux_2.out[i]
+            mux_4.in[i][1] = boolean.bool[i]
+            mux_4.in[i][2] = shifter.shift[i]
+            if(i==0){
+                mux_4.in[i][3] = compare.cmp
+            }
+            else{
+                mux_4.in[i][3] = 1b0
+            }
+            mux_4.s1[i] = alufn[5]
+            mux_4.s0[i] = alufn[4]
+        }
+        out = mux_4.out
+        
+    }
+}

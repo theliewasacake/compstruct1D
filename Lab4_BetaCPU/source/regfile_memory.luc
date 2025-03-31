@@ -1,0 +1,44 @@
+module regfile_memory (
+    input clk,      // clock
+    input rst,      // reset
+    input ra1[5],   // read address 1
+    input ra2[5],   // read address 2
+    output rd1[32], // read data 1
+    output rd2[32], // read data 2
+    input wa[5],    // write address
+    input wd[32],   // write data
+    input we        // write enable
+) {
+    
+    dff registers[32][32](#INIT(32x{{32h0}}), .clk(clk), .rst(rst));
+    
+    always {
+        // Default connections
+        registers.d = registers.q;
+        rd1 = 32x{0};
+        rd2 = 32x{0};
+        
+        // TASK 7 - Implement two output read ports
+        // Read port 1 (with R31 special case)
+        if (ra1 == 5b11111) {  // R31
+            rd1 = 32x{b0}
+        } 
+        else {
+            rd1 = registers.q[ra1];
+        }
+        
+        // Read port 2 (with R31 special case)
+        if (ra2 == 5b11111) {  // R31
+            rd2 = 32x{b0}
+        } 
+        else {
+            rd2 = registers.q[ra2];
+        }
+        
+        // Implement one write port
+        // Only write if enabled and not writing to R31
+        if (we && (wa != 5b11111)) {
+            registers.d[wa] = wd
+        }
+    }
+}

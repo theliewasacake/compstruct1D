@@ -1,0 +1,37 @@
+module adder_32b (
+    input a[32],
+    input b[32],
+    input alufn[6],
+    output out[32],
+    output v,
+    output n,
+    output z
+) {
+    cl_4b_adder adder_4b[8]
+    sig t[32]
+    sig xb[32]
+    sig ci2[8]
+    always {
+        t = 0
+        xb = b^32x{alufn[0]}
+        v = 0
+        out = 0
+        z = 0
+        n = 0
+        repeat(i,8){
+            adder_4b.a[i] = a[i*4+:4]
+            adder_4b.b[i] = xb[i*4+:4]
+            if(i==0){
+                ci2[i] = alufn[0]
+            }else{
+                ci2[i] = adder_4b.gg[i-1]|(adder_4b.pg[i-1]&ci2[i-1])
+            }
+            adder_4b.c[i] = ci2[i]
+        }
+        t = $flatten(adder_4b.s) 
+        v = (a[-1]&xb[-1]&~t[-1])|(~a[-1]&~xb[-1]&t[-1])
+        out = t
+        z = ~|t
+        n = t[-1]
+    }
+}
