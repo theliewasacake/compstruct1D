@@ -2,7 +2,7 @@ set_property PACKAGE_PIN N14 [get_ports {clk}]
 set_property IOSTANDARD LVCMOS33 [get_ports {clk}]
 # clk => 100000000Hz
 create_clock -period 10.0 -name clk_0 -waveform {0.000 5.0} [get_ports clk]
-set_clock_groups -asynchronous -group {clk_0}
+set_clock_groups -asynchronous -group [get_clocks -include_generated_clocks clk_0]
 
 set_property PACKAGE_PIN P6 [get_ports {rst_n}]
 set_property IOSTANDARD LVCMOS33 [get_ports {rst_n}]
@@ -260,4 +260,29 @@ set_property IOSTANDARD LVCMOS33 [get_ports {io_segment[6]}]
 
 set_property PACKAGE_PIN T10 [get_ports {io_segment[7]}]
 set_property IOSTANDARD LVCMOS33 [get_ports {io_segment[7]}]
+
+set_property PACKAGE_PIN P13 [get_ports {lcd[0]}]
+set_property IOSTANDARD LVCMOS33 [get_ports {lcd[0]}]
+
+set_property PACKAGE_PIN N13 [get_ports {lcd[1]}]
+set_property IOSTANDARD LVCMOS33 [get_ports {lcd[1]}]
+
+set_property PACKAGE_PIN R11 [get_ports {lcd[2]}]
+set_property IOSTANDARD LVCMOS33 [get_ports {lcd[2]}]
+
+set_property PACKAGE_PIN R10 [get_ports {lcd[3]}]
+set_property IOSTANDARD LVCMOS33 [get_ports {lcd[3]}]
+
+set_property PACKAGE_PIN N12 [get_ports {acc[0]}]
+set_property IOSTANDARD LVCMOS33 [get_ports {acc[0]}]
+
+set_property PACKAGE_PIN N11 [get_ports {acc[1]}]
+set_property IOSTANDARD LVCMOS33 [get_ports {acc[1]}]
+
+set_property PACKAGE_PIN R12 [get_ports {acc[2]}]
+set_property IOSTANDARD LVCMOS33 [get_ports {acc[2]}]
+
+set_property PACKAGE_PIN T12 [get_ports {acc_in}]
+set_property IOSTANDARD LVCMOS33 [get_ports {acc_in}]
+set_property PULLDOWN true [get_ports {acc_in}]
 

@@ -1,0 +1,22 @@
+module display_controller (
+    input clk,  // clock
+    input rst,  // reset
+    input gameGrid[6][32],    //R21-R26 Game Grid
+    input ballState[32],    //R16 Ball Position
+    input padState[32],    //R18 Paddle Position
+    input gameStatus[32],  // R15 Life+Status
+    input frameWriteTrigger//,
+    //output frameWriteActive
+) {
+    .clk(clk){
+        .rst(rst){
+            //vram_unit vram
+        }
+        //dff frame_write_dff
+        //dff grid_x_ctr[8]
+        //dff grid_y_ctr[8]
+    }
+    always {
+        //frameWriteActive = frame_write_dff.q
+    }
+}

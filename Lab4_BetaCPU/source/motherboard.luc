@@ -3,6 +3,7 @@ module motherboard (
     input rst,  // reset
     input irq[3],
     input slowclk, 
+    input acc_miso,
     output id[32],
     output ia[32],
     output ma[32],  // ALU output / EA
@@ -10,14 +11,17 @@ module motherboard (
     output mwd[32], // RD2 output 
     output output_buffer[32],
     output input_buffer[32],
+    output lcd_spi_out[4], //sck,mosi,dcx,cs
+    output acc_spi_out[3], //sck,mosi,cs
     output debug[4][16]
 ) {
     
     // Beta CPU
     beta_cpu beta(.clk(clk))
-    
+    lcd_spi_driver lcd(.clk(clk), .rst(rst))
+    accel_spi_driver acc(.clk(clk), .rst(rst))
     // setup and instantiate memory unit and instruction ROM
-    const MEMORY_SIZE = 32
+    const MEMORY_SIZE = 64
     instruction_rom instruction_unit(#WORDS(MEMORY_SIZE))
     memory_unit memory_unit(#WORDS(MEMORY_SIZE), .clk(clk)) 
     
@@ -31,9 +35,25 @@ module motherboard (
     enum MotherboardStates {INSTRUCTIONLOAD, RUN, LOAD_OUTPUT, DISPLAY_OUTPUT, UPDATE_INPUT}
     dff motherboard[$width(MotherboardStates)](.clk(clk), .rst(rst), #INIT(MotherboardStates.INSTRUCTIONLOAD))
     
-    always {
+    
+    always {      
         instruction_unit.addr = 0 // always set to 0 initially
         beta.irq = |irq // IRQ as long as any of of the buttons[2:0] is pressed
+        
+        //LCD handling
+        beta.lcd_spi_busy = ~lcd.next_byte
+        lcd_spi_out = c{lcd.scl,lcd.mosi,lcd.dcx_out,lcd.csx}
+        lcd.out_byte = beta.mem_data_output[7:0]
+        lcd.dcx_in = beta.mem_data_output[8]
+        lcd.enable = beta.lcd_enable
+        
+        //ACC handling
+        beta.acc_spi_busy = ~acc.next_byte
+        acc.miso = acc_miso
+        acc_spi_out = c{acc.scl,acc.mosi,acc.csx}
+        acc.out_byte = beta.mem_data_output[7:0]
+        acc.enable = beta.acc_enable
+        beta.spi_in_data = acc.in_byte
         
         // store the button press to input buffer 
         if (|irq){

@@ -4,7 +4,7 @@
 
 set TIME_start [clock seconds] 
 namespace eval ::optrace {
-  variable script "C:/Users/spyro/Alchitry/Lab4_BetaCPU/build/vivado/Lab4_BetaCPU.runs/synth_1/alchitry_top.tcl"
+  variable script "C:/Users/jc050/Documents/SUTD/50.002/1DPROJECT/Lab4_BetaCPU/build/vivado/Lab4_BetaCPU.runs/synth_1/alchitry_top.tcl"
   variable category "vivado_synth"
 }
 
@@ -62,44 +62,48 @@ create_project -in_memory -part xc7a35tftg256-1
 set_param project.singleFileAddWarning.threshold 0
 set_param project.compositeFile.enableAutoGeneration 0
 set_param synth.vivado.isSynthRun true
-set_property webtalk.parent_dir C:/Users/spyro/Alchitry/Lab4_BetaCPU/build/vivado/Lab4_BetaCPU.cache/wt [current_project]
-set_property parent.project_path C:/Users/spyro/Alchitry/Lab4_BetaCPU/build/vivado/Lab4_BetaCPU.xpr [current_project]
+set_property webtalk.parent_dir C:/Users/jc050/Documents/SUTD/50.002/1DPROJECT/Lab4_BetaCPU/build/vivado/Lab4_BetaCPU.cache/wt [current_project]
+set_property parent.project_path C:/Users/jc050/Documents/SUTD/50.002/1DPROJECT/Lab4_BetaCPU/build/vivado/Lab4_BetaCPU.xpr [current_project]
 set_property default_lib xil_defaultlib [current_project]
 set_property target_language Verilog [current_project]
 set_property ip_cache_permissions {read write} [current_project]
 OPTRACE "Creating in-memory project" END { }
 OPTRACE "Adding files" START { }
 read_verilog -library xil_defaultlib -sv {
-  C:/Users/spyro/Alchitry/Lab4_BetaCPU/build/vivado/Lab4_BetaCPU.srcs/sources_1/imports/source/adder_32b.sv
-  C:/Users/spyro/Alchitry/Lab4_BetaCPU/build/vivado/Lab4_BetaCPU.srcs/sources_1/imports/source/alu.sv
-  C:/Users/spyro/Alchitry/Lab4_BetaCPU/build/vivado/Lab4_BetaCPU.srcs/sources_1/imports/source/beta_cpu.sv
-  C:/Users/spyro/Alchitry/Lab4_BetaCPU/build/vivado/Lab4_BetaCPU.srcs/sources_1/imports/source/beta_manual_tester.sv
-  C:/Users/spyro/Alchitry/Lab4_BetaCPU/build/vivado/Lab4_BetaCPU.srcs/sources_1/imports/source/boolean.sv
-  C:/Users/spyro/Alchitry/Lab4_BetaCPU/build/vivado/Lab4_BetaCPU.srcs/sources_1/imports/source/button_conditioner.sv
-  C:/Users/spyro/Alchitry/Lab4_BetaCPU/build/vivado/Lab4_BetaCPU.srcs/sources_1/imports/source/cl_4b_adder.sv
-  C:/Users/spyro/Alchitry/Lab4_BetaCPU/build/vivado/Lab4_BetaCPU.srcs/sources_1/imports/source/compare.sv
-  C:/Users/spyro/Alchitry/Lab4_BetaCPU/build/vivado/Lab4_BetaCPU.srcs/sources_1/imports/source/control_unit.sv
-  C:/Users/spyro/Alchitry/Lab4_BetaCPU/build/vivado/Lab4_BetaCPU.srcs/sources_1/imports/source/counter.sv
-  C:/Users/spyro/Alchitry/Lab4_BetaCPU/build/vivado/Lab4_BetaCPU.srcs/sources_1/imports/source/decoder.sv
-  C:/Users/spyro/Alchitry/Lab4_BetaCPU/build/vivado/Lab4_BetaCPU.srcs/sources_1/imports/source/edge_detector.sv
-  C:/Users/spyro/Alchitry/Lab4_BetaCPU/build/vivado/Lab4_BetaCPU.srcs/sources_1/imports/source/instruction_rom.sv
-  C:/Users/spyro/Alchitry/Lab4_BetaCPU/build/vivado/Lab4_BetaCPU.srcs/sources_1/imports/source/memory_unit.sv
-  C:/Users/spyro/Alchitry/Lab4_BetaCPU/build/vivado/Lab4_BetaCPU.srcs/sources_1/imports/source/motherboard.sv
-  C:/Users/spyro/Alchitry/Lab4_BetaCPU/build/vivado/Lab4_BetaCPU.srcs/sources_1/imports/source/multi_seven_seg.sv
-  C:/Users/spyro/Alchitry/Lab4_BetaCPU/build/vivado/Lab4_BetaCPU.srcs/sources_1/imports/source/multiplier.sv
-  C:/Users/spyro/Alchitry/Lab4_BetaCPU/build/vivado/Lab4_BetaCPU.srcs/sources_1/imports/source/mux_2.sv
-  C:/Users/spyro/Alchitry/Lab4_BetaCPU/build/vivado/Lab4_BetaCPU.srcs/sources_1/imports/source/mux_4.sv
-  C:/Users/spyro/Alchitry/Lab4_BetaCPU/build/vivado/Lab4_BetaCPU.srcs/sources_1/imports/source/partial_cl_adder.sv
-  C:/Users/spyro/Alchitry/Lab4_BetaCPU/build/vivado/Lab4_BetaCPU.srcs/sources_1/imports/source/pc_unit.sv
-  C:/Users/spyro/Alchitry/Lab4_BetaCPU/build/vivado/Lab4_BetaCPU.srcs/sources_1/imports/source/pipeline.sv
-  C:/Users/spyro/Alchitry/Lab4_BetaCPU/build/vivado/Lab4_BetaCPU.srcs/sources_1/imports/source/regfile_memory.sv
-  C:/Users/spyro/Alchitry/Lab4_BetaCPU/build/vivado/Lab4_BetaCPU.srcs/sources_1/imports/source/regfile_unit.sv
-  C:/Users/spyro/Alchitry/Lab4_BetaCPU/build/vivado/Lab4_BetaCPU.srcs/sources_1/imports/source/reset_conditioner.sv
-  C:/Users/spyro/Alchitry/Lab4_BetaCPU/build/vivado/Lab4_BetaCPU.srcs/sources_1/imports/source/seven_seg.sv
-  C:/Users/spyro/Alchitry/Lab4_BetaCPU/build/vivado/Lab4_BetaCPU.srcs/sources_1/imports/source/shifter.sv
-  C:/Users/spyro/Alchitry/Lab4_BetaCPU/build/vivado/Lab4_BetaCPU.srcs/sources_1/imports/source/simple_dual_port_ram.v.sv
-  C:/Users/spyro/Alchitry/Lab4_BetaCPU/build/vivado/Lab4_BetaCPU.srcs/sources_1/imports/source/simple_ram.v.sv
-  C:/Users/spyro/Alchitry/Lab4_BetaCPU/build/vivado/Lab4_BetaCPU.srcs/sources_1/imports/source/alchitry_top.sv
+  C:/Users/jc050/Documents/SUTD/50.002/1DPROJECT/Lab4_BetaCPU/build/vivado/Lab4_BetaCPU.srcs/sources_1/imports/source/accel_spi_driver.sv
+  C:/Users/jc050/Documents/SUTD/50.002/1DPROJECT/Lab4_BetaCPU/build/vivado/Lab4_BetaCPU.srcs/sources_1/imports/source/adder_32b.sv
+  C:/Users/jc050/Documents/SUTD/50.002/1DPROJECT/Lab4_BetaCPU/build/vivado/Lab4_BetaCPU.srcs/sources_1/imports/source/alu.sv
+  C:/Users/jc050/Documents/SUTD/50.002/1DPROJECT/Lab4_BetaCPU/build/vivado/Lab4_BetaCPU.srcs/sources_1/imports/source/beta_cpu.sv
+  C:/Users/jc050/Documents/SUTD/50.002/1DPROJECT/Lab4_BetaCPU/build/vivado/Lab4_BetaCPU.srcs/sources_1/imports/source/beta_manual_tester.sv
+  C:/Users/jc050/Documents/SUTD/50.002/1DPROJECT/Lab4_BetaCPU/build/vivado/Lab4_BetaCPU.srcs/sources_1/imports/source/boolean.sv
+  C:/Users/jc050/Documents/SUTD/50.002/1DPROJECT/Lab4_BetaCPU/build/vivado/Lab4_BetaCPU.srcs/sources_1/imports/source/button_conditioner.sv
+  C:/Users/jc050/Documents/SUTD/50.002/1DPROJECT/Lab4_BetaCPU/build/vivado/Lab4_BetaCPU.srcs/sources_1/imports/source/cl_4b_adder.sv
+  C:/Users/jc050/Documents/SUTD/50.002/1DPROJECT/Lab4_BetaCPU/build/vivado/Lab4_BetaCPU.srcs/sources_1/imports/source/compare.sv
+  C:/Users/jc050/Documents/SUTD/50.002/1DPROJECT/Lab4_BetaCPU/build/vivado/Lab4_BetaCPU.srcs/sources_1/imports/source/control_unit.sv
+  C:/Users/jc050/Documents/SUTD/50.002/1DPROJECT/Lab4_BetaCPU/build/vivado/Lab4_BetaCPU.srcs/sources_1/imports/source/counter.sv
+  C:/Users/jc050/Documents/SUTD/50.002/1DPROJECT/Lab4_BetaCPU/build/vivado/Lab4_BetaCPU.srcs/sources_1/imports/source/decoder.sv
+  C:/Users/jc050/Documents/SUTD/50.002/1DPROJECT/Lab4_BetaCPU/build/vivado/Lab4_BetaCPU.srcs/sources_1/imports/source/edge_detector.sv
+  C:/Users/jc050/Documents/SUTD/50.002/1DPROJECT/Lab4_BetaCPU/build/vivado/Lab4_BetaCPU.srcs/sources_1/imports/source/instruction_rom.sv
+  C:/Users/jc050/Documents/SUTD/50.002/1DPROJECT/Lab4_BetaCPU/build/vivado/Lab4_BetaCPU.srcs/sources_1/imports/source/lcd_spi_driver.sv
+  C:/Users/jc050/Documents/SUTD/50.002/1DPROJECT/Lab4_BetaCPU/build/vivado/Lab4_BetaCPU.srcs/sources_1/imports/source/memory_unit.sv
+  C:/Users/jc050/Documents/SUTD/50.002/1DPROJECT/Lab4_BetaCPU/build/vivado/Lab4_BetaCPU.srcs/sources_1/imports/source/motherboard.sv
+  C:/Users/jc050/Documents/SUTD/50.002/1DPROJECT/Lab4_BetaCPU/build/vivado/Lab4_BetaCPU.srcs/sources_1/imports/source/multi_seven_seg.sv
+  C:/Users/jc050/Documents/SUTD/50.002/1DPROJECT/Lab4_BetaCPU/build/vivado/Lab4_BetaCPU.srcs/sources_1/imports/source/multiplier.sv
+  C:/Users/jc050/Documents/SUTD/50.002/1DPROJECT/Lab4_BetaCPU/build/vivado/Lab4_BetaCPU.srcs/sources_1/imports/source/mux_2.sv
+  C:/Users/jc050/Documents/SUTD/50.002/1DPROJECT/Lab4_BetaCPU/build/vivado/Lab4_BetaCPU.srcs/sources_1/imports/source/mux_4.sv
+  C:/Users/jc050/Documents/SUTD/50.002/1DPROJECT/Lab4_BetaCPU/build/vivado/Lab4_BetaCPU.srcs/sources_1/imports/source/partial_cl_adder.sv
+  C:/Users/jc050/Documents/SUTD/50.002/1DPROJECT/Lab4_BetaCPU/build/vivado/Lab4_BetaCPU.srcs/sources_1/imports/source/pc_unit.sv
+  C:/Users/jc050/Documents/SUTD/50.002/1DPROJECT/Lab4_BetaCPU/build/vivado/Lab4_BetaCPU.srcs/sources_1/imports/source/pipeline.sv
+  C:/Users/jc050/Documents/SUTD/50.002/1DPROJECT/Lab4_BetaCPU/build/vivado/Lab4_BetaCPU.srcs/sources_1/imports/source/regfile_memory.sv
+  C:/Users/jc050/Documents/SUTD/50.002/1DPROJECT/Lab4_BetaCPU/build/vivado/Lab4_BetaCPU.srcs/sources_1/imports/source/regfile_unit.sv
+  C:/Users/jc050/Documents/SUTD/50.002/1DPROJECT/Lab4_BetaCPU/build/vivado/Lab4_BetaCPU.srcs/sources_1/imports/source/reset_conditioner.sv
+  C:/Users/jc050/Documents/SUTD/50.002/1DPROJECT/Lab4_BetaCPU/build/vivado/Lab4_BetaCPU.srcs/sources_1/imports/source/seven_seg.sv
+  C:/Users/jc050/Documents/SUTD/50.002/1DPROJECT/Lab4_BetaCPU/build/vivado/Lab4_BetaCPU.srcs/sources_1/imports/source/shifter.sv
+  C:/Users/jc050/Documents/SUTD/50.002/1DPROJECT/Lab4_BetaCPU/build/vivado/Lab4_BetaCPU.srcs/sources_1/imports/source/alchitry_top.sv
+}
+read_verilog -library xil_defaultlib {
+  C:/Users/jc050/Documents/SUTD/50.002/1DPROJECT/Lab4_BetaCPU/build/vivado/Lab4_BetaCPU.srcs/sources_1/imports/source/simple_dual_port_ram.v
+  C:/Users/jc050/Documents/SUTD/50.002/1DPROJECT/Lab4_BetaCPU/build/vivado/Lab4_BetaCPU.srcs/sources_1/imports/source/simple_ram.v
 }
 OPTRACE "Adding files" END { }
 # Mark all dcp files as not used in implementation to prevent them from being
@@ -110,11 +114,11 @@ OPTRACE "Adding files" END { }
 foreach dcp [get_files -quiet -all -filter file_type=="Design\ Checkpoint"] {
   set_property used_in_implementation false $dcp
 }
-read_xdc C:/Users/spyro/Alchitry/Lab4_BetaCPU/build/constraint/alchitry.xdc
-set_property used_in_implementation false [get_files C:/Users/spyro/Alchitry/Lab4_BetaCPU/build/constraint/alchitry.xdc]
+read_xdc C:/Users/jc050/Documents/SUTD/50.002/1DPROJECT/Lab4_BetaCPU/build/constraint/alchitry.xdc
+set_property used_in_implementation false [get_files C:/Users/jc050/Documents/SUTD/50.002/1DPROJECT/Lab4_BetaCPU/build/constraint/alchitry.xdc]
 
-read_xdc C:/Users/spyro/Alchitry/Lab4_BetaCPU/build/constraint/au_props.xdc
-set_property used_in_implementation false [get_files C:/Users/spyro/Alchitry/Lab4_BetaCPU/build/constraint/au_props.xdc]
+read_xdc C:/Users/jc050/Documents/SUTD/50.002/1DPROJECT/Lab4_BetaCPU/build/constraint/au_props.xdc
+set_property used_in_implementation false [get_files C:/Users/jc050/Documents/SUTD/50.002/1DPROJECT/Lab4_BetaCPU/build/constraint/au_props.xdc]
 
 set_param ips.enableIPCacheLiteLoad 1
 close [open __synthesis_is_running__ w]

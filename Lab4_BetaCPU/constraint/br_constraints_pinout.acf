@@ -1,0 +1,17 @@
+PINOUT(V1),STANDARD(LVCMOS33) { // standard 3.3V IO standard
+    // add pin constraints here
+    // pin SIGNAL PORT OPTIONAL_ATTRIBUTES
+    pin lcd[0] C43//sck
+    pin lcd[1] C42//mosi
+    pin lcd[2] C8 //dcx
+    pin lcd[3] C9 //cs
+    
+    pin acc[0] C46//sck
+    pin acc[1] C45//mosi
+    pin acc[2] C6//cs
+    
+    PULL(DOWN){
+        pin lcd_in C39 //miso
+        pin acc_in C5 //miso
+    }
+}

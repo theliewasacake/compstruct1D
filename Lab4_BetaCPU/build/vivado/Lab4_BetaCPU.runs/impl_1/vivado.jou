@@ -3,22 +3,22 @@
 # SW Build 5239630 on Fri Nov 08 22:35:27 MST 2024
 # IP Build 5239520 on Sun Nov 10 16:12:51 MST 2024
 # SharedData Build 5239561 on Fri Nov 08 14:39:27 MST 2024
-# Start of session at: Wed Mar 26 19:22:45 2025
-# Process ID         : 9028
-# Current directory  : C:/Users/spyro/Alchitry/Lab4_BetaCPU/build/vivado/Lab4_BetaCPU.runs/impl_1
+# Start of session at: Fri Apr 11 13:43:13 2025
+# Process ID         : 18196
+# Current directory  : C:/Users/jc050/Documents/SUTD/50.002/1DPROJECT/Lab4_BetaCPU/build/vivado/Lab4_BetaCPU.runs/impl_1
 # Command line       : vivado.exe -log alchitry_top.vdi -applog -product Vivado -messageDb vivado.pb -mode batch -source alchitry_top.tcl -notrace
-# Log file           : C:/Users/spyro/Alchitry/Lab4_BetaCPU/build/vivado/Lab4_BetaCPU.runs/impl_1/alchitry_top.vdi
-# Journal file       : C:/Users/spyro/Alchitry/Lab4_BetaCPU/build/vivado/Lab4_BetaCPU.runs/impl_1\vivado.jou
-# Running On         : ChisaTaki
+# Log file           : C:/Users/jc050/Documents/SUTD/50.002/1DPROJECT/Lab4_BetaCPU/build/vivado/Lab4_BetaCPU.runs/impl_1/alchitry_top.vdi
+# Journal file       : C:/Users/jc050/Documents/SUTD/50.002/1DPROJECT/Lab4_BetaCPU/build/vivado/Lab4_BetaCPU.runs/impl_1\vivado.jou
+# Running On         : JC-ZENBOOK
 # Platform           : Windows Server 2016 or Windows 10
 # Operating System   : 26100
-# Processor Detail   : AMD Ryzen 7 7840HS w/ Radeon 780M Graphics     
-# CPU Frequency      : 3793 MHz
-# CPU Physical cores : 8
+# Processor Detail   : Intel(R) Core(TM) Ultra 9 285H
+# CPU Frequency      : 3686 MHz
+# CPU Physical cores : 16
 # CPU Logical cores  : 16
-# Host memory        : 16334 MB
-# Swap memory        : 22548 MB
-# Total Virtual      : 38883 MB
-# Available Virtual  : 16512 MB
+# Host memory        : 33685 MB
+# Swap memory        : 2147 MB
+# Total Virtual      : 35833 MB
+# Available Virtual  : 17291 MB
 #-----------------------------------------------------------
 source alchitry_top.tcl -notrace

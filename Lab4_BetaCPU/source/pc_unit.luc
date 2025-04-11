@@ -66,6 +66,8 @@ module pc_unit (
                 pcsel_out_sig = 32h80000004
             3b100:
                 pcsel_out_sig = 32h80000008
+            3b101:
+                pcsel_out_sig = pc.q
             default:
                 pcsel_out_sig = pc.q
         }

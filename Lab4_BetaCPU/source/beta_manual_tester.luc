@@ -3,6 +3,9 @@ module beta_manual_tester#(
 (
     input clk,              // 100MHz clock
     input rst,            // reset button (active low)
+    input acc_in,
+    output acc[3],
+    output lcd[4],
     output led[8],         // 8 user controllable LEDs
     output io_led[3][8],   // LEDs on IO Shield
     output io_segment[8],      // 7-segment LEDs on IO Shield
@@ -40,7 +43,11 @@ module beta_manual_tester#(
         io_led = 3x{{8h00}}       // turn all LED off at first
         io_segment = 8hff // connect segments to the driver
         io_select = 4hf // connect digit select to the driver
-
+        
+        lcd = motherboard.lcd_spi_out//LCD
+        motherboard.acc_miso = acc_in
+        acc = motherboard.acc_spi_out
+        
         led = c{3b0, io_button}  // connect buttons to LEDs
 
         io_led[2][7] = io_dip[2][7] // see toggle manual/auto mode
@@ -66,9 +73,9 @@ module beta_manual_tester#(
         if (io_dip[2][6]){ // want faster clock
             next = (fastclock_edge.out & io_dip[2][7]) | next_button_edge.out
         }
-
+        
         motherboard.slowclk = next
-
+        
         // debugger to view Beta state    
         // set default values for 7 seg before overwriting it based on io_dip below
         seg.values = {4b0,4b0,4b0,4b0}

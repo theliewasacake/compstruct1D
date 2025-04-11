@@ -6,6 +6,8 @@ module control_unit (
     input opcode[6],
     input slowclk,
     input ia31,
+    input lcd_spi_busy,
+    input acc_spi_busy,
     output pcsel[3], 
     output wasel,
     output asel,
@@ -14,6 +16,8 @@ module control_unit (
     output alufn[6],
     output wdsel[2], 
     output werf,
+    output lcd_enable,
+    output acc_enable,
     output wr
   ) {
   
@@ -53,13 +57,11 @@ module control_unit (
     b00001000110101010,
     b00001000110100010,
     b00001000110100010,
-    b01110000000000010,
-    b01001000110100010,
-    b01110000000000010,
-    b00000110000000001,
-    b00000010000001010,
-    b01110000000000010,
-    b01110000000000010,
+    b00010000000001110,// SPIRD (ACCEL)
+    b01001000110100010,// JMP
+    b00010000000000010,// SPIWRT (LCD)
+    b00000110000000001,// ST
+    b00000010000001010,// LD
     b01110000000000010,
     b01110000000000010,
     b01110000000000010,
@@ -81,11 +83,13 @@ module control_unit (
     b01110000000000010,
     b01110000000000010,
     b01110000000000010,
-    b01110000000000010
+    b01110000000000010,
+    b01110000000000010,
+    b00000000000000000
   };
     
   dff irq_sampler(#INIT(0), .clk(clk));
-
+  dff acc_wait(#INIT(0), .clk(clk))
   always {
   
     // sample interrupt at the beginning of each cycle
@@ -134,6 +138,42 @@ module control_unit (
         irq_sampler.d = 0
     }
     
+    lcd_enable = 0
+    if (opcode == 6b011010){
+        lcd_enable = 1
+        if(lcd_spi_busy){
+            pcsel = 3b101    //go back to original pc, repeat instruction
+            wasel = 0    //do nothing else
+            asel = 0
+            ra2sel = 0
+            bsel = 0
+            alufn = 0
+            wdsel = 0 
+            werf = 0
+            wr = 0
+        }
+    }
+        
+    acc_enable = 0
+    if (opcode == 6b011100){
+        acc_enable = 1
+        if(acc_spi_busy || acc_wait.q){ //stick in this loop
+            pcsel = 3b101    //go back to original pc, repeat instruction
+            wasel = 0    //do nothing else
+            asel = 0
+            ra2sel = 0
+            bsel = 0
+            alufn = 0
+            wdsel = 0
+            werf = 0
+            wr = 0
+            acc_wait.d = 0
+        }else{
+            acc_wait.d = 1
+        }
+    }
+    
+        
     // force wr = 0 when reset == 1 
     if (rst){
       wr = 0

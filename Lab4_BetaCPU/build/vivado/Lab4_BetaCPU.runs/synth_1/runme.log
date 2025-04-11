@@ -8,7 +8,7 @@
   **** SW Build 5239630 on Fri Nov 08 22:35:27 MST 2024
   **** IP Build 5239520 on Sun Nov 10 16:12:51 MST 2024
   **** SharedData Build 5239561 on Fri Nov 08 14:39:27 MST 2024
-  **** Start of session at: Wed Mar 26 19:20:32 2025
+  **** Start of session at: Fri Apr 11 13:42:18 2025
     ** Copyright 1986-2022 Xilinx, Inc. All Rights Reserved.
     ** Copyright 2022-2024 Advanced Micro Devices, Inc. All Rights Reserved.
 
@@ -20,116 +20,121 @@ INFO: [Common 17-349] Got license for feature 'Synthesis' and/or device 'xc7a35t
 INFO: [Device 21-403] Loading part xc7a35tftg256-1
 INFO: [Synth 8-7079] Multithreading enabled for synth_design using a maximum of 2 processes.
 INFO: [Synth 8-7078] Launching helper process for spawning children vivado processes
-INFO: [Synth 8-7075] Helper process launched with PID 12268
+INFO: [Synth 8-7075] Helper process launched with PID 23132
 ---------------------------------------------------------------------------------
-Starting RTL Elaboration : Time (s): cpu = 00:00:10 ; elapsed = 00:00:11 . Memory (MB): peak = 986.031 ; gain = 466.805
+Starting RTL Elaboration : Time (s): cpu = 00:00:03 ; elapsed = 00:00:03 . Memory (MB): peak = 947.195 ; gain = 464.227
 ---------------------------------------------------------------------------------
-INFO: [Synth 8-6157] synthesizing module 'alchitry_top' [C:/Users/spyro/Alchitry/Lab4_BetaCPU/build/vivado/Lab4_BetaCPU.srcs/sources_1/imports/source/alchitry_top.sv:7]
-INFO: [Synth 8-6157] synthesizing module 'reset_conditioner' [C:/Users/spyro/Alchitry/Lab4_BetaCPU/build/vivado/Lab4_BetaCPU.srcs/sources_1/imports/source/reset_conditioner.sv:7]
+INFO: [Synth 8-6157] synthesizing module 'alchitry_top' [C:/Users/jc050/Documents/SUTD/50.002/1DPROJECT/Lab4_BetaCPU/build/vivado/Lab4_BetaCPU.srcs/sources_1/imports/source/alchitry_top.sv:7]
+INFO: [Synth 8-6157] synthesizing module 'reset_conditioner' [C:/Users/jc050/Documents/SUTD/50.002/1DPROJECT/Lab4_BetaCPU/build/vivado/Lab4_BetaCPU.srcs/sources_1/imports/source/reset_conditioner.sv:7]
 	Parameter STAGES bound to: 3'b100 
-INFO: [Synth 8-6155] done synthesizing module 'reset_conditioner' (0#1) [C:/Users/spyro/Alchitry/Lab4_BetaCPU/build/vivado/Lab4_BetaCPU.srcs/sources_1/imports/source/reset_conditioner.sv:7]
-INFO: [Synth 8-6157] synthesizing module 'beta_manual_tester' [C:/Users/spyro/Alchitry/Lab4_BetaCPU/build/vivado/Lab4_BetaCPU.srcs/sources_1/imports/source/beta_manual_tester.sv:7]
+INFO: [Synth 8-6155] done synthesizing module 'reset_conditioner' (0#1) [C:/Users/jc050/Documents/SUTD/50.002/1DPROJECT/Lab4_BetaCPU/build/vivado/Lab4_BetaCPU.srcs/sources_1/imports/source/reset_conditioner.sv:7]
+INFO: [Synth 8-6157] synthesizing module 'beta_manual_tester' [C:/Users/jc050/Documents/SUTD/50.002/1DPROJECT/Lab4_BetaCPU/build/vivado/Lab4_BetaCPU.srcs/sources_1/imports/source/beta_manual_tester.sv:7]
 	Parameter CLK_FREQ bound to: 24'b100110001001011010000000 
-INFO: [Synth 8-6157] synthesizing module 'button_conditioner' [C:/Users/spyro/Alchitry/Lab4_BetaCPU/build/vivado/Lab4_BetaCPU.srcs/sources_1/imports/source/button_conditioner.sv:7]
+INFO: [Synth 8-6157] synthesizing module 'button_conditioner' [C:/Users/jc050/Documents/SUTD/50.002/1DPROJECT/Lab4_BetaCPU/build/vivado/Lab4_BetaCPU.srcs/sources_1/imports/source/button_conditioner.sv:7]
 	Parameter CLK_FREQ bound to: 10000000 - type: integer 
 	Parameter MIN_DELAY bound to: 5'b10100 
 	Parameter NUM_SYNC bound to: 2'b10 
-INFO: [Synth 8-6157] synthesizing module 'pipeline' [C:/Users/spyro/Alchitry/Lab4_BetaCPU/build/vivado/Lab4_BetaCPU.srcs/sources_1/imports/source/pipeline.sv:7]
+INFO: [Synth 8-6157] synthesizing module 'pipeline' [C:/Users/jc050/Documents/SUTD/50.002/1DPROJECT/Lab4_BetaCPU/build/vivado/Lab4_BetaCPU.srcs/sources_1/imports/source/pipeline.sv:7]
 	Parameter DEPTH bound to: 2'b10 
-INFO: [Synth 8-6155] done synthesizing module 'pipeline' (0#1) [C:/Users/spyro/Alchitry/Lab4_BetaCPU/build/vivado/Lab4_BetaCPU.srcs/sources_1/imports/source/pipeline.sv:7]
-INFO: [Synth 8-6155] done synthesizing module 'button_conditioner' (0#1) [C:/Users/spyro/Alchitry/Lab4_BetaCPU/build/vivado/Lab4_BetaCPU.srcs/sources_1/imports/source/button_conditioner.sv:7]
-INFO: [Synth 8-6157] synthesizing module 'edge_detector' [C:/Users/spyro/Alchitry/Lab4_BetaCPU/build/vivado/Lab4_BetaCPU.srcs/sources_1/imports/source/edge_detector.sv:7]
+INFO: [Synth 8-6155] done synthesizing module 'pipeline' (0#1) [C:/Users/jc050/Documents/SUTD/50.002/1DPROJECT/Lab4_BetaCPU/build/vivado/Lab4_BetaCPU.srcs/sources_1/imports/source/pipeline.sv:7]
+INFO: [Synth 8-6155] done synthesizing module 'button_conditioner' (0#1) [C:/Users/jc050/Documents/SUTD/50.002/1DPROJECT/Lab4_BetaCPU/build/vivado/Lab4_BetaCPU.srcs/sources_1/imports/source/button_conditioner.sv:7]
+INFO: [Synth 8-6157] synthesizing module 'edge_detector' [C:/Users/jc050/Documents/SUTD/50.002/1DPROJECT/Lab4_BetaCPU/build/vivado/Lab4_BetaCPU.srcs/sources_1/imports/source/edge_detector.sv:7]
 	Parameter RISE bound to: 1'b1 
 	Parameter FALL bound to: 1'b0 
-INFO: [Synth 8-6155] done synthesizing module 'edge_detector' (0#1) [C:/Users/spyro/Alchitry/Lab4_BetaCPU/build/vivado/Lab4_BetaCPU.srcs/sources_1/imports/source/edge_detector.sv:7]
-INFO: [Synth 8-6157] synthesizing module 'motherboard' [C:/Users/spyro/Alchitry/Lab4_BetaCPU/build/vivado/Lab4_BetaCPU.srcs/sources_1/imports/source/motherboard.sv:7]
-INFO: [Synth 8-6157] synthesizing module 'beta_cpu' [C:/Users/spyro/Alchitry/Lab4_BetaCPU/build/vivado/Lab4_BetaCPU.srcs/sources_1/imports/source/beta_cpu.sv:7]
-INFO: [Synth 8-6157] synthesizing module 'control_unit' [C:/Users/spyro/Alchitry/Lab4_BetaCPU/build/vivado/Lab4_BetaCPU.srcs/sources_1/imports/source/control_unit.sv:7]
-INFO: [Synth 8-6155] done synthesizing module 'control_unit' (0#1) [C:/Users/spyro/Alchitry/Lab4_BetaCPU/build/vivado/Lab4_BetaCPU.srcs/sources_1/imports/source/control_unit.sv:7]
-INFO: [Synth 8-6157] synthesizing module 'alu' [C:/Users/spyro/Alchitry/Lab4_BetaCPU/build/vivado/Lab4_BetaCPU.srcs/sources_1/imports/source/alu.sv:7]
-INFO: [Synth 8-6157] synthesizing module 'mux_4' [C:/Users/spyro/Alchitry/Lab4_BetaCPU/build/vivado/Lab4_BetaCPU.srcs/sources_1/imports/source/mux_4.sv:7]
-INFO: [Synth 8-226] default block is never used [C:/Users/spyro/Alchitry/Lab4_BetaCPU/build/vivado/Lab4_BetaCPU.srcs/sources_1/imports/source/mux_4.sv:15]
-INFO: [Synth 8-6155] done synthesizing module 'mux_4' (0#1) [C:/Users/spyro/Alchitry/Lab4_BetaCPU/build/vivado/Lab4_BetaCPU.srcs/sources_1/imports/source/mux_4.sv:7]
-INFO: [Synth 8-6157] synthesizing module 'mux_2' [C:/Users/spyro/Alchitry/Lab4_BetaCPU/build/vivado/Lab4_BetaCPU.srcs/sources_1/imports/source/mux_2.sv:7]
-INFO: [Synth 8-226] default block is never used [C:/Users/spyro/Alchitry/Lab4_BetaCPU/build/vivado/Lab4_BetaCPU.srcs/sources_1/imports/source/mux_2.sv:14]
-INFO: [Synth 8-6155] done synthesizing module 'mux_2' (0#1) [C:/Users/spyro/Alchitry/Lab4_BetaCPU/build/vivado/Lab4_BetaCPU.srcs/sources_1/imports/source/mux_2.sv:7]
-INFO: [Synth 8-6157] synthesizing module 'adder_32b' [C:/Users/spyro/Alchitry/Lab4_BetaCPU/build/vivado/Lab4_BetaCPU.srcs/sources_1/imports/source/adder_32b.sv:7]
-INFO: [Synth 8-6157] synthesizing module 'cl_4b_adder' [C:/Users/spyro/Alchitry/Lab4_BetaCPU/build/vivado/Lab4_BetaCPU.srcs/sources_1/imports/source/cl_4b_adder.sv:7]
-INFO: [Synth 8-6157] synthesizing module 'partial_cl_adder' [C:/Users/spyro/Alchitry/Lab4_BetaCPU/build/vivado/Lab4_BetaCPU.srcs/sources_1/imports/source/partial_cl_adder.sv:7]
-INFO: [Synth 8-6155] done synthesizing module 'partial_cl_adder' (0#1) [C:/Users/spyro/Alchitry/Lab4_BetaCPU/build/vivado/Lab4_BetaCPU.srcs/sources_1/imports/source/partial_cl_adder.sv:7]
-INFO: [Synth 8-6155] done synthesizing module 'cl_4b_adder' (0#1) [C:/Users/spyro/Alchitry/Lab4_BetaCPU/build/vivado/Lab4_BetaCPU.srcs/sources_1/imports/source/cl_4b_adder.sv:7]
-INFO: [Synth 8-6155] done synthesizing module 'adder_32b' (0#1) [C:/Users/spyro/Alchitry/Lab4_BetaCPU/build/vivado/Lab4_BetaCPU.srcs/sources_1/imports/source/adder_32b.sv:7]
-INFO: [Synth 8-6157] synthesizing module 'compare' [C:/Users/spyro/Alchitry/Lab4_BetaCPU/build/vivado/Lab4_BetaCPU.srcs/sources_1/imports/source/compare.sv:7]
-INFO: [Synth 8-6155] done synthesizing module 'compare' (0#1) [C:/Users/spyro/Alchitry/Lab4_BetaCPU/build/vivado/Lab4_BetaCPU.srcs/sources_1/imports/source/compare.sv:7]
-INFO: [Synth 8-6157] synthesizing module 'boolean' [C:/Users/spyro/Alchitry/Lab4_BetaCPU/build/vivado/Lab4_BetaCPU.srcs/sources_1/imports/source/boolean.sv:7]
+INFO: [Synth 8-6155] done synthesizing module 'edge_detector' (0#1) [C:/Users/jc050/Documents/SUTD/50.002/1DPROJECT/Lab4_BetaCPU/build/vivado/Lab4_BetaCPU.srcs/sources_1/imports/source/edge_detector.sv:7]
+INFO: [Synth 8-6157] synthesizing module 'motherboard' [C:/Users/jc050/Documents/SUTD/50.002/1DPROJECT/Lab4_BetaCPU/build/vivado/Lab4_BetaCPU.srcs/sources_1/imports/source/motherboard.sv:7]
+INFO: [Synth 8-6157] synthesizing module 'beta_cpu' [C:/Users/jc050/Documents/SUTD/50.002/1DPROJECT/Lab4_BetaCPU/build/vivado/Lab4_BetaCPU.srcs/sources_1/imports/source/beta_cpu.sv:7]
+INFO: [Synth 8-6157] synthesizing module 'control_unit' [C:/Users/jc050/Documents/SUTD/50.002/1DPROJECT/Lab4_BetaCPU/build/vivado/Lab4_BetaCPU.srcs/sources_1/imports/source/control_unit.sv:7]
+INFO: [Synth 8-6155] done synthesizing module 'control_unit' (0#1) [C:/Users/jc050/Documents/SUTD/50.002/1DPROJECT/Lab4_BetaCPU/build/vivado/Lab4_BetaCPU.srcs/sources_1/imports/source/control_unit.sv:7]
+INFO: [Synth 8-6157] synthesizing module 'alu' [C:/Users/jc050/Documents/SUTD/50.002/1DPROJECT/Lab4_BetaCPU/build/vivado/Lab4_BetaCPU.srcs/sources_1/imports/source/alu.sv:7]
+INFO: [Synth 8-6157] synthesizing module 'mux_4' [C:/Users/jc050/Documents/SUTD/50.002/1DPROJECT/Lab4_BetaCPU/build/vivado/Lab4_BetaCPU.srcs/sources_1/imports/source/mux_4.sv:7]
+INFO: [Synth 8-226] default block is never used [C:/Users/jc050/Documents/SUTD/50.002/1DPROJECT/Lab4_BetaCPU/build/vivado/Lab4_BetaCPU.srcs/sources_1/imports/source/mux_4.sv:15]
+INFO: [Synth 8-6155] done synthesizing module 'mux_4' (0#1) [C:/Users/jc050/Documents/SUTD/50.002/1DPROJECT/Lab4_BetaCPU/build/vivado/Lab4_BetaCPU.srcs/sources_1/imports/source/mux_4.sv:7]
+INFO: [Synth 8-6157] synthesizing module 'mux_2' [C:/Users/jc050/Documents/SUTD/50.002/1DPROJECT/Lab4_BetaCPU/build/vivado/Lab4_BetaCPU.srcs/sources_1/imports/source/mux_2.sv:7]
+INFO: [Synth 8-226] default block is never used [C:/Users/jc050/Documents/SUTD/50.002/1DPROJECT/Lab4_BetaCPU/build/vivado/Lab4_BetaCPU.srcs/sources_1/imports/source/mux_2.sv:14]
+INFO: [Synth 8-6155] done synthesizing module 'mux_2' (0#1) [C:/Users/jc050/Documents/SUTD/50.002/1DPROJECT/Lab4_BetaCPU/build/vivado/Lab4_BetaCPU.srcs/sources_1/imports/source/mux_2.sv:7]
+INFO: [Synth 8-6157] synthesizing module 'adder_32b' [C:/Users/jc050/Documents/SUTD/50.002/1DPROJECT/Lab4_BetaCPU/build/vivado/Lab4_BetaCPU.srcs/sources_1/imports/source/adder_32b.sv:7]
+INFO: [Synth 8-6157] synthesizing module 'cl_4b_adder' [C:/Users/jc050/Documents/SUTD/50.002/1DPROJECT/Lab4_BetaCPU/build/vivado/Lab4_BetaCPU.srcs/sources_1/imports/source/cl_4b_adder.sv:7]
+INFO: [Synth 8-6157] synthesizing module 'partial_cl_adder' [C:/Users/jc050/Documents/SUTD/50.002/1DPROJECT/Lab4_BetaCPU/build/vivado/Lab4_BetaCPU.srcs/sources_1/imports/source/partial_cl_adder.sv:7]
+INFO: [Synth 8-6155] done synthesizing module 'partial_cl_adder' (0#1) [C:/Users/jc050/Documents/SUTD/50.002/1DPROJECT/Lab4_BetaCPU/build/vivado/Lab4_BetaCPU.srcs/sources_1/imports/source/partial_cl_adder.sv:7]
+INFO: [Synth 8-6155] done synthesizing module 'cl_4b_adder' (0#1) [C:/Users/jc050/Documents/SUTD/50.002/1DPROJECT/Lab4_BetaCPU/build/vivado/Lab4_BetaCPU.srcs/sources_1/imports/source/cl_4b_adder.sv:7]
+INFO: [Synth 8-6155] done synthesizing module 'adder_32b' (0#1) [C:/Users/jc050/Documents/SUTD/50.002/1DPROJECT/Lab4_BetaCPU/build/vivado/Lab4_BetaCPU.srcs/sources_1/imports/source/adder_32b.sv:7]
+INFO: [Synth 8-6157] synthesizing module 'compare' [C:/Users/jc050/Documents/SUTD/50.002/1DPROJECT/Lab4_BetaCPU/build/vivado/Lab4_BetaCPU.srcs/sources_1/imports/source/compare.sv:7]
+INFO: [Synth 8-6155] done synthesizing module 'compare' (0#1) [C:/Users/jc050/Documents/SUTD/50.002/1DPROJECT/Lab4_BetaCPU/build/vivado/Lab4_BetaCPU.srcs/sources_1/imports/source/compare.sv:7]
+INFO: [Synth 8-6157] synthesizing module 'boolean' [C:/Users/jc050/Documents/SUTD/50.002/1DPROJECT/Lab4_BetaCPU/build/vivado/Lab4_BetaCPU.srcs/sources_1/imports/source/boolean.sv:7]
 	Parameter SIZE bound to: 6'b100000 
-INFO: [Synth 8-6155] done synthesizing module 'boolean' (0#1) [C:/Users/spyro/Alchitry/Lab4_BetaCPU/build/vivado/Lab4_BetaCPU.srcs/sources_1/imports/source/boolean.sv:7]
-INFO: [Synth 8-6157] synthesizing module 'shifter' [C:/Users/spyro/Alchitry/Lab4_BetaCPU/build/vivado/Lab4_BetaCPU.srcs/sources_1/imports/source/shifter.sv:7]
-INFO: [Synth 8-6155] done synthesizing module 'shifter' (0#1) [C:/Users/spyro/Alchitry/Lab4_BetaCPU/build/vivado/Lab4_BetaCPU.srcs/sources_1/imports/source/shifter.sv:7]
-INFO: [Synth 8-6157] synthesizing module 'multiplier' [C:/Users/spyro/Alchitry/Lab4_BetaCPU/build/vivado/Lab4_BetaCPU.srcs/sources_1/imports/source/multiplier.sv:7]
+INFO: [Synth 8-6155] done synthesizing module 'boolean' (0#1) [C:/Users/jc050/Documents/SUTD/50.002/1DPROJECT/Lab4_BetaCPU/build/vivado/Lab4_BetaCPU.srcs/sources_1/imports/source/boolean.sv:7]
+INFO: [Synth 8-6157] synthesizing module 'shifter' [C:/Users/jc050/Documents/SUTD/50.002/1DPROJECT/Lab4_BetaCPU/build/vivado/Lab4_BetaCPU.srcs/sources_1/imports/source/shifter.sv:7]
+INFO: [Synth 8-6155] done synthesizing module 'shifter' (0#1) [C:/Users/jc050/Documents/SUTD/50.002/1DPROJECT/Lab4_BetaCPU/build/vivado/Lab4_BetaCPU.srcs/sources_1/imports/source/shifter.sv:7]
+INFO: [Synth 8-6157] synthesizing module 'multiplier' [C:/Users/jc050/Documents/SUTD/50.002/1DPROJECT/Lab4_BetaCPU/build/vivado/Lab4_BetaCPU.srcs/sources_1/imports/source/multiplier.sv:7]
 	Parameter WIDTH bound to: 6'b100000 
-INFO: [Synth 8-6155] done synthesizing module 'multiplier' (0#1) [C:/Users/spyro/Alchitry/Lab4_BetaCPU/build/vivado/Lab4_BetaCPU.srcs/sources_1/imports/source/multiplier.sv:7]
-INFO: [Synth 8-6155] done synthesizing module 'alu' (0#1) [C:/Users/spyro/Alchitry/Lab4_BetaCPU/build/vivado/Lab4_BetaCPU.srcs/sources_1/imports/source/alu.sv:7]
-INFO: [Synth 8-6157] synthesizing module 'regfile_unit' [C:/Users/spyro/Alchitry/Lab4_BetaCPU/build/vivado/Lab4_BetaCPU.srcs/sources_1/imports/source/regfile_unit.sv:7]
-INFO: [Synth 8-6157] synthesizing module 'regfile_memory' [C:/Users/spyro/Alchitry/Lab4_BetaCPU/build/vivado/Lab4_BetaCPU.srcs/sources_1/imports/source/regfile_memory.sv:7]
-INFO: [Synth 8-6155] done synthesizing module 'regfile_memory' (0#1) [C:/Users/spyro/Alchitry/Lab4_BetaCPU/build/vivado/Lab4_BetaCPU.srcs/sources_1/imports/source/regfile_memory.sv:7]
-INFO: [Synth 8-226] default block is never used [C:/Users/spyro/Alchitry/Lab4_BetaCPU/build/vivado/Lab4_BetaCPU.srcs/sources_1/imports/source/regfile_unit.sv:56]
-INFO: [Synth 8-226] default block is never used [C:/Users/spyro/Alchitry/Lab4_BetaCPU/build/vivado/Lab4_BetaCPU.srcs/sources_1/imports/source/regfile_unit.sv:68]
-INFO: [Synth 8-6155] done synthesizing module 'regfile_unit' (0#1) [C:/Users/spyro/Alchitry/Lab4_BetaCPU/build/vivado/Lab4_BetaCPU.srcs/sources_1/imports/source/regfile_unit.sv:7]
-INFO: [Synth 8-6157] synthesizing module 'pc_unit' [C:/Users/spyro/Alchitry/Lab4_BetaCPU/build/vivado/Lab4_BetaCPU.srcs/sources_1/imports/source/pc_unit.sv:7]
-INFO: [Synth 8-6155] done synthesizing module 'pc_unit' (0#1) [C:/Users/spyro/Alchitry/Lab4_BetaCPU/build/vivado/Lab4_BetaCPU.srcs/sources_1/imports/source/pc_unit.sv:7]
-INFO: [Synth 8-226] default block is never used [C:/Users/spyro/Alchitry/Lab4_BetaCPU/build/vivado/Lab4_BetaCPU.srcs/sources_1/imports/source/beta_cpu.sv:177]
-INFO: [Synth 8-226] default block is never used [C:/Users/spyro/Alchitry/Lab4_BetaCPU/build/vivado/Lab4_BetaCPU.srcs/sources_1/imports/source/beta_cpu.sv:189]
-INFO: [Synth 8-6155] done synthesizing module 'beta_cpu' (0#1) [C:/Users/spyro/Alchitry/Lab4_BetaCPU/build/vivado/Lab4_BetaCPU.srcs/sources_1/imports/source/beta_cpu.sv:7]
-INFO: [Synth 8-6157] synthesizing module 'instruction_rom' [C:/Users/spyro/Alchitry/Lab4_BetaCPU/build/vivado/Lab4_BetaCPU.srcs/sources_1/imports/source/instruction_rom.sv:7]
+INFO: [Synth 8-6155] done synthesizing module 'multiplier' (0#1) [C:/Users/jc050/Documents/SUTD/50.002/1DPROJECT/Lab4_BetaCPU/build/vivado/Lab4_BetaCPU.srcs/sources_1/imports/source/multiplier.sv:7]
+INFO: [Synth 8-6155] done synthesizing module 'alu' (0#1) [C:/Users/jc050/Documents/SUTD/50.002/1DPROJECT/Lab4_BetaCPU/build/vivado/Lab4_BetaCPU.srcs/sources_1/imports/source/alu.sv:7]
+INFO: [Synth 8-6157] synthesizing module 'regfile_unit' [C:/Users/jc050/Documents/SUTD/50.002/1DPROJECT/Lab4_BetaCPU/build/vivado/Lab4_BetaCPU.srcs/sources_1/imports/source/regfile_unit.sv:7]
+INFO: [Synth 8-6157] synthesizing module 'regfile_memory' [C:/Users/jc050/Documents/SUTD/50.002/1DPROJECT/Lab4_BetaCPU/build/vivado/Lab4_BetaCPU.srcs/sources_1/imports/source/regfile_memory.sv:7]
+INFO: [Synth 8-6155] done synthesizing module 'regfile_memory' (0#1) [C:/Users/jc050/Documents/SUTD/50.002/1DPROJECT/Lab4_BetaCPU/build/vivado/Lab4_BetaCPU.srcs/sources_1/imports/source/regfile_memory.sv:7]
+INFO: [Synth 8-226] default block is never used [C:/Users/jc050/Documents/SUTD/50.002/1DPROJECT/Lab4_BetaCPU/build/vivado/Lab4_BetaCPU.srcs/sources_1/imports/source/regfile_unit.sv:56]
+INFO: [Synth 8-226] default block is never used [C:/Users/jc050/Documents/SUTD/50.002/1DPROJECT/Lab4_BetaCPU/build/vivado/Lab4_BetaCPU.srcs/sources_1/imports/source/regfile_unit.sv:68]
+INFO: [Synth 8-6155] done synthesizing module 'regfile_unit' (0#1) [C:/Users/jc050/Documents/SUTD/50.002/1DPROJECT/Lab4_BetaCPU/build/vivado/Lab4_BetaCPU.srcs/sources_1/imports/source/regfile_unit.sv:7]
+INFO: [Synth 8-6157] synthesizing module 'pc_unit' [C:/Users/jc050/Documents/SUTD/50.002/1DPROJECT/Lab4_BetaCPU/build/vivado/Lab4_BetaCPU.srcs/sources_1/imports/source/pc_unit.sv:7]
+INFO: [Synth 8-6155] done synthesizing module 'pc_unit' (0#1) [C:/Users/jc050/Documents/SUTD/50.002/1DPROJECT/Lab4_BetaCPU/build/vivado/Lab4_BetaCPU.srcs/sources_1/imports/source/pc_unit.sv:7]
+INFO: [Synth 8-226] default block is never used [C:/Users/jc050/Documents/SUTD/50.002/1DPROJECT/Lab4_BetaCPU/build/vivado/Lab4_BetaCPU.srcs/sources_1/imports/source/beta_cpu.sv:194]
+INFO: [Synth 8-226] default block is never used [C:/Users/jc050/Documents/SUTD/50.002/1DPROJECT/Lab4_BetaCPU/build/vivado/Lab4_BetaCPU.srcs/sources_1/imports/source/beta_cpu.sv:206]
+INFO: [Synth 8-226] default block is never used [C:/Users/jc050/Documents/SUTD/50.002/1DPROJECT/Lab4_BetaCPU/build/vivado/Lab4_BetaCPU.srcs/sources_1/imports/source/beta_cpu.sv:218]
+INFO: [Synth 8-6155] done synthesizing module 'beta_cpu' (0#1) [C:/Users/jc050/Documents/SUTD/50.002/1DPROJECT/Lab4_BetaCPU/build/vivado/Lab4_BetaCPU.srcs/sources_1/imports/source/beta_cpu.sv:7]
+INFO: [Synth 8-6157] synthesizing module 'lcd_spi_driver' [C:/Users/jc050/Documents/SUTD/50.002/1DPROJECT/Lab4_BetaCPU/build/vivado/Lab4_BetaCPU.srcs/sources_1/imports/source/lcd_spi_driver.sv:7]
+INFO: [Synth 8-6155] done synthesizing module 'lcd_spi_driver' (0#1) [C:/Users/jc050/Documents/SUTD/50.002/1DPROJECT/Lab4_BetaCPU/build/vivado/Lab4_BetaCPU.srcs/sources_1/imports/source/lcd_spi_driver.sv:7]
+INFO: [Synth 8-6157] synthesizing module 'accel_spi_driver' [C:/Users/jc050/Documents/SUTD/50.002/1DPROJECT/Lab4_BetaCPU/build/vivado/Lab4_BetaCPU.srcs/sources_1/imports/source/accel_spi_driver.sv:7]
+INFO: [Synth 8-6155] done synthesizing module 'accel_spi_driver' (0#1) [C:/Users/jc050/Documents/SUTD/50.002/1DPROJECT/Lab4_BetaCPU/build/vivado/Lab4_BetaCPU.srcs/sources_1/imports/source/accel_spi_driver.sv:7]
+INFO: [Synth 8-6157] synthesizing module 'instruction_rom' [C:/Users/jc050/Documents/SUTD/50.002/1DPROJECT/Lab4_BetaCPU/build/vivado/Lab4_BetaCPU.srcs/sources_1/imports/source/instruction_rom.sv:7]
 	Parameter WORDS bound to: 6'b100000 
-INFO: [Synth 8-6155] done synthesizing module 'instruction_rom' (0#1) [C:/Users/spyro/Alchitry/Lab4_BetaCPU/build/vivado/Lab4_BetaCPU.srcs/sources_1/imports/source/instruction_rom.sv:7]
-INFO: [Synth 8-6157] synthesizing module 'memory_unit' [C:/Users/spyro/Alchitry/Lab4_BetaCPU/build/vivado/Lab4_BetaCPU.srcs/sources_1/imports/source/memory_unit.sv:7]
+INFO: [Synth 8-6155] done synthesizing module 'instruction_rom' (0#1) [C:/Users/jc050/Documents/SUTD/50.002/1DPROJECT/Lab4_BetaCPU/build/vivado/Lab4_BetaCPU.srcs/sources_1/imports/source/instruction_rom.sv:7]
+INFO: [Synth 8-6157] synthesizing module 'memory_unit' [C:/Users/jc050/Documents/SUTD/50.002/1DPROJECT/Lab4_BetaCPU/build/vivado/Lab4_BetaCPU.srcs/sources_1/imports/source/memory_unit.sv:7]
 	Parameter WORDS bound to: 6'b100000 
-INFO: [Synth 8-6157] synthesizing module 'simple_ram' [C:/Users/spyro/Alchitry/Lab4_BetaCPU/build/vivado/Lab4_BetaCPU.srcs/sources_1/imports/source/simple_ram.v.sv:50]
+INFO: [Synth 8-6157] synthesizing module 'simple_ram' [C:/Users/jc050/Documents/SUTD/50.002/1DPROJECT/Lab4_BetaCPU/build/vivado/Lab4_BetaCPU.srcs/sources_1/imports/source/simple_ram.v:50]
 	Parameter WIDTH bound to: 6'b100000 
 	Parameter ENTRIES bound to: 6'b100000 
-INFO: [Synth 8-6155] done synthesizing module 'simple_ram' (0#1) [C:/Users/spyro/Alchitry/Lab4_BetaCPU/build/vivado/Lab4_BetaCPU.srcs/sources_1/imports/source/simple_ram.v.sv:50]
-INFO: [Synth 8-6157] synthesizing module 'simple_dual_port_ram' [C:/Users/spyro/Alchitry/Lab4_BetaCPU/build/vivado/Lab4_BetaCPU.srcs/sources_1/imports/source/simple_dual_port_ram.v.sv:47]
+INFO: [Synth 8-6155] done synthesizing module 'simple_ram' (0#1) [C:/Users/jc050/Documents/SUTD/50.002/1DPROJECT/Lab4_BetaCPU/build/vivado/Lab4_BetaCPU.srcs/sources_1/imports/source/simple_ram.v:50]
+INFO: [Synth 8-6157] synthesizing module 'simple_dual_port_ram' [C:/Users/jc050/Documents/SUTD/50.002/1DPROJECT/Lab4_BetaCPU/build/vivado/Lab4_BetaCPU.srcs/sources_1/imports/source/simple_dual_port_ram.v:47]
 	Parameter WIDTH bound to: 6'b100000 
 	Parameter ENTRIES bound to: 6'b100000 
-INFO: [Synth 8-6155] done synthesizing module 'simple_dual_port_ram' (0#1) [C:/Users/spyro/Alchitry/Lab4_BetaCPU/build/vivado/Lab4_BetaCPU.srcs/sources_1/imports/source/simple_dual_port_ram.v.sv:47]
-INFO: [Synth 8-6155] done synthesizing module 'memory_unit' (0#1) [C:/Users/spyro/Alchitry/Lab4_BetaCPU/build/vivado/Lab4_BetaCPU.srcs/sources_1/imports/source/memory_unit.sv:7]
-INFO: [Synth 8-155] case statement is not full and has no default [C:/Users/spyro/Alchitry/Lab4_BetaCPU/build/vivado/Lab4_BetaCPU.srcs/sources_1/imports/source/motherboard.sv:131]
-INFO: [Synth 8-6155] done synthesizing module 'motherboard' (0#1) [C:/Users/spyro/Alchitry/Lab4_BetaCPU/build/vivado/Lab4_BetaCPU.srcs/sources_1/imports/source/motherboard.sv:7]
-INFO: [Synth 8-6157] synthesizing module 'button_conditioner__parameterized0' [C:/Users/spyro/Alchitry/Lab4_BetaCPU/build/vivado/Lab4_BetaCPU.srcs/sources_1/imports/source/button_conditioner.sv:7]
+INFO: [Synth 8-6155] done synthesizing module 'simple_dual_port_ram' (0#1) [C:/Users/jc050/Documents/SUTD/50.002/1DPROJECT/Lab4_BetaCPU/build/vivado/Lab4_BetaCPU.srcs/sources_1/imports/source/simple_dual_port_ram.v:47]
+INFO: [Synth 8-6155] done synthesizing module 'memory_unit' (0#1) [C:/Users/jc050/Documents/SUTD/50.002/1DPROJECT/Lab4_BetaCPU/build/vivado/Lab4_BetaCPU.srcs/sources_1/imports/source/memory_unit.sv:7]
+INFO: [Synth 8-155] case statement is not full and has no default [C:/Users/jc050/Documents/SUTD/50.002/1DPROJECT/Lab4_BetaCPU/build/vivado/Lab4_BetaCPU.srcs/sources_1/imports/source/motherboard.sv:201]
+INFO: [Synth 8-6155] done synthesizing module 'motherboard' (0#1) [C:/Users/jc050/Documents/SUTD/50.002/1DPROJECT/Lab4_BetaCPU/build/vivado/Lab4_BetaCPU.srcs/sources_1/imports/source/motherboard.sv:7]
+INFO: [Synth 8-6157] synthesizing module 'button_conditioner__parameterized0' [C:/Users/jc050/Documents/SUTD/50.002/1DPROJECT/Lab4_BetaCPU/build/vivado/Lab4_BetaCPU.srcs/sources_1/imports/source/button_conditioner.sv:7]
 	Parameter CLK_FREQ bound to: 24'b100110001001011010000000 
 	Parameter MIN_DELAY bound to: 5'b10100 
 	Parameter NUM_SYNC bound to: 2'b10 
-INFO: [Synth 8-6155] done synthesizing module 'button_conditioner__parameterized0' (0#1) [C:/Users/spyro/Alchitry/Lab4_BetaCPU/build/vivado/Lab4_BetaCPU.srcs/sources_1/imports/source/button_conditioner.sv:7]
-INFO: [Synth 8-6157] synthesizing module 'counter' [C:/Users/spyro/Alchitry/Lab4_BetaCPU/build/vivado/Lab4_BetaCPU.srcs/sources_1/imports/source/counter.sv:7]
+INFO: [Synth 8-6155] done synthesizing module 'button_conditioner__parameterized0' (0#1) [C:/Users/jc050/Documents/SUTD/50.002/1DPROJECT/Lab4_BetaCPU/build/vivado/Lab4_BetaCPU.srcs/sources_1/imports/source/button_conditioner.sv:7]
+INFO: [Synth 8-6157] synthesizing module 'counter' [C:/Users/jc050/Documents/SUTD/50.002/1DPROJECT/Lab4_BetaCPU/build/vivado/Lab4_BetaCPU.srcs/sources_1/imports/source/counter.sv:7]
 	Parameter SIZE bound to: 5'b11100 
 	Parameter DIV bound to: 1'b0 
 	Parameter TOP bound to: 1'b0 
 	Parameter UP bound to: 1'b1 
-INFO: [Synth 8-6155] done synthesizing module 'counter' (0#1) [C:/Users/spyro/Alchitry/Lab4_BetaCPU/build/vivado/Lab4_BetaCPU.srcs/sources_1/imports/source/counter.sv:7]
-INFO: [Synth 8-6157] synthesizing module 'multi_seven_seg' [C:/Users/spyro/Alchitry/Lab4_BetaCPU/build/vivado/Lab4_BetaCPU.srcs/sources_1/imports/source/multi_seven_seg.sv:7]
+INFO: [Synth 8-6155] done synthesizing module 'counter' (0#1) [C:/Users/jc050/Documents/SUTD/50.002/1DPROJECT/Lab4_BetaCPU/build/vivado/Lab4_BetaCPU.srcs/sources_1/imports/source/counter.sv:7]
+INFO: [Synth 8-6157] synthesizing module 'multi_seven_seg' [C:/Users/jc050/Documents/SUTD/50.002/1DPROJECT/Lab4_BetaCPU/build/vivado/Lab4_BetaCPU.srcs/sources_1/imports/source/multi_seven_seg.sv:7]
 	Parameter DIGITS bound to: 3'b100 
 	Parameter DIV bound to: 5'b10000 
-INFO: [Synth 8-6157] synthesizing module 'counter__parameterized0' [C:/Users/spyro/Alchitry/Lab4_BetaCPU/build/vivado/Lab4_BetaCPU.srcs/sources_1/imports/source/counter.sv:7]
+INFO: [Synth 8-6157] synthesizing module 'counter__parameterized0' [C:/Users/jc050/Documents/SUTD/50.002/1DPROJECT/Lab4_BetaCPU/build/vivado/Lab4_BetaCPU.srcs/sources_1/imports/source/counter.sv:7]
 	Parameter SIZE bound to: 2 - type: integer 
 	Parameter DIV bound to: 5'b10000 
 	Parameter TOP bound to: 3'b011 
 	Parameter UP bound to: 1'b1 
-INFO: [Synth 8-6155] done synthesizing module 'counter__parameterized0' (0#1) [C:/Users/spyro/Alchitry/Lab4_BetaCPU/build/vivado/Lab4_BetaCPU.srcs/sources_1/imports/source/counter.sv:7]
-INFO: [Synth 8-6157] synthesizing module 'seven_seg' [C:/Users/spyro/Alchitry/Lab4_BetaCPU/build/vivado/Lab4_BetaCPU.srcs/sources_1/imports/source/seven_seg.sv:7]
-INFO: [Synth 8-226] default block is never used [C:/Users/spyro/Alchitry/Lab4_BetaCPU/build/vivado/Lab4_BetaCPU.srcs/sources_1/imports/source/seven_seg.sv:13]
-INFO: [Synth 8-6155] done synthesizing module 'seven_seg' (0#1) [C:/Users/spyro/Alchitry/Lab4_BetaCPU/build/vivado/Lab4_BetaCPU.srcs/sources_1/imports/source/seven_seg.sv:7]
-INFO: [Synth 8-6157] synthesizing module 'decoder' [C:/Users/spyro/Alchitry/Lab4_BetaCPU/build/vivado/Lab4_BetaCPU.srcs/sources_1/imports/source/decoder.sv:7]
+INFO: [Synth 8-6155] done synthesizing module 'counter__parameterized0' (0#1) [C:/Users/jc050/Documents/SUTD/50.002/1DPROJECT/Lab4_BetaCPU/build/vivado/Lab4_BetaCPU.srcs/sources_1/imports/source/counter.sv:7]
+INFO: [Synth 8-6157] synthesizing module 'seven_seg' [C:/Users/jc050/Documents/SUTD/50.002/1DPROJECT/Lab4_BetaCPU/build/vivado/Lab4_BetaCPU.srcs/sources_1/imports/source/seven_seg.sv:7]
+INFO: [Synth 8-226] default block is never used [C:/Users/jc050/Documents/SUTD/50.002/1DPROJECT/Lab4_BetaCPU/build/vivado/Lab4_BetaCPU.srcs/sources_1/imports/source/seven_seg.sv:13]
+INFO: [Synth 8-6155] done synthesizing module 'seven_seg' (0#1) [C:/Users/jc050/Documents/SUTD/50.002/1DPROJECT/Lab4_BetaCPU/build/vivado/Lab4_BetaCPU.srcs/sources_1/imports/source/seven_seg.sv:7]
+INFO: [Synth 8-6157] synthesizing module 'decoder' [C:/Users/jc050/Documents/SUTD/50.002/1DPROJECT/Lab4_BetaCPU/build/vivado/Lab4_BetaCPU.srcs/sources_1/imports/source/decoder.sv:7]
 	Parameter WIDTH bound to: 2 - type: integer 
-INFO: [Synth 8-6155] done synthesizing module 'decoder' (0#1) [C:/Users/spyro/Alchitry/Lab4_BetaCPU/build/vivado/Lab4_BetaCPU.srcs/sources_1/imports/source/decoder.sv:7]
-INFO: [Synth 8-6155] done synthesizing module 'multi_seven_seg' (0#1) [C:/Users/spyro/Alchitry/Lab4_BetaCPU/build/vivado/Lab4_BetaCPU.srcs/sources_1/imports/source/multi_seven_seg.sv:7]
-INFO: [Synth 8-155] case statement is not full and has no default [C:/Users/spyro/Alchitry/Lab4_BetaCPU/build/vivado/Lab4_BetaCPU.srcs/sources_1/imports/source/beta_manual_tester.sv:224]
-INFO: [Synth 8-6155] done synthesizing module 'beta_manual_tester' (0#1) [C:/Users/spyro/Alchitry/Lab4_BetaCPU/build/vivado/Lab4_BetaCPU.srcs/sources_1/imports/source/beta_manual_tester.sv:7]
-INFO: [Synth 8-6155] done synthesizing module 'alchitry_top' (0#1) [C:/Users/spyro/Alchitry/Lab4_BetaCPU/build/vivado/Lab4_BetaCPU.srcs/sources_1/imports/source/alchitry_top.sv:7]
-WARNING: [Synth 8-3936] Found unconnected internal register 'pc_4raw_reg' and it is trimmed from '32' to '31' bits. [C:/Users/spyro/Alchitry/Lab4_BetaCPU/build/vivado/Lab4_BetaCPU.srcs/sources_1/imports/source/pc_unit.sv:36]
-WARNING: [Synth 8-3936] Found unconnected internal register 'intermediate_reg' and it is trimmed from '32' to '31' bits. [C:/Users/spyro/Alchitry/Lab4_BetaCPU/build/vivado/Lab4_BetaCPU.srcs/sources_1/imports/source/pc_unit.sv:35]
-WARNING: [Synth 8-3936] Found unconnected internal register 'pc_4sxtc3_2sig_reg' and it is trimmed from '32' to '31' bits. [C:/Users/spyro/Alchitry/Lab4_BetaCPU/build/vivado/Lab4_BetaCPU.srcs/sources_1/imports/source/pc_unit.sv:32]
+INFO: [Synth 8-6155] done synthesizing module 'decoder' (0#1) [C:/Users/jc050/Documents/SUTD/50.002/1DPROJECT/Lab4_BetaCPU/build/vivado/Lab4_BetaCPU.srcs/sources_1/imports/source/decoder.sv:7]
+INFO: [Synth 8-6155] done synthesizing module 'multi_seven_seg' (0#1) [C:/Users/jc050/Documents/SUTD/50.002/1DPROJECT/Lab4_BetaCPU/build/vivado/Lab4_BetaCPU.srcs/sources_1/imports/source/multi_seven_seg.sv:7]
+INFO: [Synth 8-155] case statement is not full and has no default [C:/Users/jc050/Documents/SUTD/50.002/1DPROJECT/Lab4_BetaCPU/build/vivado/Lab4_BetaCPU.srcs/sources_1/imports/source/beta_manual_tester.sv:236]
+INFO: [Synth 8-6155] done synthesizing module 'beta_manual_tester' (0#1) [C:/Users/jc050/Documents/SUTD/50.002/1DPROJECT/Lab4_BetaCPU/build/vivado/Lab4_BetaCPU.srcs/sources_1/imports/source/beta_manual_tester.sv:7]
+INFO: [Synth 8-6155] done synthesizing module 'alchitry_top' (0#1) [C:/Users/jc050/Documents/SUTD/50.002/1DPROJECT/Lab4_BetaCPU/build/vivado/Lab4_BetaCPU.srcs/sources_1/imports/source/alchitry_top.sv:7]
+WARNING: [Synth 8-3936] Found unconnected internal register 'pc_4raw_reg' and it is trimmed from '32' to '31' bits. [C:/Users/jc050/Documents/SUTD/50.002/1DPROJECT/Lab4_BetaCPU/build/vivado/Lab4_BetaCPU.srcs/sources_1/imports/source/pc_unit.sv:36]
+WARNING: [Synth 8-3936] Found unconnected internal register 'intermediate_reg' and it is trimmed from '32' to '31' bits. [C:/Users/jc050/Documents/SUTD/50.002/1DPROJECT/Lab4_BetaCPU/build/vivado/Lab4_BetaCPU.srcs/sources_1/imports/source/pc_unit.sv:35]
+WARNING: [Synth 8-3936] Found unconnected internal register 'pc_4sxtc3_2sig_reg' and it is trimmed from '32' to '31' bits. [C:/Users/jc050/Documents/SUTD/50.002/1DPROJECT/Lab4_BetaCPU/build/vivado/Lab4_BetaCPU.srcs/sources_1/imports/source/pc_unit.sv:32]
 WARNING: [Synth 8-7129] Port raddr[1] in module memory_unit is either unconnected or has no load
 WARNING: [Synth 8-7129] Port raddr[0] in module memory_unit is either unconnected or has no load
 WARNING: [Synth 8-7129] Port waddr[1] in module memory_unit is either unconnected or has no load
@@ -168,50 +173,50 @@ WARNING: [Synth 8-7129] Port io_dip[1][2] in module beta_manual_tester is either
 WARNING: [Synth 8-7129] Port io_dip[1][1] in module beta_manual_tester is either unconnected or has no load
 WARNING: [Synth 8-7129] Port io_dip[1][0] in module beta_manual_tester is either unconnected or has no load
 ---------------------------------------------------------------------------------
-Finished RTL Elaboration : Time (s): cpu = 00:00:14 ; elapsed = 00:00:16 . Memory (MB): peak = 1127.980 ; gain = 608.754
+Finished RTL Elaboration : Time (s): cpu = 00:00:04 ; elapsed = 00:00:04 . Memory (MB): peak = 1092.652 ; gain = 609.684
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
 Start Handling Custom Attributes
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
-Finished Handling Custom Attributes : Time (s): cpu = 00:00:15 ; elapsed = 00:00:16 . Memory (MB): peak = 1127.980 ; gain = 608.754
+Finished Handling Custom Attributes : Time (s): cpu = 00:00:04 ; elapsed = 00:00:04 . Memory (MB): peak = 1092.652 ; gain = 609.684
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
-Finished RTL Optimization Phase 1 : Time (s): cpu = 00:00:15 ; elapsed = 00:00:16 . Memory (MB): peak = 1127.980 ; gain = 608.754
+Finished RTL Optimization Phase 1 : Time (s): cpu = 00:00:04 ; elapsed = 00:00:04 . Memory (MB): peak = 1092.652 ; gain = 609.684
 ---------------------------------------------------------------------------------
-Netlist sorting complete. Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.082 . Memory (MB): peak = 1127.980 ; gain = 0.000
+Netlist sorting complete. Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.022 . Memory (MB): peak = 1092.652 ; gain = 0.000
 INFO: [Project 1-570] Preparing netlist for logic optimization
 
 Processing XDC Constraints
 Initializing timing engine
-Parsing XDC File [C:/Users/spyro/Alchitry/Lab4_BetaCPU/build/constraint/alchitry.xdc]
-Finished Parsing XDC File [C:/Users/spyro/Alchitry/Lab4_BetaCPU/build/constraint/alchitry.xdc]
-INFO: [Project 1-236] Implementation specific constraints were found while reading constraint file [C:/Users/spyro/Alchitry/Lab4_BetaCPU/build/constraint/alchitry.xdc]. These constraints will be ignored for synthesis but will be used in implementation. Impacted constraints are listed in the file [.Xil/alchitry_top_propImpl.xdc].
+Parsing XDC File [C:/Users/jc050/Documents/SUTD/50.002/1DPROJECT/Lab4_BetaCPU/build/constraint/alchitry.xdc]
+Finished Parsing XDC File [C:/Users/jc050/Documents/SUTD/50.002/1DPROJECT/Lab4_BetaCPU/build/constraint/alchitry.xdc]
+INFO: [Project 1-236] Implementation specific constraints were found while reading constraint file [C:/Users/jc050/Documents/SUTD/50.002/1DPROJECT/Lab4_BetaCPU/build/constraint/alchitry.xdc]. These constraints will be ignored for synthesis but will be used in implementation. Impacted constraints are listed in the file [.Xil/alchitry_top_propImpl.xdc].
 Resolution: To avoid this warning, move constraints listed in [.Xil/alchitry_top_propImpl.xdc] to another XDC file and exclude this new file from synthesis with the used_in_synthesis property (File Properties dialog in GUI) and re-run elaboration/synthesis.
-Parsing XDC File [C:/Users/spyro/Alchitry/Lab4_BetaCPU/build/constraint/au_props.xdc]
-Finished Parsing XDC File [C:/Users/spyro/Alchitry/Lab4_BetaCPU/build/constraint/au_props.xdc]
+Parsing XDC File [C:/Users/jc050/Documents/SUTD/50.002/1DPROJECT/Lab4_BetaCPU/build/constraint/au_props.xdc]
+Finished Parsing XDC File [C:/Users/jc050/Documents/SUTD/50.002/1DPROJECT/Lab4_BetaCPU/build/constraint/au_props.xdc]
 Completed Processing XDC Constraints
 
-Netlist sorting complete. Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.003 . Memory (MB): peak = 1220.391 ; gain = 0.000
+Netlist sorting complete. Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.001 . Memory (MB): peak = 1186.516 ; gain = 0.000
 INFO: [Project 1-111] Unisim Transformation Summary:
 No Unisim elements were transformed.
 
-Constraint Validation Runtime : Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.027 . Memory (MB): peak = 1220.391 ; gain = 0.000
+Constraint Validation Runtime : Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.009 . Memory (MB): peak = 1186.516 ; gain = 0.000
 ---------------------------------------------------------------------------------
-Finished Constraint Validation : Time (s): cpu = 00:00:30 ; elapsed = 00:00:34 . Memory (MB): peak = 1220.391 ; gain = 701.164
+Finished Constraint Validation : Time (s): cpu = 00:00:09 ; elapsed = 00:00:09 . Memory (MB): peak = 1186.516 ; gain = 703.547
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
 Start Loading Part and Timing Information
 ---------------------------------------------------------------------------------
 Loading part: xc7a35tftg256-1
 ---------------------------------------------------------------------------------
-Finished Loading Part and Timing Information : Time (s): cpu = 00:00:30 ; elapsed = 00:00:34 . Memory (MB): peak = 1220.391 ; gain = 701.164
+Finished Loading Part and Timing Information : Time (s): cpu = 00:00:09 ; elapsed = 00:00:09 . Memory (MB): peak = 1186.516 ; gain = 703.547
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
 Start Applying 'set_property' XDC Constraints
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
-Finished applying 'set_property' XDC Constraints : Time (s): cpu = 00:00:31 ; elapsed = 00:00:34 . Memory (MB): peak = 1220.391 ; gain = 701.164
+Finished applying 'set_property' XDC Constraints : Time (s): cpu = 00:00:09 ; elapsed = 00:00:09 . Memory (MB): peak = 1186.516 ; gain = 703.547
 ---------------------------------------------------------------------------------
 INFO: [Synth 8-802] inferred FSM for state register 'D_motherboard_q_reg' in module 'motherboard'
 ---------------------------------------------------------------------------------------------------
@@ -225,7 +230,7 @@ INFO: [Synth 8-802] inferred FSM for state register 'D_motherboard_q_reg' in mod
 ---------------------------------------------------------------------------------------------------
 INFO: [Synth 8-3354] encoded FSM with state register 'D_motherboard_q_reg' using encoding 'sequential' in module 'motherboard'
 ---------------------------------------------------------------------------------
-Finished RTL Optimization Phase 2 : Time (s): cpu = 00:00:33 ; elapsed = 00:00:37 . Memory (MB): peak = 1220.391 ; gain = 701.164
+Finished RTL Optimization Phase 2 : Time (s): cpu = 00:00:10 ; elapsed = 00:00:10 . Memory (MB): peak = 1186.516 ; gain = 703.547
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
 Start RTL Component Statistics 
@@ -234,40 +239,48 @@ Detailed RTL Component Info :
 +---Adders : 
 	   2 Input   31 Bit       Adders := 2     
 	   2 Input    6 Bit       Adders := 1     
-	   2 Input    5 Bit       Adders := 1     
+	   2 Input    5 Bit       Adders := 2     
+	   2 Input    4 Bit       Adders := 1     
+	   2 Input    3 Bit       Adders := 2     
 +---XORs : 
 	   2 Input     32 Bit         XORs := 1     
 	   2 Input      1 Bit         XORs := 65    
 +---Registers : 
 	               32 Bit    Registers := 36    
-	                8 Bit    Registers := 1     
-	                5 Bit    Registers := 1     
-	                4 Bit    Registers := 1     
+	                8 Bit    Registers := 5     
+	                5 Bit    Registers := 2     
+	                4 Bit    Registers := 2     
+	                3 Bit    Registers := 2     
 	                2 Bit    Registers := 4     
-	                1 Bit    Registers := 7     
+	                1 Bit    Registers := 14    
 +---Multipliers : 
 	              32x32  Multipliers := 1     
 +---RAMs : 
 	             1024 Bit	(32 X 32 bit)          RAMs := 2     
 +---Muxes : 
 	   4 Input   32 Bit        Muxes := 2     
-	   2 Input   32 Bit        Muxes := 5     
-	   6 Input   32 Bit        Muxes := 3     
+	   2 Input   32 Bit        Muxes := 4     
+	   7 Input   32 Bit        Muxes := 2     
 	   3 Input   32 Bit        Muxes := 1     
 	   5 Input   32 Bit        Muxes := 2     
+	   2 Input    8 Bit        Muxes := 12    
 	   4 Input    8 Bit        Muxes := 1     
-	   2 Input    8 Bit        Muxes := 2     
 	   5 Input    7 Bit        Muxes := 3     
+	   3 Input    6 Bit        Muxes := 1     
+	   2 Input    6 Bit        Muxes := 3     
 	   2 Input    5 Bit        Muxes := 2     
 	   5 Input    5 Bit        Muxes := 1     
 	   4 Input    4 Bit        Muxes := 1     
 	   2 Input    4 Bit        Muxes := 4     
 	   6 Input    3 Bit        Muxes := 1     
+	   3 Input    3 Bit        Muxes := 1     
+	   2 Input    3 Bit        Muxes := 4     
 	   5 Input    3 Bit        Muxes := 1     
-	   2 Input    3 Bit        Muxes := 1     
-	   2 Input    2 Bit        Muxes := 389   
+	   3 Input    2 Bit        Muxes := 1     
+	   2 Input    2 Bit        Muxes := 391   
 	   4 Input    2 Bit        Muxes := 160   
-	   2 Input    1 Bit        Muxes := 644   
+	   2 Input    1 Bit        Muxes := 673   
+	   3 Input    1 Bit        Muxes := 8     
 	   4 Input    1 Bit        Muxes := 65    
 	   5 Input    1 Bit        Muxes := 5     
 ---------------------------------------------------------------------------------
@@ -325,7 +338,7 @@ WARNING: [Synth 8-7129] Port io_dip[1][2] in module alchitry_top is either uncon
 WARNING: [Synth 8-7129] Port io_dip[1][1] in module alchitry_top is either unconnected or has no load
 WARNING: [Synth 8-7129] Port io_dip[1][0] in module alchitry_top is either unconnected or has no load
 ---------------------------------------------------------------------------------
-Finished Cross Boundary and Area Optimization : Time (s): cpu = 00:01:11 ; elapsed = 00:01:17 . Memory (MB): peak = 1255.062 ; gain = 735.836
+Finished Cross Boundary and Area Optimization : Time (s): cpu = 00:00:25 ; elapsed = 00:00:26 . Memory (MB): peak = 1242.578 ; gain = 759.609
 ---------------------------------------------------------------------------------
  Sort Area is  alu_system/multiplier/mul0_0 : 0 0 : 3101 5879 : Used 1 time 0
  Sort Area is  alu_system/multiplier/mul0_0 : 0 1 : 2778 5879 : Used 1 time 0
@@ -363,14 +376,14 @@ Finished ROM, RAM, DSP, Shift Register and Retiming Reporting
 Start Applying XDC Timing Constraints
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
-Finished Applying XDC Timing Constraints : Time (s): cpu = 00:01:16 ; elapsed = 00:01:22 . Memory (MB): peak = 1314.016 ; gain = 794.789
+Finished Applying XDC Timing Constraints : Time (s): cpu = 00:00:28 ; elapsed = 00:00:29 . Memory (MB): peak = 1275.125 ; gain = 792.156
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
 Start Timing Optimization
 ---------------------------------------------------------------------------------
 INFO: [Synth 8-5584] The signal "alchitry_top/beta_manual/motherboard/memory_unit/instruction_memory/ram_reg" is implemented as distributed LUT RAM for the following reason(s): The timing constraints suggest that the chosen mapping will yield better timing results.
 ---------------------------------------------------------------------------------
-Finished Timing Optimization : Time (s): cpu = 00:01:31 ; elapsed = 00:01:38 . Memory (MB): peak = 1517.074 ; gain = 997.848
+Finished Timing Optimization : Time (s): cpu = 00:00:37 ; elapsed = 00:00:39 . Memory (MB): peak = 1470.188 ; gain = 987.219
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
 Start ROM, RAM, DSP, Shift Register and Retiming Reporting
@@ -394,7 +407,7 @@ Start Technology Mapping
 ---------------------------------------------------------------------------------
 INFO: [Synth 8-7052] The timing for the instance beta_manual/motherboard/memory_unit/data_memory/mem_reg (implemented as a Block RAM) might be sub-optimal as no optional output register could be merged into the ram block. Providing additional output register may help in improving timing.
 ---------------------------------------------------------------------------------
-Finished Technology Mapping : Time (s): cpu = 00:01:33 ; elapsed = 00:01:41 . Memory (MB): peak = 1517.074 ; gain = 997.848
+Finished Technology Mapping : Time (s): cpu = 00:00:39 ; elapsed = 00:00:40 . Memory (MB): peak = 1470.188 ; gain = 987.219
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
 Start IO Insertion
@@ -412,37 +425,37 @@ Start Final Netlist Cleanup
 Finished Final Netlist Cleanup
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
-Finished IO Insertion : Time (s): cpu = 00:01:37 ; elapsed = 00:01:45 . Memory (MB): peak = 1616.391 ; gain = 1097.164
+Finished IO Insertion : Time (s): cpu = 00:00:41 ; elapsed = 00:00:43 . Memory (MB): peak = 1574.195 ; gain = 1091.227
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
 Start Renaming Generated Instances
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
-Finished Renaming Generated Instances : Time (s): cpu = 00:01:37 ; elapsed = 00:01:45 . Memory (MB): peak = 1616.391 ; gain = 1097.164
+Finished Renaming Generated Instances : Time (s): cpu = 00:00:41 ; elapsed = 00:00:43 . Memory (MB): peak = 1574.195 ; gain = 1091.227
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
 Start Rebuilding User Hierarchy
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
-Finished Rebuilding User Hierarchy : Time (s): cpu = 00:01:37 ; elapsed = 00:01:45 . Memory (MB): peak = 1616.391 ; gain = 1097.164
+Finished Rebuilding User Hierarchy : Time (s): cpu = 00:00:41 ; elapsed = 00:00:43 . Memory (MB): peak = 1574.195 ; gain = 1091.227
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
 Start Renaming Generated Ports
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
-Finished Renaming Generated Ports : Time (s): cpu = 00:01:38 ; elapsed = 00:01:45 . Memory (MB): peak = 1616.391 ; gain = 1097.164
+Finished Renaming Generated Ports : Time (s): cpu = 00:00:41 ; elapsed = 00:00:43 . Memory (MB): peak = 1574.195 ; gain = 1091.227
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
 Start Handling Custom Attributes
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
-Finished Handling Custom Attributes : Time (s): cpu = 00:01:38 ; elapsed = 00:01:45 . Memory (MB): peak = 1618.383 ; gain = 1099.156
+Finished Handling Custom Attributes : Time (s): cpu = 00:00:41 ; elapsed = 00:00:43 . Memory (MB): peak = 1575.152 ; gain = 1092.184
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
 Start Renaming Generated Nets
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
-Finished Renaming Generated Nets : Time (s): cpu = 00:01:38 ; elapsed = 00:01:45 . Memory (MB): peak = 1618.383 ; gain = 1099.156
+Finished Renaming Generated Nets : Time (s): cpu = 00:00:41 ; elapsed = 00:00:43 . Memory (MB): peak = 1575.152 ; gain = 1092.184
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
 Start Writing Synthesis Report
@@ -460,43 +473,43 @@ Report Cell Usage:
 +------+---------+------+
 |1     |BUFG     |     1|
 |2     |CARRY4   |    47|
-|3     |LUT1     |    19|
-|4     |LUT2     |   123|
-|5     |LUT3     |   271|
-|6     |LUT4     |    61|
-|7     |LUT5     |   343|
-|8     |LUT6     |   460|
-|9     |MUXF7    |    10|
+|3     |LUT1     |    32|
+|4     |LUT2     |    69|
+|5     |LUT3     |    70|
+|6     |LUT4     |    59|
+|7     |LUT5     |   142|
+|8     |LUT6     |   140|
+|9     |MUXF7    |    23|
 |10    |RAM32X1S |    10|
 |11    |RAMB18E1 |     1|
-|12    |FDRE     |   422|
-|13    |FDSE     |     4|
+|12    |FDPE     |     4|
+|13    |FDRE     |   265|
 |14    |IBUF     |    18|
-|15    |OBUF     |    45|
+|15    |OBUF     |    52|
 +------+---------+------+
 ---------------------------------------------------------------------------------
-Finished Writing Synthesis Report : Time (s): cpu = 00:01:38 ; elapsed = 00:01:45 . Memory (MB): peak = 1618.383 ; gain = 1099.156
+Finished Writing Synthesis Report : Time (s): cpu = 00:00:41 ; elapsed = 00:00:43 . Memory (MB): peak = 1575.152 ; gain = 1092.184
 ---------------------------------------------------------------------------------
 Synthesis finished with 0 errors, 0 critical warnings and 27 warnings.
-Synthesis Optimization Runtime : Time (s): cpu = 00:01:19 ; elapsed = 00:01:41 . Memory (MB): peak = 1618.383 ; gain = 1006.746
-Synthesis Optimization Complete : Time (s): cpu = 00:01:38 ; elapsed = 00:01:46 . Memory (MB): peak = 1618.383 ; gain = 1099.156
+Synthesis Optimization Runtime : Time (s): cpu = 00:00:35 ; elapsed = 00:00:41 . Memory (MB): peak = 1575.152 ; gain = 998.320
+Synthesis Optimization Complete : Time (s): cpu = 00:00:41 ; elapsed = 00:00:43 . Memory (MB): peak = 1575.152 ; gain = 1092.184
 INFO: [Project 1-571] Translating synthesized netlist
-Netlist sorting complete. Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.024 . Memory (MB): peak = 1627.535 ; gain = 0.000
-INFO: [Netlist 29-17] Analyzing 68 Unisim elements for replacement
+Netlist sorting complete. Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.007 . Memory (MB): peak = 1584.316 ; gain = 0.000
+INFO: [Netlist 29-17] Analyzing 81 Unisim elements for replacement
 INFO: [Netlist 29-28] Unisim Transformation completed in 0 CPU seconds
 INFO: [Project 1-570] Preparing netlist for logic optimization
 INFO: [Opt 31-138] Pushed 0 inverter(s) to 0 load pin(s).
-Netlist sorting complete. Time (s): cpu = 00:00:00 ; elapsed = 00:00:00 . Memory (MB): peak = 1631.215 ; gain = 0.000
+Netlist sorting complete. Time (s): cpu = 00:00:00 ; elapsed = 00:00:00 . Memory (MB): peak = 1588.008 ; gain = 0.000
 INFO: [Project 1-111] Unisim Transformation Summary:
   A total of 10 instances were transformed.
   RAM32X1S => RAM32X1S (RAMS32): 10 instances
 
-Synth Design complete | Checksum: 2f3f1187
+Synth Design complete | Checksum: e7f59e64
 INFO: [Common 17-83] Releasing license: Synthesis
-92 Infos, 67 Warnings, 0 Critical Warnings and 0 Errors encountered.
+97 Infos, 67 Warnings, 0 Critical Warnings and 0 Errors encountered.
 synth_design completed successfully
-synth_design: Time (s): cpu = 00:01:43 ; elapsed = 00:01:56 . Memory (MB): peak = 1631.215 ; gain = 1306.098
-Write ShapeDB Complete: Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.005 . Memory (MB): peak = 1631.215 ; gain = 0.000
-INFO: [Common 17-1381] The checkpoint 'C:/Users/spyro/Alchitry/Lab4_BetaCPU/build/vivado/Lab4_BetaCPU.runs/synth_1/alchitry_top.dcp' has been generated.
+synth_design: Time (s): cpu = 00:00:43 ; elapsed = 00:00:46 . Memory (MB): peak = 1588.008 ; gain = 1302.426
+Write ShapeDB Complete: Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.001 . Memory (MB): peak = 1588.008 ; gain = 0.000
+INFO: [Common 17-1381] The checkpoint 'C:/Users/jc050/Documents/SUTD/50.002/1DPROJECT/Lab4_BetaCPU/build/vivado/Lab4_BetaCPU.runs/synth_1/alchitry_top.dcp' has been generated.
 INFO: [Vivado 12-24828] Executing command : report_utilization -file alchitry_top_utilization_synth.rpt -pb alchitry_top_utilization_synth.pb
-INFO: [Common 17-206] Exiting Vivado at Wed Mar 26 19:22:35 2025...
+INFO: [Common 17-206] Exiting Vivado at Fri Apr 11 13:43:06 2025...

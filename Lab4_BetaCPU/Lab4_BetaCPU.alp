@@ -190,6 +190,30 @@
                     "type": "DiskFile",
                     "path": "source/partial_cl_adder.luc"
                 }
+            },
+            {
+                "file": {
+                    "type": "DiskFile",
+                    "path": "source/display_controller.luc"
+                }
+            },
+            {
+                "file": {
+                    "type": "DiskFile",
+                    "path": "source/lcd_spi_driver.luc"
+                }
+            },
+            {
+                "file": {
+                    "type": "DiskFile",
+                    "path": "source/asset_rom.luc"
+                }
+            },
+            {
+                "file": {
+                    "type": "DiskFile",
+                    "path": "source/accel_spi_driver.luc"
+                }
             }
         ],
         "constraintFiles": [
@@ -203,6 +227,12 @@
                 "file": {
                     "type": "Component",
                     "path": "Constraints/io_v1_pulldown.acf"
+                }
+            },
+            {
+                "file": {
+                    "type": "DiskFile",
+                    "path": "constraint/br_constraints_pinout.acf"
                 }
             }
         ],

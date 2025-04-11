@@ -1,0 +1,87 @@
+module accel_spi_driver (
+    input clk,  // clock
+    input rst,  // reset
+    input out_byte[8], //byte to send over spi to accel
+    input enable,    //enable output
+    input miso,
+    output mosi,    //spi master out slave in
+    output scl,    //spi master clock
+    output csx,    //spi chip select, active LOW
+    output in_byte[8], //byte received from accel
+    output next_byte    //communicate to display controller to send next byte
+) {
+    .clk(clk){
+        .rst(rst){
+            dff clock_ctr[5]//track clock cycles, 3.125mhz
+            dff bit_ptr[3]//track which bit in a byte we are at
+            dff out_byte_cache[8]
+            dff in_byte_cache[8]
+            dff in_byte_output_buffer[8]
+            dff active
+            dff mosi_enable
+            dff rw //1 for read 0 for write
+        }
+    }
+    sig spi_clock
+    always {
+        if(enable && ~active.q){
+            out_byte_cache.d = out_byte
+            active.d = 1
+        }
+        in_byte = in_byte_output_buffer.q    //always output last read byte
+        if(active.q){
+            clock_ctr.d = clock_ctr.q + 1
+            spi_clock = clock_ctr.q[-1]    // 16 clock cycles high 16 clock cycles low, 320ns clock period
+            scl = spi_clock
+            csx = 0
+            next_byte = 0
+            if(bit_ptr.q==0 && clock_ctr.q==0){
+                //out_byte_cache.d = out_byte
+            }
+            
+            if(clock_ctr.q == 14){    //2 FPGA clock cycle before SPI clock rising edge
+                mosi_enable.d = !mosi_enable.q    //flip mosi signal enable
+            }
+            if(clock_ctr.q == 30){    //2 FPGA clock cycle before SPI clock falling edge
+                mosi_enable.d = !mosi_enable.q    //flip mosi signal enable
+            }
+            if(&clock_ctr.q){    //right before SPI falling edge, if sending address
+                //mosi_enable.d = !mosi_enable.q    //flip mosi signal enable
+                bit_ptr.d = bit_ptr.q + 1// move to next bit
+                out_byte_cache.d = c{out_byte_cache.q[-2:0], 0}
+            }
+            if(rw.q && clock_ctr.q == 20){// 4 cycles after rising edge in read mode
+                in_byte_cache.d = c{in_byte_cache.q[-2:0], miso}
+            }
+            mosi = 0
+            if(mosi_enable.q && ~rw.q){// send if in write address mode
+                if(out_byte_cache.q[-1]){
+                    mosi = 1
+                }
+            }
+            if(bit_ptr.q == 7 && ~rw.q){// last bit of send
+                if(&clock_ctr.q){//last clock of send
+                    rw.d = 1 //begin reading
+                }
+            }
+            if(bit_ptr.q == 7 && rw.q){// last bit of receive
+                if(clock_ctr.q == 22){
+                    in_byte_output_buffer.d = in_byte_cache.q
+                }
+                if(&clock_ctr.q){// last clock of receive
+                    rw.d = 0 //end reading
+                    active.d = 0// set inactive
+                    in_byte_cache.d = 0    //clear cache for next byte (not stricly needed)
+                }
+            }
+            
+        }else{
+            csx = 1
+            spi_clock = 0
+            scl = spi_clock
+            next_byte = 1
+            mosi = 0
+            in_byte_cache.d = 0    //clear cache
+        }
+    }
+}

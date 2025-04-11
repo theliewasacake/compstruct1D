@@ -1,0 +1,78 @@
+module lcd_spi_driver (
+    input clk,  // clock
+    input rst,  // reset
+    input out_byte[8], //byte to send over spi to lcd
+    input dcx_in,    //command flag
+    input enable,    //enable output, set high once
+    output mosi,    //spi master out slave in
+    output scl,    //spi master clock
+    output dcx_out,    //spi lcd command/display select 
+    output csx,    //spi chip select, active LOW
+    output next_byte    //communicate to display controller to send next byte
+) {
+    .clk(clk){
+        .rst(rst){
+            dff active
+            dff clock_ctr[4]//track clock cycles
+            dff bit_ptr[3]//track which bit in a byte we are at
+            dff out_byte_cache[8]
+            dff mosi_enable
+            dff dcx_in_dff
+        }
+    }
+    sig spi_clock
+    always {
+        if(enable && ~active.q){
+            active.d = 1
+            dcx_in_dff.d = dcx_in
+            out_byte_cache.d = out_byte
+        }
+        if(active.q){
+            clock_ctr.d = clock_ctr.q + 1
+            spi_clock = clock_ctr.q[-1]    // 8 clock cycles high 8 clock cycles low, 160ns clock period
+            scl = spi_clock
+            csx = 0
+            if(bit_ptr.q==0 && clock_ctr.q==0){
+                //dcx_in_dff.d = dcx_in
+                //out_byte_cache.d = out_byte
+            }
+            if(clock_ctr.q == 5){    //3 FPGA clock cycle before SPI clock rising edge
+                mosi_enable.d = !mosi_enable.q    //flip mosi signal enable
+            }
+            if(clock_ctr.q == 14){    //2 FPGA clock cycle before SPI clock rising edge
+                mosi_enable.d = !mosi_enable.q    //flip mosi signal enable
+            }
+            if(&clock_ctr.q){    //right before SPI falling edge
+                //mosi_enable.d = !mosi_enable.q    //flip mosi signal enable
+                bit_ptr.d = bit_ptr.q + 1// move to next bit
+                out_byte_cache.d = c{out_byte_cache.q[-2:0], 0}
+            }
+            mosi = 0
+            if(mosi_enable.q){
+                if(out_byte_cache.q[-1]){
+                    mosi = 1
+                }
+            }
+            if(bit_ptr.q == 7){
+                if(&clock_ctr.q){
+                    next_byte = 1//request next byte when last byte sent
+                    active.d = 0
+                }else{
+                    next_byte = 0
+                }
+                dcx_out = dcx_in_dff.q
+            }else{
+                dcx_out = 0
+                next_byte = 0
+            }
+        }else{
+            csx = 1
+            scl = 0
+            dcx_out = 0
+            spi_clock = 0
+            next_byte = 1
+            mosi = 0
+        }
+                
+    }
+}

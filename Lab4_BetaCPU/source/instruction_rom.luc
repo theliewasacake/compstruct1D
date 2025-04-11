@@ -1,5 +1,5 @@
 module instruction_rom #(
-    WORDS = 16 // total instructions in this ROM
+    WORDS = 64 // total instructions in this ROM
 )(
     input addr[$clog2(WORDS)], // this ROM is WORD addressable
     output out[32],
@@ -9,11 +9,62 @@ module instruction_rom #(
     // Driver code, the bottommost instruction is the first instruction
     // CHECKOFF: write your own test instruction fulfilling the requirements written in the lab handout
     const INSTRUCTIONS = {
-        32h7BE3FFFB, // 0x010 BNE(R3, main, R31) 
-        32h607F0020, // 0x00C LD(R31, 32, R3) 
-        32h643F0020, // 0x008 ST(R1, 32, R31)
-        32h90410800, // 0x004 CMPEQ(R1, R1, R2) 
-        32hC03F0003 // 0x000 ADDC(R31, 3, R1) --- main
+        //32h7BE3FFFB, // 0x010 BNE(R3, main, R31) 
+        //32h607F0020, // 0x00C LD(R31, 32, R3) 
+        //32h643F0020, // 0x008 ST(R1, 32, R31)
+        //32h90410800, // 0x004 CMPEQ(R1, R1, R2) 
+        //32hC03F0003 // 0x000 ADDC(R31, 3, R1) --- main
+        
+        c{6b110000,5d19, 5d31,16h00000}, 
+        c{6b011010,5d31, 5d31, 5d19, 11d0}, //SPIWR 
+        c{6b110000,5d19, 5d31,16h00F8}, //ADDC 
+        c{6b011010,5d31, 5d31, 5d19, 11d0}, //SPIWR 
+        c{6b110000,5d19, 5d31,16h0000}, //ADDC 
+        c{6b011010,5d31, 5d31, 5d19, 11d0}, //SPIWR 
+        c{6b110000,5d19, 5d31,16h00F8}, //ADDC 
+        c{6b011010,5d31, 5d31, 5d19, 11d0}, //SPIWR
+        c{6b110000,5d19, 5d31,16h00000}, 
+        c{6b011010,5d31, 5d31, 5d19, 11d0}, //SPIWR 
+        c{6b110000,5d19, 5d31,16h00F8}, //ADDC 
+        c{6b011010,5d31, 5d31, 5d19, 11d0}, //SPIWR 
+        c{6b110000,5d19, 5d31,16h0000}, //ADDC 
+        c{6b011010,5d31, 5d31, 5d19, 11d0}, //SPIWR 
+        c{6b110000,5d19, 5d31,16h00F8}, //ADDC 
+        c{6b011010,5d31, 5d31, 5d19, 11d0}, //SPIWR 
+        c{6b110000,5d19, 5d31,16h012A}, //ADDC RAMWR
+        c{6b011010,5d31, 5d31, 5d19, 11d0}, //SPIWR 
+        c{6b110000,5d19, 5d31,16h00011}, 
+        c{6b011010,5d31, 5d31, 5d19, 11d0}, //SPIWR 
+        c{6b110000,5d19, 5d31,16h0000}, //ADDC 
+        c{6b011010,5d31, 5d31, 5d19, 11d0}, //SPIWR 
+        c{6b110000,5d19, 5d31,16h0010}, //ADDC 
+        c{6b011010,5d31, 5d31, 5d19, 11d0}, //SPIWR 
+        c{6b110000,5d19, 5d31,16h0000}, //ADDC 
+        c{6b011010,5d31, 5d31, 5d19, 11d0}, //SPIWR 
+        c{6b110000,5d19, 5d31,16h012B}, //ADDC RASET
+        c{6b011010,5d31, 5d31, 5d19, 11d0}, //SPIWR 
+        c{6b110000,5d19, 5d31,16h00011}, 
+        c{6b011010,5d31, 5d31, 5d19, 11d0}, //SPIWR 
+        c{6b110000,5d19, 5d31,16h0000}, //ADDC 
+        c{6b011010,5d31, 5d31, 5d19, 11d0}, //SPIWR 
+        c{6b110000,5d19, 5d31,16h0010}, //ADDC 
+        c{6b011010,5d31, 5d31, 5d19, 11d0}, //SPIWR 
+        c{6b110000,5d19, 5d31,16h0000}, //ADDC 
+        c{6b011010,5d31, 5d31, 5d19, 11d0}, //SPIWR 
+        c{6b110000,5d19, 5d31,16h012A}, //ADDC CASET
+        c{6b011010,5d31, 5d31, 5d19, 11d0}, //SPIWR 
+        c{6b110000,5d19, 5d31,16h0129}, //ADDC LCD_ON
+        c{6b011010,5d31, 5d31, 5d19, 11d0}, //SPIWR 
+        c{6b110000,5d19, 5d31,16h0055}, //ADDC PIXFMT PARAM
+        c{6b011010,5d31, 5d31, 5d19, 11d0}, //SPIWR 
+        c{6b110000,5d19, 5d31,16h013A}, //ADDC PIXFMT
+        c{6b011010,5d31, 5d31, 5d19, 11d0}, //SPIWR 
+        c{6b110000,5d19, 5d31,16h0048}, //ADDC MADCTL PARAM
+        c{6b011010,5d31, 5d31, 5d19, 11d0}, //SPIWR
+        c{6b110000,5d19, 5d31,16h0136}, //ADDC MADCTL
+        c{6b011010,5d31, 5d31, 5d19, 11d0}, //SPIWR 
+        c{6b110000,5d19, 5d31,16h0111}, //ADDC LCD WAKE
+        c{6b011010,5d31, 5d31, 5d19, 11d0} //SPIWR
     }
     
     const NUM_OF_INSTRUCTIONS = $width(INSTRUCTIONS,0) // compute how many instructions are there
