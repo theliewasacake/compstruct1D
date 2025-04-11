@@ -42,7 +42,7 @@ module motherboard (
         
         //LCD handling
         beta.lcd_spi_busy = ~lcd.next_byte
-        lcd_spi_out = c{lcd.scl,lcd.mosi,lcd.dcx_out,lcd.csx}
+        lcd_spi_out = c{lcd.csx,lcd.dcx_out,lcd.mosi,lcd.scl}
         lcd.out_byte = beta.mem_data_output[7:0]
         lcd.dcx_in = beta.mem_data_output[8]
         lcd.enable = beta.lcd_enable

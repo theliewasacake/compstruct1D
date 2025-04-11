@@ -11,15 +11,15 @@ module instruction_rom #(
         output reg [31:0] out,
         output reg [9:0] numinstr
     );
-    localparam logic [49:0][31:0] INSTRUCTIONS = {{32'hc27f0000, 32'h6bff9800, 32'hc27f00f8, 32'h6bff9800, 32'hc27f0000, 32'h6bff9800, 32'hc27f00f8, 32'h6bff9800, 32'hc27f0000, 32'h6bff9800, 32'hc27f00f8, 32'h6bff9800, 32'hc27f0000, 32'h6bff9800, 32'hc27f00f8, 32'h6bff9800, 32'hc27f012a, 32'h6bff9800, 32'hc27f0011, 32'h6bff9800, 32'hc27f0000, 32'h6bff9800, 32'hc27f0010, 32'h6bff9800, 32'hc27f0000, 32'h6bff9800, 32'hc27f012b, 32'h6bff9800, 32'hc27f0011, 32'h6bff9800, 32'hc27f0000, 32'h6bff9800, 32'hc27f0010, 32'h6bff9800, 32'hc27f0000, 32'h6bff9800, 32'hc27f012a, 32'h6bff9800, 32'hc27f0129, 32'h6bff9800, 32'hc27f0055, 32'h6bff9800, 32'hc27f013a, 32'h6bff9800, 32'hc27f0048, 32'h6bff9800, 32'hc27f0136, 32'h6bff9800, 32'hc27f0111, 32'h6bff9800}};
-    localparam NUM_OF_INSTRUCTIONS = 6'h32;
+    localparam logic [5:0][31:0] INSTRUCTIONS = {{32'h6bf39800, 32'hc27f0048, 32'h6bf39800, 32'hc27f0136, 32'h6bf39800, 32'hc27f0111}};
+    localparam NUM_OF_INSTRUCTIONS = 6'h6;
     always @* begin
-        if (addr < 6'h32) begin
+        if (addr < 6'h6) begin
             out = INSTRUCTIONS[addr];
         end else begin
             out = 1'h0;
         end
-        numinstr = 6'h32;
+        numinstr = 6'h6;
     end
     
     

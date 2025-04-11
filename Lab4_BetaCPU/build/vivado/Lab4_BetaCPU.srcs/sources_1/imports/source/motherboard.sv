@@ -103,14 +103,14 @@ module motherboard (
     );
     
     
-    localparam MEMORY_SIZE = 6'h20;
-    localparam _MP_WORDS_1617656084 = 6'h20;
-    logic [4:0] M_instruction_unit_addr;
+    localparam MEMORY_SIZE = 7'h40;
+    localparam _MP_WORDS_91426334 = 7'h40;
+    logic [5:0] M_instruction_unit_addr;
     logic [31:0] M_instruction_unit_out;
     logic [9:0] M_instruction_unit_numinstr;
     
     instruction_rom #(
-        .WORDS(_MP_WORDS_1617656084)
+        .WORDS(_MP_WORDS_91426334)
     ) instruction_unit (
         .addr(M_instruction_unit_addr),
         .out(M_instruction_unit_out),
@@ -118,19 +118,19 @@ module motherboard (
     );
     
     
-    localparam _MP_WORDS_1870256575 = 6'h20;
-    logic [6:0] M_memory_unit_raddr;
-    logic [6:0] M_memory_unit_waddr;
+    localparam _MP_WORDS_1336812142 = 7'h40;
+    logic [7:0] M_memory_unit_raddr;
+    logic [7:0] M_memory_unit_waddr;
     logic [31:0] M_memory_unit_wd;
     logic M_memory_unit_we;
     logic [31:0] M_memory_unit_mrd;
-    logic [6:0] M_memory_unit_ia;
+    logic [7:0] M_memory_unit_ia;
     logic M_memory_unit_instruction_we;
     logic [31:0] M_memory_unit_instruction_wd;
     logic [31:0] M_memory_unit_id;
     
     memory_unit #(
-        .WORDS(_MP_WORDS_1870256575)
+        .WORDS(_MP_WORDS_1336812142)
     ) memory_unit (
         .clk(clk),
         .raddr(M_memory_unit_raddr),
@@ -147,7 +147,7 @@ module motherboard (
     
     logic [31:0] D_system_output_buffer_d, D_system_output_buffer_q = 0;
     logic [31:0] D_system_input_buffer_d, D_system_input_buffer_q = 0;
-    logic [4:0] D_writer_counter_d, D_writer_counter_q = 0;
+    logic [5:0] D_writer_counter_d, D_writer_counter_q = 0;
     localparam E_MotherboardStates_INSTRUCTIONLOAD = 3'h0;
     localparam E_MotherboardStates_RUN = 3'h1;
     localparam E_MotherboardStates_LOAD_OUTPUT = 3'h2;
@@ -163,7 +163,7 @@ module motherboard (
         M_instruction_unit_addr = 1'h0;
         M_beta_irq = (|irq);
         M_beta_lcd_spi_busy = ~M_lcd_next_byte;
-        lcd_spi_out = {M_lcd_scl, M_lcd_mosi, M_lcd_dcx_out, M_lcd_csx};
+        lcd_spi_out = {M_lcd_csx, M_lcd_dcx_out, M_lcd_mosi, M_lcd_scl};
         M_lcd_out_byte = M_beta_mem_data_output[3'h7:1'h0];
         M_lcd_dcx_in = M_beta_mem_data_output[4'h8];
         M_lcd_enable = M_beta_lcd_enable;
@@ -206,7 +206,7 @@ module motherboard (
                 M_memory_unit_instruction_wd = M_instruction_unit_out;
                 M_memory_unit_instruction_we = 1'h1;
                 M_memory_unit_ia = D_writer_counter_q << 2'h2;
-                if ((D_writer_counter_q + 1'h1) == 6'h20) begin
+                if ((D_writer_counter_q + 1'h1) == 7'h40) begin
                     D_motherboard_d = 3'h1;
                 end
             end
