@@ -58,9 +58,9 @@ module instruction_rom #(
         //c{6b110000,5d19, 5d31,16h0055}, //ADDC PIXFMT PARAM
         //c{6b011010,5d31, 5d31, 5d19, 11d0}, //SPIWR 
         //c{6b110000,5d19, 5d31,16h013A}, //ADDC PIXFMT
-        c{6b011010,5d31, 5d19, 5d19, 11d0}, //SPIWR 
+        c{6b011010,5d31, 5d19, 5d19, 11d2}, //SPIWR 
         c{6b110000,5d19, 5d31,16h0048}, //ADDC MADCTL PARAM
-        c{6b011010,5d31, 5d19, 5d19, 11d0}, //SPIWR
+        c{6b011010,5d31, 5d19, 5d19, 11d1}, //SPIWR
         c{6b110000,5d19, 5d31,16h0136}, //ADDC MADCTL
         c{6b011010,5d31, 5d19, 5d19, 11d0}, //SPIWR 
         c{6b110000,5d19, 5d31,16h0111} //ADDC LCD WAKE

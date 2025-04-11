@@ -69,7 +69,6 @@ module control_unit (
         end
         lcd_enable = 1'h0;
         if (opcode == 6'h1a) begin
-            lcd_enable = 1'h1;
             if (lcd_spi_busy) begin
                 pcsel = 3'h5;
                 wasel = 1'h0;
@@ -80,6 +79,8 @@ module control_unit (
                 wdsel = 1'h0;
                 werf = 1'h0;
                 wr = 1'h0;
+            end else begin
+                lcd_enable = 1'h1;
             end
         end
         acc_enable = 1'h0;

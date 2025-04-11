@@ -140,7 +140,7 @@ module control_unit (
     
     lcd_enable = 0
     if (opcode == 6b011010){
-        lcd_enable = 1
+        //lcd_enable = 1
         if(lcd_spi_busy){
             pcsel = 3b101    //go back to original pc, repeat instruction
             wasel = 0    //do nothing else
@@ -151,6 +151,8 @@ module control_unit (
             wdsel = 0 
             werf = 0
             wr = 0
+        }else{
+            lcd_enable = 1
         }
     }
         

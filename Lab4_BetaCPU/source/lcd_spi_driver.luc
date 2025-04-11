@@ -54,11 +54,15 @@ module lcd_spi_driver (
                 }
             }
             if(bit_ptr.q == 7){
+                
                 if(&clock_ctr.q){
                     next_byte = 1//request next byte when last byte sent
                     active.d = 0
                 }else{
                     next_byte = 0
+                }
+                if(clock_ctr.q == 14){
+                    next_byte = 1
                 }
                 dcx_out = dcx_in_dff.q
             }else{

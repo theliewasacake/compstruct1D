@@ -67,6 +67,9 @@ module lcd_spi_driver (
                 end else begin
                     next_byte = 1'h0;
                 end
+                if (D_clock_ctr_q == 4'he) begin
+                    next_byte = 1'h1;
+                end
                 dcx_out = D_dcx_in_dff_q;
             end else begin
                 dcx_out = 1'h0;

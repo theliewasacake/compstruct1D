@@ -11,7 +11,7 @@ module instruction_rom #(
         output reg [31:0] out,
         output reg [9:0] numinstr
     );
-    localparam logic [5:0][31:0] INSTRUCTIONS = {{32'h6bf39800, 32'hc27f0048, 32'h6bf39800, 32'hc27f0136, 32'h6bf39800, 32'hc27f0111}};
+    localparam logic [5:0][31:0] INSTRUCTIONS = {{32'h6bf39802, 32'hc27f0048, 32'h6bf39801, 32'hc27f0136, 32'h6bf39800, 32'hc27f0111}};
     localparam NUM_OF_INSTRUCTIONS = 6'h6;
     always @* begin
         if (addr < 6'h6) begin
