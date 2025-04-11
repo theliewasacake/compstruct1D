@@ -103,14 +103,14 @@ module motherboard (
     );
     
     
-    localparam MEMORY_SIZE = 7'h40;
-    localparam _MP_WORDS_1206983246 = 7'h40;
-    logic [5:0] M_instruction_unit_addr;
+    localparam MEMORY_SIZE = 10'h200;
+    localparam _MP_WORDS_1777409953 = 10'h200;
+    logic [8:0] M_instruction_unit_addr;
     logic [31:0] M_instruction_unit_out;
     logic [9:0] M_instruction_unit_numinstr;
     
     instruction_rom #(
-        .WORDS(_MP_WORDS_1206983246)
+        .WORDS(_MP_WORDS_1777409953)
     ) instruction_unit (
         .addr(M_instruction_unit_addr),
         .out(M_instruction_unit_out),
@@ -118,19 +118,19 @@ module motherboard (
     );
     
     
-    localparam _MP_WORDS_49621954 = 7'h40;
-    logic [7:0] M_memory_unit_raddr;
-    logic [7:0] M_memory_unit_waddr;
+    localparam _MP_WORDS_1400627291 = 10'h200;
+    logic [10:0] M_memory_unit_raddr;
+    logic [10:0] M_memory_unit_waddr;
     logic [31:0] M_memory_unit_wd;
     logic M_memory_unit_we;
     logic [31:0] M_memory_unit_mrd;
-    logic [7:0] M_memory_unit_ia;
+    logic [10:0] M_memory_unit_ia;
     logic M_memory_unit_instruction_we;
     logic [31:0] M_memory_unit_instruction_wd;
     logic [31:0] M_memory_unit_id;
     
     memory_unit #(
-        .WORDS(_MP_WORDS_49621954)
+        .WORDS(_MP_WORDS_1400627291)
     ) memory_unit (
         .clk(clk),
         .raddr(M_memory_unit_raddr),
@@ -147,7 +147,7 @@ module motherboard (
     
     logic [31:0] D_system_output_buffer_d, D_system_output_buffer_q = 0;
     logic [31:0] D_system_input_buffer_d, D_system_input_buffer_q = 0;
-    logic [5:0] D_writer_counter_d, D_writer_counter_q = 0;
+    logic [8:0] D_writer_counter_d, D_writer_counter_q = 0;
     localparam E_MotherboardStates_INSTRUCTIONLOAD = 3'h0;
     localparam E_MotherboardStates_RUN = 3'h1;
     localparam E_MotherboardStates_LOAD_OUTPUT = 3'h2;
@@ -206,7 +206,7 @@ module motherboard (
                 M_memory_unit_instruction_wd = M_instruction_unit_out;
                 M_memory_unit_instruction_we = 1'h1;
                 M_memory_unit_ia = D_writer_counter_q << 2'h2;
-                if ((D_writer_counter_q + 1'h1) == 7'h40) begin
+                if ((D_writer_counter_q + 1'h1) == 10'h200) begin
                     D_motherboard_d = 3'h1;
                 end
             end

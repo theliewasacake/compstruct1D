@@ -21,7 +21,7 @@ module motherboard (
     lcd_spi_driver lcd(.clk(clk), .rst(rst))
     accel_spi_driver acc(.clk(clk), .rst(rst))
     // setup and instantiate memory unit and instruction ROM
-    const MEMORY_SIZE = 64
+    const MEMORY_SIZE = 512
     instruction_rom instruction_unit(#WORDS(MEMORY_SIZE))
     memory_unit memory_unit(#WORDS(MEMORY_SIZE), .clk(clk)) 
     

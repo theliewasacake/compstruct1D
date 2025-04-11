@@ -1,7 +1,7 @@
 Copyright 1986-2022 Xilinx, Inc. All Rights Reserved. Copyright 2022-2024 Advanced Micro Devices, Inc. All Rights Reserved.
 ---------------------------------------------------------------------------------------------------------------------------------------------
 | Tool Version : Vivado v.2024.2 (win64) Build 5239630 Fri Nov 08 22:35:27 MST 2024
-| Date         : Sat Apr 12 00:41:27 2025
+| Date         : Sat Apr 12 03:35:57 2025
 | Host         : JC-ZENBOOK running 64-bit major release  (build 9200)
 | Command      : report_control_sets -verbose -file alchitry_top_control_sets_placed.rpt
 | Design       : alchitry_top
@@ -23,11 +23,11 @@ Table of Contents
 +----------------------------------------------------------+-------+
 |                          Status                          | Count |
 +----------------------------------------------------------+-------+
-| Total control sets                                       |    19 |
-|    Minimum number of control sets                        |    19 |
+| Total control sets                                       |    49 |
+|    Minimum number of control sets                        |    49 |
 |    Addition due to synthesis replication                 |     0 |
 |    Addition due to physical synthesis replication        |     0 |
-| Unused register locations in slices containing registers |    56 |
+| Unused register locations in slices containing registers |    68 |
 +----------------------------------------------------------+-------+
 * Control sets can be merged at opt_design using control_set_merge or merge_equivalent_drivers
 ** Run report_qor_suggestions for automated merging and remapping suggestions
@@ -39,15 +39,15 @@ Table of Contents
 +--------------------+-------+
 |       Fanout       | Count |
 +--------------------+-------+
-| Total control sets |    19 |
-| >= 0 to < 4        |     0 |
-| >= 4 to < 6        |     4 |
+| Total control sets |    49 |
+| >= 0 to < 4        |     1 |
+| >= 4 to < 6        |     3 |
 | >= 6 to < 8        |     2 |
-| >= 8 to < 10       |     0 |
+| >= 8 to < 10       |     3 |
 | >= 10 to < 12      |     0 |
-| >= 12 to < 14      |     0 |
-| >= 14 to < 16      |     2 |
-| >= 16              |    11 |
+| >= 12 to < 14      |     1 |
+| >= 14 to < 16      |     0 |
+| >= 16              |    39 |
 +--------------------+-------+
 * Control sets can be remapped at either synth_design or opt_design
 
@@ -58,40 +58,70 @@ Table of Contents
 +--------------+-----------------------+------------------------+-----------------+--------------+
 | Clock Enable | Synchronous Set/Reset | Asynchronous Set/Reset | Total Registers | Total Slices |
 +--------------+-----------------------+------------------------+-----------------+--------------+
-| No           | No                    | No                     |              30 |           14 |
-| No           | No                    | Yes                    |               4 |            2 |
-| No           | Yes                   | No                     |              60 |           17 |
-| Yes          | No                    | No                     |               6 |            3 |
+| No           | No                    | No                     |              23 |           11 |
+| No           | No                    | Yes                    |               4 |            1 |
+| No           | Yes                   | No                     |              60 |           19 |
+| Yes          | No                    | No                     |               9 |            5 |
 | Yes          | No                    | Yes                    |               0 |            0 |
-| Yes          | Yes                   | No                     |             236 |          107 |
+| Yes          | Yes                   | No                     |            1140 |          599 |
 +--------------+-----------------------+------------------------+-----------------+--------------+
 
 
 4. Detailed Control Set Information
 -----------------------------------
 
-+----------------+--------------------------------------------------------------------------------------------+---------------------------------------------------------------------------------------------+------------------+----------------+--------------+
-|  Clock Signal  |                                        Enable Signal                                       |                                       Set/Reset Signal                                      | Slice Load Count | Bel Load Count | Bels / Slice |
-+----------------+--------------------------------------------------------------------------------------------+---------------------------------------------------------------------------------------------+------------------+----------------+--------------+
-|  clk_IBUF_BUFG |                                                                                            | reset_cond/M_reset_cond_in                                                                  |                2 |              4 |         2.00 |
-|  clk_IBUF_BUFG | beta_manual/motherboard/lcd/D_active_q                                                     | reset_cond/Q[0]                                                                             |                1 |              4 |         4.00 |
-|  clk_IBUF_BUFG | beta_manual/motherboard/memory_unit/instruction_memory/E[0]                                | beta_manual/motherboard/beta/regfile_system/regfile/SR[0]                                   |                4 |              4 |         1.00 |
-|  clk_IBUF_BUFG | beta_manual/motherboard/acc/D_active_q                                                     | reset_cond/Q[0]                                                                             |                1 |              5 |         5.00 |
-|  clk_IBUF_BUFG | beta_manual/motherboard/lcd/D_out_byte_cache_q[7]_i_1_n_0                                  | reset_cond/Q[0]                                                                             |                1 |              7 |         7.00 |
-|  clk_IBUF_BUFG | beta_manual/motherboard/acc/D_bit_ptr_d                                                    | reset_cond/Q[0]                                                                             |                1 |              7 |         7.00 |
-|  clk_IBUF_BUFG | beta_manual/motherboard/memory_unit/instruction_memory/write_enable                        |                                                                                             |                5 |             14 |         2.80 |
-|  clk_IBUF_BUFG | beta_manual/next_button_conditioner/D_ctr_q[0]_i_2__2_n_0                                  | beta_manual/next_button_conditioner/sync/D_pipe_q_reg[1]_0                                  |                4 |             14 |         3.50 |
-|  clk_IBUF_BUFG | beta_manual/motherboard/D_system_output_buffer_d                                           | reset_cond/Q[0]                                                                             |               13 |             16 |         1.23 |
-|  clk_IBUF_BUFG |                                                                                            | beta_manual/seg/ctr/D_ctr_q[0]_i_1__3_n_0                                                   |                5 |             18 |         3.60 |
-|  clk_IBUF_BUFG | beta_manual/forLoop_idx_0_1655657595[2].interrupt_button_conditioner/sel                   | beta_manual/forLoop_idx_0_1655657595[2].interrupt_button_conditioner/sync/clear             |                5 |             18 |         3.60 |
-|  clk_IBUF_BUFG | beta_manual/forLoop_idx_0_1655657595[0].interrupt_button_conditioner/D_ctr_q[0]_i_2__1_n_0 | beta_manual/forLoop_idx_0_1655657595[0].interrupt_button_conditioner/sync/D_pipe_q_reg[1]_0 |                5 |             18 |         3.60 |
-|  clk_IBUF_BUFG | beta_manual/forLoop_idx_0_1655657595[1].interrupt_button_conditioner/D_ctr_q[0]_i_2__0_n_0 | beta_manual/forLoop_idx_0_1655657595[1].interrupt_button_conditioner/sync/D_pipe_q_reg[1]_0 |                5 |             18 |         3.60 |
-|  clk_IBUF_BUFG | beta_manual/motherboard/memory_unit/instruction_memory/read_data_reg[31]_32                | beta_manual/motherboard/beta/regfile_system/regfile/SR[0]                                   |               15 |             29 |         1.93 |
-|  clk_IBUF_BUFG |                                                                                            |                                                                                             |               14 |             30 |         2.14 |
-|  clk_IBUF_BUFG | beta_manual/motherboard/memory_unit/instruction_memory/read_data_reg[31]_34[0]             | beta_manual/motherboard/beta/regfile_system/regfile/SR[0]                                   |               13 |             32 |         2.46 |
-|  clk_IBUF_BUFG | beta_manual/motherboard/memory_unit/instruction_memory/read_data_reg[31]_36[0]             | beta_manual/motherboard/beta/regfile_system/regfile/SR[0]                                   |               20 |             32 |         1.60 |
-|  clk_IBUF_BUFG | beta_manual/motherboard/memory_unit/instruction_memory/read_data_reg[31]_35[0]             | beta_manual/motherboard/beta/regfile_system/regfile/SR[0]                                   |               19 |             32 |         1.68 |
-|  clk_IBUF_BUFG |                                                                                            | reset_cond/Q[0]                                                                             |               12 |             42 |         3.50 |
-+----------------+--------------------------------------------------------------------------------------------+---------------------------------------------------------------------------------------------+------------------+----------------+--------------+
++----------------+------------------------------------------------------------------------------------------+-------------------------------------------------------------------------------------------+------------------+----------------+--------------+
+|  Clock Signal  |                                       Enable Signal                                      |                                      Set/Reset Signal                                     | Slice Load Count | Bel Load Count | Bels / Slice |
++----------------+------------------------------------------------------------------------------------------+-------------------------------------------------------------------------------------------+------------------+----------------+--------------+
+|  clk_IBUF_BUFG |                                                                                          |                                                                                           |                1 |              1 |         1.00 |
+|  D_s_q_BUFG    | beta_manual/motherboard/lcd/D_active_q                                                   | reset_cond/Q[0]                                                                           |                1 |              4 |         4.00 |
+|  clk_IBUF_BUFG |                                                                                          | reset_cond/M_reset_cond_in                                                                |                1 |              4 |         4.00 |
+|  D_s_q_BUFG    | beta_manual/motherboard/acc/D_active_q                                                   | reset_cond/Q[0]                                                                           |                2 |              5 |         2.50 |
+|  D_s_q_BUFG    | beta_manual/motherboard/memory_unit/instruction_memory/p_1_in[0]                         | reset_cond/Q[0]                                                                           |                2 |              7 |         3.50 |
+|  D_s_q_BUFG    | beta_manual/motherboard/lcd/p_1_in[7]                                                    | reset_cond/Q[0]                                                                           |                1 |              7 |         7.00 |
+|  D_s_q_BUFG    | beta_manual/motherboard/acc/D_in_byte_output_buffer_d                                    | reset_cond/Q[0]                                                                           |                3 |              8 |         2.67 |
+|  D_s_q_BUFG    | beta_manual/motherboard/acc/D_in_byte_cache_q0                                           | beta_manual/motherboard/acc/D_in_byte_cache_q[7]_i_1_n_0                                  |                4 |              8 |         2.00 |
+|  D_s_q_BUFG    | beta_manual/motherboard/memory_unit/instruction_memory/WEBWE[0]                          |                                                                                           |                5 |              9 |         1.80 |
+|  D_s_q_BUFG    | beta_manual/next_button_conditioner/D_ctr_q[0]_i_2__2_n_0                                | beta_manual/next_button_conditioner/sync/D_pipe_q_reg[1]_0                                |                4 |             13 |         3.25 |
+|  D_s_q_BUFG    | beta_manual/motherboard/D_system_output_buffer_d                                         | reset_cond/Q[0]                                                                           |               16 |             16 |         1.00 |
+|  D_s_q_BUFG    | beta_manual/forLoop_idx_0_57180547[2].interrupt_button_conditioner/sel                   | beta_manual/forLoop_idx_0_57180547[2].interrupt_button_conditioner/sync/clear             |                5 |             17 |         3.40 |
+|  D_s_q_BUFG    | beta_manual/forLoop_idx_0_57180547[0].interrupt_button_conditioner/D_ctr_q[0]_i_2__1_n_0 | beta_manual/forLoop_idx_0_57180547[0].interrupt_button_conditioner/sync/D_pipe_q_reg[1]_0 |                5 |             17 |         3.40 |
+|  D_s_q_BUFG    | beta_manual/forLoop_idx_0_57180547[1].interrupt_button_conditioner/D_ctr_q[0]_i_2__0_n_0 | beta_manual/forLoop_idx_0_57180547[1].interrupt_button_conditioner/sync/D_pipe_q_reg[1]_0 |                5 |             17 |         3.40 |
+|  D_s_q_BUFG    |                                                                                          | beta_manual/seg/ctr/D_ctr_q[0]_i_1__3_n_0                                                 |                5 |             18 |         3.60 |
+|  D_s_q_BUFG    |                                                                                          |                                                                                           |               10 |             22 |         2.20 |
+|  D_s_q_BUFG    | beta_manual/next_button_conditioner/E[0]                                                 | beta_manual/motherboard/beta/regfile_system/regfile/SR[0]                                 |               22 |             29 |         1.32 |
+|  D_s_q_BUFG    | beta_manual/motherboard/memory_unit/instruction_memory/ram_reg_112[0]                    | beta_manual/motherboard/beta/regfile_system/regfile/SR[0]                                 |               15 |             32 |         2.13 |
+|  D_s_q_BUFG    | beta_manual/motherboard/memory_unit/instruction_memory/ram_reg_114[0]                    | beta_manual/motherboard/beta/regfile_system/regfile/SR[0]                                 |               16 |             32 |         2.00 |
+|  D_s_q_BUFG    | beta_manual/motherboard/memory_unit/instruction_memory/ram_reg_100[0]                    | beta_manual/motherboard/beta/regfile_system/regfile/SR[0]                                 |               17 |             32 |         1.88 |
+|  D_s_q_BUFG    | beta_manual/motherboard/memory_unit/instruction_memory/ram_reg_115[0]                    | beta_manual/motherboard/beta/regfile_system/regfile/SR[0]                                 |               16 |             32 |         2.00 |
+|  D_s_q_BUFG    | beta_manual/motherboard/memory_unit/instruction_memory/ram_reg_101[0]                    | beta_manual/motherboard/beta/regfile_system/regfile/SR[0]                                 |               15 |             32 |         2.13 |
+|  D_s_q_BUFG    | beta_manual/motherboard/memory_unit/instruction_memory/ram_reg_106[0]                    | beta_manual/motherboard/beta/regfile_system/regfile/SR[0]                                 |               14 |             32 |         2.29 |
+|  D_s_q_BUFG    | beta_manual/motherboard/memory_unit/instruction_memory/ram_reg_105[0]                    | beta_manual/motherboard/beta/regfile_system/regfile/SR[0]                                 |               10 |             32 |         3.20 |
+|  D_s_q_BUFG    | beta_manual/motherboard/memory_unit/instruction_memory/ram_reg_104[0]                    | beta_manual/motherboard/beta/regfile_system/regfile/SR[0]                                 |               15 |             32 |         2.13 |
+|  D_s_q_BUFG    | beta_manual/motherboard/memory_unit/instruction_memory/ram_reg_109[0]                    | beta_manual/motherboard/beta/regfile_system/regfile/SR[0]                                 |               21 |             32 |         1.52 |
+|  D_s_q_BUFG    | beta_manual/motherboard/memory_unit/instruction_memory/ram_reg_111[0]                    | beta_manual/motherboard/beta/regfile_system/regfile/SR[0]                                 |               16 |             32 |         2.00 |
+|  D_s_q_BUFG    | beta_manual/motherboard/memory_unit/instruction_memory/ram_reg_110[0]                    | beta_manual/motherboard/beta/regfile_system/regfile/SR[0]                                 |               16 |             32 |         2.00 |
+|  D_s_q_BUFG    | beta_manual/motherboard/memory_unit/instruction_memory/ram_reg_103[0]                    | beta_manual/motherboard/beta/regfile_system/regfile/SR[0]                                 |               15 |             32 |         2.13 |
+|  D_s_q_BUFG    | beta_manual/motherboard/memory_unit/instruction_memory/ram_reg_108[0]                    | beta_manual/motherboard/beta/regfile_system/regfile/SR[0]                                 |               14 |             32 |         2.29 |
+|  D_s_q_BUFG    | beta_manual/motherboard/memory_unit/instruction_memory/ram_reg_113[0]                    | beta_manual/motherboard/beta/regfile_system/regfile/SR[0]                                 |               18 |             32 |         1.78 |
+|  D_s_q_BUFG    | beta_manual/motherboard/memory_unit/instruction_memory/ram_reg_99[0]                     | beta_manual/motherboard/beta/regfile_system/regfile/SR[0]                                 |               21 |             32 |         1.52 |
+|  D_s_q_BUFG    | beta_manual/motherboard/memory_unit/instruction_memory/ram_reg_122[0]                    | beta_manual/motherboard/beta/regfile_system/regfile/SR[0]                                 |               18 |             32 |         1.78 |
+|  D_s_q_BUFG    | beta_manual/motherboard/memory_unit/instruction_memory/ram_reg_97[0]                     | beta_manual/motherboard/beta/regfile_system/regfile/SR[0]                                 |               21 |             32 |         1.52 |
+|  D_s_q_BUFG    | beta_manual/motherboard/memory_unit/instruction_memory/ram_reg_118[0]                    | beta_manual/motherboard/beta/regfile_system/regfile/SR[0]                                 |               23 |             32 |         1.39 |
+|  D_s_q_BUFG    | beta_manual/motherboard/memory_unit/instruction_memory/ram_reg_102[0]                    | beta_manual/motherboard/beta/regfile_system/regfile/SR[0]                                 |               16 |             32 |         2.00 |
+|  D_s_q_BUFG    | beta_manual/motherboard/memory_unit/instruction_memory/ram_reg_117[0]                    | beta_manual/motherboard/beta/regfile_system/regfile/SR[0]                                 |               16 |             32 |         2.00 |
+|  D_s_q_BUFG    | beta_manual/motherboard/memory_unit/instruction_memory/ram_reg_98[0]                     | beta_manual/motherboard/beta/regfile_system/regfile/SR[0]                                 |               19 |             32 |         1.68 |
+|  D_s_q_BUFG    | beta_manual/motherboard/memory_unit/instruction_memory/ram_reg_116[0]                    | beta_manual/motherboard/beta/regfile_system/regfile/SR[0]                                 |               16 |             32 |         2.00 |
+|  D_s_q_BUFG    | beta_manual/motherboard/memory_unit/instruction_memory/ram_reg_121[0]                    | beta_manual/motherboard/beta/regfile_system/regfile/SR[0]                                 |               20 |             32 |         1.60 |
+|  D_s_q_BUFG    | beta_manual/motherboard/memory_unit/instruction_memory/ram_reg_126[0]                    | beta_manual/motherboard/beta/regfile_system/regfile/SR[0]                                 |               18 |             32 |         1.78 |
+|  D_s_q_BUFG    | beta_manual/motherboard/memory_unit/instruction_memory/ram_reg_120[0]                    | beta_manual/motherboard/beta/regfile_system/regfile/SR[0]                                 |               19 |             32 |         1.68 |
+|  D_s_q_BUFG    | beta_manual/motherboard/memory_unit/instruction_memory/ram_reg_124[0]                    | beta_manual/motherboard/beta/regfile_system/regfile/SR[0]                                 |               16 |             32 |         2.00 |
+|  D_s_q_BUFG    | beta_manual/motherboard/memory_unit/instruction_memory/ram_reg_119[0]                    | beta_manual/motherboard/beta/regfile_system/regfile/SR[0]                                 |               21 |             32 |         1.52 |
+|  D_s_q_BUFG    | beta_manual/motherboard/memory_unit/instruction_memory/ram_reg_123[0]                    | beta_manual/motherboard/beta/regfile_system/regfile/SR[0]                                 |               18 |             32 |         1.78 |
+|  D_s_q_BUFG    | beta_manual/motherboard/memory_unit/instruction_memory/ram_reg_125[0]                    | beta_manual/motherboard/beta/regfile_system/regfile/SR[0]                                 |               17 |             32 |         1.88 |
+|  D_s_q_BUFG    | beta_manual/motherboard/memory_unit/instruction_memory/ram_reg_107[0]                    | beta_manual/motherboard/beta/regfile_system/regfile/SR[0]                                 |               16 |             32 |         2.00 |
+|  D_s_q_BUFG    | beta_manual/motherboard/memory_unit/instruction_memory/ram_reg_127[0]                    | beta_manual/motherboard/beta/regfile_system/regfile/SR[0]                                 |               16 |             32 |         2.00 |
+|  D_s_q_BUFG    |                                                                                          | reset_cond/Q[0]                                                                           |               14 |             42 |         3.00 |
++----------------+------------------------------------------------------------------------------------------+-------------------------------------------------------------------------------------------+------------------+----------------+--------------+
 
 

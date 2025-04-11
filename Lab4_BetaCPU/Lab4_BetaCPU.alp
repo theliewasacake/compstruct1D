@@ -220,12 +220,6 @@
             {
                 "file": {
                     "type": "Component",
-                    "path": "Constraints/alchitry.acf"
-                }
-            },
-            {
-                "file": {
-                    "type": "Component",
                     "path": "Constraints/io_v1_pulldown.acf"
                 }
             },
@@ -233,6 +227,12 @@
                 "file": {
                     "type": "DiskFile",
                     "path": "constraint/br_constraints_pinout.acf"
+                }
+            },
+            {
+                "file": {
+                    "type": "DiskFile",
+                    "path": "constraint/alchitry.acf"
                 }
             }
         ],

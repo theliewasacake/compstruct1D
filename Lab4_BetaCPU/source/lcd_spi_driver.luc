@@ -22,10 +22,12 @@ module lcd_spi_driver (
     }
     sig spi_clock
     always {
-        if(enable && ~active.q){
+        if(enable){
             active.d = 1
-            dcx_in_dff.d = dcx_in
-            out_byte_cache.d = out_byte
+            if(~active.q){
+                dcx_in_dff.d = dcx_in
+                out_byte_cache.d = out_byte
+            }
         }
         if(active.q){
             clock_ctr.d = clock_ctr.q + 1
@@ -60,9 +62,6 @@ module lcd_spi_driver (
                     active.d = 0
                 }else{
                     next_byte = 0
-                }
-                if(clock_ctr.q == 14){
-                    next_byte = 1
                 }
                 dcx_out = dcx_in_dff.q
             }else{
