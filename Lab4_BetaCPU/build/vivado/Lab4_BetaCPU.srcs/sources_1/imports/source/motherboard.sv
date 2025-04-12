@@ -104,13 +104,13 @@ module motherboard (
     
     
     localparam MEMORY_SIZE = 10'h200;
-    localparam _MP_WORDS_1755375384 = 10'h200;
+    localparam _MP_WORDS_2133089017 = 10'h200;
     logic [8:0] M_instruction_unit_addr;
     logic [31:0] M_instruction_unit_out;
     logic [9:0] M_instruction_unit_numinstr;
     
     instruction_rom #(
-        .WORDS(_MP_WORDS_1755375384)
+        .WORDS(_MP_WORDS_2133089017)
     ) instruction_unit (
         .addr(M_instruction_unit_addr),
         .out(M_instruction_unit_out),
@@ -118,7 +118,7 @@ module motherboard (
     );
     
     
-    localparam _MP_WORDS_1685095565 = 10'h200;
+    localparam _MP_WORDS_2071364643 = 10'h200;
     logic [10:0] M_memory_unit_raddr;
     logic [10:0] M_memory_unit_waddr;
     logic [31:0] M_memory_unit_wd;
@@ -130,7 +130,7 @@ module motherboard (
     logic [31:0] M_memory_unit_id;
     
     memory_unit #(
-        .WORDS(_MP_WORDS_1685095565)
+        .WORDS(_MP_WORDS_2071364643)
     ) memory_unit (
         .clk(clk),
         .raddr(M_memory_unit_raddr),

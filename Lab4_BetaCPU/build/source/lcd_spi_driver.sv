@@ -53,10 +53,10 @@ module lcd_spi_driver (
                 D_bit_ptr_d = D_bit_ptr_q + 1'h1;
                 D_out_byte_cache_d = {D_out_byte_cache_q[6:1'h0], 1'h0};
             end
-            mosi = 1'h1;
+            mosi = 1'h0;
             if (D_mosi_enable_q) begin
-                if (~D_out_byte_cache_q[7]) begin
-                    mosi = 1'h0;
+                if (D_out_byte_cache_q[7]) begin
+                    mosi = 1'h1;
                 end
             end
             dcx_out = D_dcx_in_dff_q;

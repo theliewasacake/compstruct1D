@@ -13,8 +13,8 @@ module adder_32b (
         output reg n,
         output reg z
     );
-    logic [31:0] R_29b119fc_i;
-    logic [31:0] RR_29b119fc_i;
+    logic [31:0] R_2e8102d6_i;
+    logic [31:0] RR_2e8102d6_i;
     logic [7:0][3:0] M_adder_4b_a;
     logic [7:0][3:0] M_adder_4b_b;
     logic [7:0] M_adder_4b_c;
@@ -23,18 +23,18 @@ module adder_32b (
     logic [7:0] M_adder_4b_gg;
     logic [7:0] M_adder_4b_cg;
     
-    genvar idx_0_484209040;
+    genvar idx_0_700424710;
     
     generate
-        for (idx_0_484209040 = 0; idx_0_484209040 < 8; idx_0_484209040 = idx_0_484209040 + 1) begin: forLoop_idx_0_484209040
+        for (idx_0_700424710 = 0; idx_0_700424710 < 8; idx_0_700424710 = idx_0_700424710 + 1) begin: forLoop_idx_0_700424710
             cl_4b_adder adder_4b (
-                .a(M_adder_4b_a[idx_0_484209040]),
-                .b(M_adder_4b_b[idx_0_484209040]),
-                .c(M_adder_4b_c[idx_0_484209040]),
-                .s(M_adder_4b_s[idx_0_484209040]),
-                .pg(M_adder_4b_pg[idx_0_484209040]),
-                .gg(M_adder_4b_gg[idx_0_484209040]),
-                .cg(M_adder_4b_cg[idx_0_484209040])
+                .a(M_adder_4b_a[idx_0_700424710]),
+                .b(M_adder_4b_b[idx_0_700424710]),
+                .c(M_adder_4b_c[idx_0_700424710]),
+                .s(M_adder_4b_s[idx_0_700424710]),
+                .pg(M_adder_4b_pg[idx_0_700424710]),
+                .gg(M_adder_4b_gg[idx_0_700424710]),
+                .cg(M_adder_4b_cg[idx_0_700424710])
             );
         end
     endgenerate
@@ -50,16 +50,16 @@ module adder_32b (
         out = 1'h0;
         z = 1'h0;
         n = 1'h0;
-        for (RR_29b119fc_i = 0; RR_29b119fc_i < 4'h8; RR_29b119fc_i = RR_29b119fc_i + 1) begin
-      R_29b119fc_i = (0) + RR_29b119fc_i * (1);
-            M_adder_4b_a[R_29b119fc_i] = a[R_29b119fc_i * 3'h4+:3'h4];
-            M_adder_4b_b[R_29b119fc_i] = xb[R_29b119fc_i * 3'h4+:3'h4];
-            if (R_29b119fc_i == 1'h0) begin
-                ci2[R_29b119fc_i] = alufn[1'h0];
+        for (RR_2e8102d6_i = 0; RR_2e8102d6_i < 4'h8; RR_2e8102d6_i = RR_2e8102d6_i + 1) begin
+      R_2e8102d6_i = (0) + RR_2e8102d6_i * (1);
+            M_adder_4b_a[R_2e8102d6_i] = a[R_2e8102d6_i * 3'h4+:3'h4];
+            M_adder_4b_b[R_2e8102d6_i] = xb[R_2e8102d6_i * 3'h4+:3'h4];
+            if (R_2e8102d6_i == 1'h0) begin
+                ci2[R_2e8102d6_i] = alufn[1'h0];
             end else begin
-                ci2[R_29b119fc_i] = M_adder_4b_gg[R_29b119fc_i - 1'h1] | (M_adder_4b_pg[R_29b119fc_i - 1'h1] & ci2[R_29b119fc_i - 1'h1]);
+                ci2[R_2e8102d6_i] = M_adder_4b_gg[R_2e8102d6_i - 1'h1] | (M_adder_4b_pg[R_2e8102d6_i - 1'h1] & ci2[R_2e8102d6_i - 1'h1]);
             end
-            M_adder_4b_c[R_29b119fc_i] = ci2[R_29b119fc_i];
+            M_adder_4b_c[R_2e8102d6_i] = ci2[R_2e8102d6_i];
         end
         t = M_adder_4b_s;
         v = (a[31] & xb[31] & ~t[31]) | (~a[31] & ~xb[31] & t[31]);

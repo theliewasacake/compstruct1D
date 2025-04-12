@@ -45,10 +45,10 @@ module lcd_spi_driver (
                 bit_ptr.d = bit_ptr.q + 1// move to next bit
                 out_byte_cache.d = c{out_byte_cache.q[-2:0], 0}
             }
-            mosi = 1
+            mosi = 0
             if(mosi_enable.q){
-                if(~out_byte_cache.q[-1]){
-                    mosi = 0
+                if(out_byte_cache.q[-1]){
+                    mosi = 1
                 }
             }
             dcx_out = dcx_in_dff.q

@@ -20,12 +20,12 @@ module alchitry_top (
         input wire [2:0][7:0] io_dip
     );
     logic rst;
-    localparam _MP_STAGES_16128929 = 3'h4;
+    localparam _MP_STAGES_1659909235 = 3'h4;
     logic M_reset_cond_in;
     logic M_reset_cond_out;
     
     reset_conditioner #(
-        .STAGES(_MP_STAGES_16128929)
+        .STAGES(_MP_STAGES_1659909235)
     ) reset_cond (
         .clk(clk),
         .in(M_reset_cond_in),
@@ -35,7 +35,7 @@ module alchitry_top (
     
     logic D_s_d, D_s_q = 0;
     localparam CLK_FREQ = 23'h4c4b40;
-    localparam _MP_CLK_FREQ_117877944 = 23'h4c4b40;
+    localparam _MP_CLK_FREQ_1384680469 = 23'h4c4b40;
     logic M_beta_manual_clk;
     logic M_beta_manual_acc_in;
     logic [2:0] M_beta_manual_acc;
@@ -46,7 +46,7 @@ module alchitry_top (
     logic [3:0] M_beta_manual_io_select;
     
     beta_manual_tester #(
-        .CLK_FREQ(_MP_CLK_FREQ_117877944)
+        .CLK_FREQ(_MP_CLK_FREQ_1384680469)
     ) beta_manual (
         .rst(rst),
         .io_button(io_button),

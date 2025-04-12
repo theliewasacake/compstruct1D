@@ -9,56 +9,103 @@ module instruction_rom #(
     // Driver code, the bottommost instruction is the first instruction
     // CHECKOFF: write your own test instruction fulfilling the requirements written in the lab handout
     const INSTRUCTIONS = {
-        32h7BE3FFFB, // 0x010 BNE(R3, main, R31) 
-        32h607F0020, // 0x00C LD(R31, 32, R3) 
-        32h643F0020, // 0x008 ST(R1, 32, R31)
-        32h90410800, // 0x004 CMPEQ(R1, R1, R2) 
-        32hC03F0003, // 0x000 ADDC(R31, 3, R1) --- main
+        c{6b011110,5d05, 5d03,16hFFE1}, //BNE R3, -1, R5
+        c{6b110000,5d05, 5d31,16h0001}, //ADDC
         c{6b000000,5d31, 5d19, 5d19, 11d0}, //NOP
         //control logic to fill
-        c{6b011110,5d31, 5d03,16hFFFA}, //BNE R4, -6, R31
+        c{6b011110,5d05, 5d03,16hFFF9}, //BNE R3, -7, R5
         //draw one pixel
         c{6b011010,5d31, 5d31, 5d19, 11d0}, //SPIWR 
-        c{6b110000,5d19, 5d31,16h0100}, //ADDC
+        c{6b110000,5d19, 5d31,16h011F}, //ADDC
         c{6b011010,5d31, 5d19, 5d19, 11d2}, //SPIWR 
         c{6b110000,5d19, 5d31,16h01F8}, //ADDC 
         //decrement
-        c{6b110001,5d03, 5d03,16h0001}, //SUBC R3<<R3-1
+        c{6b110000,5d03, 5d04,16h0000}, //ADDC R3<<R4
+        c{6b110001,5d04, 5d03,16h0001}, //SUBC R4<<R3-1
         // setup counter
-        c{6b110010,5d03, 5d02,16d480}, //MULC R3<<(480*R2)
-        c{6b110000,5d02, 5d31,16d320}, //ADDC R2<<(320+R31) 
+        c{6b110000,5d03, 5d31,16h0009}, //ADDC R2<<(9) 
         //init write
         c{6b011010,5d31, 5d31, 5d19, 11d0}, //SPIWR 
         c{6b110000,5d19, 5d31,16h002C}, //ADDC RAMWR
+        
+        //control logic to fill
+        c{6b011110,5d05, 5d03,16hFFFD}, //BNE R3, -4, R5
+        //NOP WAIT
+        c{6b000000,5d31, 5d19, 5d19, 11d0}, //NOP
+        //decrement
+        //c{6b110000,5d03, 5d04,16h0000}, //ADDC R3<<R4
+        c{6b110001,5d03, 5d03,16h0001}, //SUBC R4<<R3-1
+        // setup counter
+        c{6b110000,5d03, 5d31,16h0020}, //ADDC R2<<(0x20) 
+        
         c{6b011010,5d31, 5d31, 5d19, 11d0}, //SPIWR 
-        c{6b110000,5d19, 5d31,16h00111}, //ADDC
-        c{6b011010,5d31, 5d19, 5d19, 11d2}, //SPIWR 
+        c{6b110000,5d19, 5d31,16h0102}, //ADDC
+        c{6b011010,5d31, 5d31, 5d19, 11d0}, //SPIWR 
         c{6b110000,5d19, 5d31,16h0100}, //ADDC 
-        c{6b011010,5d31, 5d31, 5d19, 11d0}, //SPIWR 
-        c{6b110000,5d19, 5d31,16h0110}, //ADDC 
-        c{6b011010,5d31, 5d31, 5d19, 11d0}, //SPIWR 
+        c{6b011010,5d31, 5d19, 5d19, 11d0}, //SPIWR 
         c{6b110000,5d19, 5d31,16h0100}, //ADDC 
-        c{6b011010,5d31, 5d19, 5d19, 11d2}, //SPIWR 
-        c{6b110000,5d19, 5d31,16h002B}, //ADDC RASET
-        c{6b011010,5d31, 5d31, 5d19, 11d0}, //SPIWR 
-        c{6b110000,5d19, 5d31,16h01011}, //ADDC
-        c{6b011010,5d31, 5d31, 5d19, 11d0}, //SPIWR 
-        c{6b110000,5d19, 5d31,16h0100}, //ADDC 
-        c{6b011010,5d31, 5d19, 5d19, 11d2}, //SPIWR 
-        c{6b110000,5d19, 5d31,16h0110}, //ADDC 
         c{6b011010,5d31, 5d31, 5d19, 11d0}, //SPIWR 
         c{6b110000,5d19, 5d31,16h0100}, //ADDC 
         c{6b011010,5d31, 5d31, 5d19, 11d0}, //SPIWR 
         c{6b110000,5d19, 5d31,16h002A}, //ADDC CASET
+        
+        //control logic to fill
+        c{6b011110,5d05, 5d03,16hFFFC}, //BNE R3, -4, R5
+        //NOP WAIT
+        c{6b000000,5d31, 5d19, 5d19, 11d0}, //NOP
+        //decrement
+        c{6b110000,5d03, 5d04,16h0000}, //ADDC R3<<R4
+        c{6b110001,5d04, 5d03,16h0001}, //SUBC R4<<R3-1
+        // setup counter
+        c{6b110000,5d03, 5d31,16h0020}, //ADDC R2<<(0x20)    
+            
+        c{6b011010,5d31, 5d31, 5d19, 11d0}, //SPIWR 
+        c{6b110000,5d19, 5d31,16h0102}, //ADDC
+        c{6b011010,5d31, 5d19, 5d19, 11d0}, //SPIWR 
+        c{6b110000,5d19, 5d31,16h0100}, //ADDC 
+        c{6b011010,5d31, 5d31, 5d19, 11d0}, //SPIWR 
+        c{6b110000,5d19, 5d31,16h0100}, //ADDC 
+        c{6b011010,5d31, 5d31, 5d19, 11d0}, //SPIWR 
+        c{6b110000,5d19, 5d31,16h0100}, //ADDC 
+        c{6b011010,5d31, 5d19, 5d19, 11d0}, //SPIWR 
+        c{6b110000,5d19, 5d31,16h002B}, //ADDC RASET
+        
+        //control logic to fill
+        c{6b011110,5d05, 5d03,16hFFFA}, //BNE R3, -7, R5
+        //draw one pixel
+        c{6b011010,5d31, 5d31, 5d19, 11d0}, //SPIWR 
+        c{6b110000,5d19, 5d31,16h0100}, //ADDC
         c{6b011010,5d31, 5d19, 5d19, 11d2}, //SPIWR 
+        c{6b110000,5d19, 5d31,16h0100}, //ADDC 
+        //decrement
+        c{6b110000,5d03, 5d04,16h0000}, //ADDC R3<<R4
+        c{6b110001,5d04, 5d03,16h0001}, //SUBC R4<<R3-1
+        // setup counter
+        c{6b110010,5d03, 5d03,16d0480}, //MULC R3<<480 
+        c{6b110000,5d03, 5d31,16d0320}, //ADDC R3<<0d320 
+        //init write
+        c{6b011010,5d31, 5d31, 5d19, 11d0}, //SPIWR 
+        c{6b110000,5d19, 5d31,16h002C}, //ADDC RAMWR
+        
+        //control logic to fill
+        c{6b011110,5d05, 5d03,16hFFFC}, //BNE R3, -4, R5
+        //NOP WAIT
+        c{6b000000,5d31, 5d19, 5d19, 11d0}, //NOP
+        //decrement
+        c{6b110000,5d03, 5d04,16h0000}, //ADDC R3<<R4
+        c{6b110001,5d04, 5d03,16h0001}, //SUBC R4<<R3-1
+        // setup counter
+        c{6b110000,5d03, 5d31,16h0020}, //ADDC R3<<(0x20) 
+        
+        c{6b011010,5d31, 5d19, 5d19, 11d0}, //SPIWR 
         c{6b110000,5d19, 5d31,16h0029}, //ADDC LCD_ON
         c{6b011010,5d31, 5d31, 5d19, 11d0}, //SPIWR 
         c{6b110000,5d19, 5d31,16h0155}, //ADDC PIXFMT PARAM
         c{6b011010,5d31, 5d31, 5d19, 11d0}, //SPIWR 
         c{6b110000,5d19, 5d31,16h003A}, //ADDC PIXFMT
-        c{6b011010,5d31, 5d19, 5d19, 11d2}, //SPIWR 
+        c{6b011010,5d31, 5d19, 5d19, 11d0}, //SPIWR 
         c{6b110000,5d19, 5d31,16h0148}, //ADDC MADCTL PARAM
-        c{6b011010,5d31, 5d19, 5d19, 11d1}, //SPIWR
+        c{6b011010,5d31, 5d19, 5d19, 11d0}, //SPIWR
         c{6b110000,5d19, 5d31,16h0036}, //ADDC MADCTL
         c{6b011010,5d31, 5d19, 5d19, 11d0}, //SPIWR 
         c{6b110000,5d19, 5d31,16h0011}, //ADDC LCD WAKE
