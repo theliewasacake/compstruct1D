@@ -35,7 +35,6 @@ module motherboard (
     enum MotherboardStates {INSTRUCTIONLOAD, RUN, LOAD_OUTPUT, DISPLAY_OUTPUT, UPDATE_INPUT}
     dff motherboard[$width(MotherboardStates)](.clk(clk), .rst(rst), #INIT(MotherboardStates.INSTRUCTIONLOAD))
     
-    
     always {      
         instruction_unit.addr = 0 // always set to 0 initially
         beta.irq = |irq // IRQ as long as any of of the buttons[2:0] is pressed

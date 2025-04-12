@@ -11,15 +11,15 @@ module instruction_rom #(
         output reg [31:0] out,
         output reg [9:0] numinstr
     );
-    localparam logic [56:0][31:0] INSTRUCTIONS = {{32'h7be3fffb, 32'h607f0020, 32'h643f0020, 32'h90410800, 32'hc03f0003, 32'h3f39800, 32'h6bff9800, 32'hc27f0000, 32'h6bf39802, 32'hc27f00f8, 32'h6bff9800, 32'hc27f0000, 32'h6bff9800, 32'hc27f00f8, 32'h6bf39802, 32'hc27f0000, 32'h6bff9800, 32'hc27f00f8, 32'h6bff9800, 32'hc27f0000, 32'h6bf39802, 32'hc27f00f8, 32'h6bff9800, 32'hc27f012c, 32'h6bff9800, 32'hc27f0011, 32'h6bf39802, 32'hc27f0000, 32'h6bff9800, 32'hc27f0010, 32'h6bff9800, 32'hc27f0000, 32'h6bf39802, 32'hc27f012b, 32'h6bff9800, 32'hc27f0011, 32'h6bff9800, 32'hc27f0000, 32'h6bf39802, 32'hc27f0010, 32'h6bff9800, 32'hc27f0000, 32'h6bff9800, 32'hc27f012a, 32'h6bf39802, 32'hc27f0129, 32'h6bff9800, 32'hc27f0055, 32'h6bff9800, 32'hc27f013a, 32'h6bf39802, 32'hc27f0048, 32'h6bf39801, 32'hc27f0136, 32'h6bf39800, 32'hc27f0111, 32'h3f39800}};
-    localparam NUM_OF_INSTRUCTIONS = 6'h39;
+    localparam logic [48:0][31:0] INSTRUCTIONS = {{32'h7be3fffb, 32'h607f0020, 32'h643f0020, 32'h90410800, 32'hc03f0003, 32'h3f39800, 32'h7be3fffa, 32'h6bff9800, 32'hc27f0100, 32'h6bf39802, 32'hc27f01f8, 32'hc4630001, 32'hc86201e0, 32'hc05f0140, 32'h6bff9800, 32'hc27f002c, 32'h6bff9800, 32'hc27f0111, 32'h6bf39802, 32'hc27f0100, 32'h6bff9800, 32'hc27f0110, 32'h6bff9800, 32'hc27f0100, 32'h6bf39802, 32'hc27f002b, 32'h6bff9800, 32'hc27f1011, 32'h6bff9800, 32'hc27f0100, 32'h6bf39802, 32'hc27f0110, 32'h6bff9800, 32'hc27f0100, 32'h6bff9800, 32'hc27f002a, 32'h6bf39802, 32'hc27f0029, 32'h6bff9800, 32'hc27f0155, 32'h6bff9800, 32'hc27f003a, 32'h6bf39802, 32'hc27f0148, 32'h6bf39801, 32'hc27f0036, 32'h6bf39800, 32'hc27f0011, 32'h3f39800}};
+    localparam NUM_OF_INSTRUCTIONS = 6'h31;
     always @* begin
-        if (addr < 6'h39) begin
+        if (addr < 6'h31) begin
             out = INSTRUCTIONS[addr];
         end else begin
             out = 1'h0;
         end
-        numinstr = 6'h39;
+        numinstr = 6'h31;
     end
     
     

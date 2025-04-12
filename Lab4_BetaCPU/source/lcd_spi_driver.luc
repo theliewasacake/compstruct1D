@@ -34,10 +34,6 @@ module lcd_spi_driver (
             spi_clock = clock_ctr.q[-1]    // 8 clock cycles high 8 clock cycles low, 160ns clock period
             scl = spi_clock
             csx = 0
-            if(bit_ptr.q==0 && clock_ctr.q==0){
-                //dcx_in_dff.d = dcx_in
-                //out_byte_cache.d = out_byte
-            }
             if(clock_ctr.q == 5){    //3 FPGA clock cycle before SPI clock rising edge
                 mosi_enable.d = !mosi_enable.q    //flip mosi signal enable
             }
@@ -49,12 +45,13 @@ module lcd_spi_driver (
                 bit_ptr.d = bit_ptr.q + 1// move to next bit
                 out_byte_cache.d = c{out_byte_cache.q[-2:0], 0}
             }
-            mosi = 0
+            mosi = 1
             if(mosi_enable.q){
-                if(out_byte_cache.q[-1]){
-                    mosi = 1
+                if(~out_byte_cache.q[-1]){
+                    mosi = 0
                 }
             }
+            dcx_out = dcx_in_dff.q
             if(bit_ptr.q == 7){
                 
                 if(&clock_ctr.q){
@@ -63,9 +60,9 @@ module lcd_spi_driver (
                 }else{
                     next_byte = 0
                 }
-                dcx_out = dcx_in_dff.q
+                //dcx_out = dcx_in_dff.q
             }else{
-                dcx_out = 0
+                //dcx_out = 0
                 next_byte = 0
             }
         }else{

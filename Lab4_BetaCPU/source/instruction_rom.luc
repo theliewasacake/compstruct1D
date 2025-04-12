@@ -14,60 +14,55 @@ module instruction_rom #(
         32h643F0020, // 0x008 ST(R1, 32, R31)
         32h90410800, // 0x004 CMPEQ(R1, R1, R2) 
         32hC03F0003, // 0x000 ADDC(R31, 3, R1) --- main
-        
         c{6b000000,5d31, 5d19, 5d19, 11d0}, //NOP
+        //control logic to fill
+        c{6b011110,5d31, 5d03,16hFFFA}, //BNE R4, -6, R31
+        //draw one pixel
         c{6b011010,5d31, 5d31, 5d19, 11d0}, //SPIWR 
-        c{6b110000,5d19, 5d31,16h00000}, //ADDC
+        c{6b110000,5d19, 5d31,16h0100}, //ADDC
         c{6b011010,5d31, 5d19, 5d19, 11d2}, //SPIWR 
-        c{6b110000,5d19, 5d31,16h00F8}, //ADDC 
+        c{6b110000,5d19, 5d31,16h01F8}, //ADDC 
+        //decrement
+        c{6b110001,5d03, 5d03,16h0001}, //SUBC R3<<R3-1
+        // setup counter
+        c{6b110010,5d03, 5d02,16d480}, //MULC R3<<(480*R2)
+        c{6b110000,5d02, 5d31,16d320}, //ADDC R2<<(320+R31) 
+        //init write
         c{6b011010,5d31, 5d31, 5d19, 11d0}, //SPIWR 
-        c{6b110000,5d19, 5d31,16h0000}, //ADDC ya
+        c{6b110000,5d19, 5d31,16h002C}, //ADDC RAMWR
         c{6b011010,5d31, 5d31, 5d19, 11d0}, //SPIWR 
-        c{6b110000,5d19, 5d31,16h00F8}, //ADDC 
+        c{6b110000,5d19, 5d31,16h00111}, //ADDC
         c{6b011010,5d31, 5d19, 5d19, 11d2}, //SPIWR 
-        c{6b110000,5d19, 5d31,16h00000}, //ADDC 
+        c{6b110000,5d19, 5d31,16h0100}, //ADDC 
         c{6b011010,5d31, 5d31, 5d19, 11d0}, //SPIWR 
-        c{6b110000,5d19, 5d31,16h00F8}, //ADDC 
+        c{6b110000,5d19, 5d31,16h0110}, //ADDC 
         c{6b011010,5d31, 5d31, 5d19, 11d0}, //SPIWR 
-        c{6b110000,5d19, 5d31,16h0000}, //ADDC 
+        c{6b110000,5d19, 5d31,16h0100}, //ADDC 
         c{6b011010,5d31, 5d19, 5d19, 11d2}, //SPIWR 
-        c{6b110000,5d19, 5d31,16h00F8}, //ADDC 
+        c{6b110000,5d19, 5d31,16h002B}, //ADDC RASET
         c{6b011010,5d31, 5d31, 5d19, 11d0}, //SPIWR 
-        c{6b110000,5d19, 5d31,16h012C}, //ADDC RAMWR
+        c{6b110000,5d19, 5d31,16h01011}, //ADDC
         c{6b011010,5d31, 5d31, 5d19, 11d0}, //SPIWR 
-        c{6b110000,5d19, 5d31,16h00011}, //ADDC
+        c{6b110000,5d19, 5d31,16h0100}, //ADDC 
         c{6b011010,5d31, 5d19, 5d19, 11d2}, //SPIWR 
-        c{6b110000,5d19, 5d31,16h0000}, //ADDC 
+        c{6b110000,5d19, 5d31,16h0110}, //ADDC 
         c{6b011010,5d31, 5d31, 5d19, 11d0}, //SPIWR 
-        c{6b110000,5d19, 5d31,16h0010}, //ADDC 
+        c{6b110000,5d19, 5d31,16h0100}, //ADDC 
         c{6b011010,5d31, 5d31, 5d19, 11d0}, //SPIWR 
-        c{6b110000,5d19, 5d31,16h0000}, //ADDC 
+        c{6b110000,5d19, 5d31,16h002A}, //ADDC CASET
         c{6b011010,5d31, 5d19, 5d19, 11d2}, //SPIWR 
-        c{6b110000,5d19, 5d31,16h012B}, //ADDC RASET
+        c{6b110000,5d19, 5d31,16h0029}, //ADDC LCD_ON
         c{6b011010,5d31, 5d31, 5d19, 11d0}, //SPIWR 
-        c{6b110000,5d19, 5d31,16h00011}, //ADDC
+        c{6b110000,5d19, 5d31,16h0155}, //ADDC PIXFMT PARAM
         c{6b011010,5d31, 5d31, 5d19, 11d0}, //SPIWR 
-        c{6b110000,5d19, 5d31,16h0000}, //ADDC 
+        c{6b110000,5d19, 5d31,16h003A}, //ADDC PIXFMT
         c{6b011010,5d31, 5d19, 5d19, 11d2}, //SPIWR 
-        c{6b110000,5d19, 5d31,16h0010}, //ADDC 
-        c{6b011010,5d31, 5d31, 5d19, 11d0}, //SPIWR 
-        c{6b110000,5d19, 5d31,16h0000}, //ADDC 
-        c{6b011010,5d31, 5d31, 5d19, 11d0}, //SPIWR 
-        c{6b110000,5d19, 5d31,16h012A}, //ADDC CASET
-        c{6b011010,5d31, 5d19, 5d19, 11d2}, //SPIWR 
-        c{6b110000,5d19, 5d31,16h0129}, //ADDC LCD_ON
-        c{6b011010,5d31, 5d31, 5d19, 11d0}, //SPIWR 
-        c{6b110000,5d19, 5d31,16h0055}, //ADDC PIXFMT PARAM
-        c{6b011010,5d31, 5d31, 5d19, 11d0}, //SPIWR 
-        c{6b110000,5d19, 5d31,16h013A}, //ADDC PIXFMT
-        
-        c{6b011010,5d31, 5d19, 5d19, 11d2}, //SPIWR 
-        c{6b110000,5d19, 5d31,16h0048}, //ADDC MADCTL PARAM
+        c{6b110000,5d19, 5d31,16h0148}, //ADDC MADCTL PARAM
         c{6b011010,5d31, 5d19, 5d19, 11d1}, //SPIWR
-        c{6b110000,5d19, 5d31,16h0136}, //ADDC MADCTL
+        c{6b110000,5d19, 5d31,16h0036}, //ADDC MADCTL
         c{6b011010,5d31, 5d19, 5d19, 11d0}, //SPIWR 
-        c{6b110000,5d19, 5d31,16h0111}, //ADDC LCD WAKE
-        c{6b000000,5d31, 5d19, 5d19, 11d0} //NOP
+        c{6b110000,5d19, 5d31,16h0011}, //ADDC LCD WAKE
+        c{6b000000,5d31, 5d19, 5d19, 11d0} //NOP 0x000
     }
     
     const NUM_OF_INSTRUCTIONS = $width(INSTRUCTIONS,0) // compute how many instructions are there

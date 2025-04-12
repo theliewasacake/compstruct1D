@@ -13,8 +13,8 @@ module cl_4b_adder (
         output reg gg,
         output reg cg
     );
-    logic [31:0] R_3393192d_i;
-    logic [31:0] RR_3393192d_i;
+    logic [31:0] R_3293f9f6_i;
+    logic [31:0] RR_3293f9f6_i;
     logic [3:0] M_partial_a;
     logic [3:0] M_partial_b;
     logic [3:0] M_partial_c;
@@ -22,17 +22,17 @@ module cl_4b_adder (
     logic [3:0] M_partial_p;
     logic [3:0] M_partial_g;
     
-    genvar idx_0_794865875;
+    genvar idx_0_436004638;
     
     generate
-        for (idx_0_794865875 = 0; idx_0_794865875 < 4; idx_0_794865875 = idx_0_794865875 + 1) begin: forLoop_idx_0_794865875
+        for (idx_0_436004638 = 0; idx_0_436004638 < 4; idx_0_436004638 = idx_0_436004638 + 1) begin: forLoop_idx_0_436004638
             partial_cl_adder partial (
-                .a(M_partial_a[idx_0_794865875]),
-                .b(M_partial_b[idx_0_794865875]),
-                .c(M_partial_c[idx_0_794865875]),
-                .s(M_partial_s[idx_0_794865875]),
-                .p(M_partial_p[idx_0_794865875]),
-                .g(M_partial_g[idx_0_794865875])
+                .a(M_partial_a[idx_0_436004638]),
+                .b(M_partial_b[idx_0_436004638]),
+                .c(M_partial_c[idx_0_436004638]),
+                .s(M_partial_s[idx_0_436004638]),
+                .p(M_partial_p[idx_0_436004638]),
+                .g(M_partial_g[idx_0_436004638])
             );
         end
     endgenerate
@@ -40,16 +40,16 @@ module cl_4b_adder (
     
     logic [3:0] ci;
     always @* begin
-        for (RR_3393192d_i = 0; RR_3393192d_i < 3'h4; RR_3393192d_i = RR_3393192d_i + 1) begin
-      R_3393192d_i = (0) + RR_3393192d_i * (1);
-            M_partial_a[R_3393192d_i] = a[R_3393192d_i];
-            M_partial_b[R_3393192d_i] = b[R_3393192d_i];
-            if (R_3393192d_i == 1'h0) begin
-                ci[R_3393192d_i] = c;
+        for (RR_3293f9f6_i = 0; RR_3293f9f6_i < 3'h4; RR_3293f9f6_i = RR_3293f9f6_i + 1) begin
+      R_3293f9f6_i = (0) + RR_3293f9f6_i * (1);
+            M_partial_a[R_3293f9f6_i] = a[R_3293f9f6_i];
+            M_partial_b[R_3293f9f6_i] = b[R_3293f9f6_i];
+            if (R_3293f9f6_i == 1'h0) begin
+                ci[R_3293f9f6_i] = c;
             end else begin
-                ci[R_3393192d_i] = M_partial_g[R_3393192d_i - 1'h1] | (M_partial_p[R_3393192d_i - 1'h1] & ci[R_3393192d_i - 1'h1]);
+                ci[R_3293f9f6_i] = M_partial_g[R_3293f9f6_i - 1'h1] | (M_partial_p[R_3293f9f6_i - 1'h1] & ci[R_3293f9f6_i - 1'h1]);
             end
-            M_partial_c[R_3393192d_i] = ci[R_3393192d_i];
+            M_partial_c[R_3293f9f6_i] = ci[R_3293f9f6_i];
         end
         s = M_partial_s;
         pg = (&M_partial_p);

@@ -43,9 +43,6 @@ module lcd_spi_driver (
             spi_clock = D_clock_ctr_q[3];
             scl = spi_clock;
             csx = 1'h0;
-            if (D_bit_ptr_q == 1'h0 && D_clock_ctr_q == 1'h0) begin
-                
-            end
             if (D_clock_ctr_q == 3'h5) begin
                 D_mosi_enable_d = !D_mosi_enable_q;
             end
@@ -56,12 +53,13 @@ module lcd_spi_driver (
                 D_bit_ptr_d = D_bit_ptr_q + 1'h1;
                 D_out_byte_cache_d = {D_out_byte_cache_q[6:1'h0], 1'h0};
             end
-            mosi = 1'h0;
+            mosi = 1'h1;
             if (D_mosi_enable_q) begin
-                if (D_out_byte_cache_q[7]) begin
-                    mosi = 1'h1;
+                if (~D_out_byte_cache_q[7]) begin
+                    mosi = 1'h0;
                 end
             end
+            dcx_out = D_dcx_in_dff_q;
             if (D_bit_ptr_q == 3'h7) begin
                 if ((&D_clock_ctr_q)) begin
                     next_byte = 1'h1;
@@ -69,9 +67,7 @@ module lcd_spi_driver (
                 end else begin
                     next_byte = 1'h0;
                 end
-                dcx_out = D_dcx_in_dff_q;
             end else begin
-                dcx_out = 1'h0;
                 next_byte = 1'h0;
             end
         end else begin
