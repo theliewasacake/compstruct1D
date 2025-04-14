@@ -26,9 +26,9 @@ module control_unit (
         output reg acc_enable,
         output reg wr
     );
-    localparam logic [63:0][16:0] CU_ROM = {{17'he002, 17'h636, 17'h616, 17'h606, 17'he002, 17'h566, 17'h5e6, 17'h586, 17'he002, 17'h776, 17'h756, 17'h736, 17'he002, 17'h426, 17'h416, 17'h406, 17'he002, 17'h236, 17'h216, 17'h206, 17'he002, 17'h166, 17'h1e6, 17'h186, 17'he002, 17'h376, 17'h356, 17'h336, 17'he002, 17'h26, 17'h16, 17'h6, 17'h11aa, 17'h11a2, 17'h11a2, 17'h200e, 17'h91a2, 17'h2002, 17'hc01, 17'h40a, 17'he002, 17'he002, 17'he002, 17'he002, 17'he002, 17'he002, 17'he002, 17'he002, 17'he002, 17'he002, 17'he002, 17'he002, 17'he002, 17'he002, 17'he002, 17'he002, 17'he002, 17'he002, 17'he002, 17'he002, 17'he002, 17'he002, 17'he002, 17'h0}};
+    localparam logic [63:0][16:0] CU_ROM = {{17'he002, 17'h636, 17'h616, 17'h606, 17'he002, 17'h566, 17'h5e6, 17'h586, 17'he002, 17'h776, 17'h756, 17'h736, 17'h436, 17'h426, 17'h416, 17'h406, 17'he, 17'h236, 17'h216, 17'h206, 17'he002, 17'h166, 17'h1e6, 17'h186, 17'he002, 17'h376, 17'h356, 17'h336, 17'h36, 17'h26, 17'h16, 17'h6, 17'h11aa, 17'h11a2, 17'h11a2, 17'h240e, 17'h91a2, 17'h2002, 17'hc01, 17'h40a, 17'he002, 17'he002, 17'he002, 17'he002, 17'he002, 17'he002, 17'he002, 17'he002, 17'he002, 17'he002, 17'he002, 17'he002, 17'he002, 17'he002, 17'he002, 17'he002, 17'he002, 17'he002, 17'he002, 17'he002, 17'he002, 17'he002, 17'he002, 17'h0}};
     logic D_irq_sampler_d, D_irq_sampler_q = 1'h0;
-    logic D_acc_wait_d, D_acc_wait_q = 1'h0;
+    logic D_acc_wait_d, D_acc_wait_q = 1'h1;
     always @* begin
         D_irq_sampler_d = D_irq_sampler_q;
         D_acc_wait_d = D_acc_wait_q;
@@ -90,7 +90,7 @@ module control_unit (
                 pcsel = 3'h5;
                 wasel = 1'h0;
                 asel = 1'h0;
-                ra2sel = 1'h0;
+                ra2sel = 1'h1;
                 bsel = 1'h0;
                 alufn = 1'h0;
                 wdsel = 1'h0;

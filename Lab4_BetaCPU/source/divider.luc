@@ -1,0 +1,11 @@
+module divider #(
+    WIDTH = 32
+) (
+    input a[WIDTH],         // 32-bit input a
+    input b[WIDTH],         // 32-bit input b
+    output div[WIDTH]       // 32-bit output mul
+) {
+    always {
+        div = a*b
+    }
+}

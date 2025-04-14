@@ -3,8 +3,8 @@
 # SW Build 5239630 on Fri Nov 08 22:35:27 MST 2024
 # IP Build 5239520 on Sun Nov 10 16:12:51 MST 2024
 # SharedData Build 5239561 on Fri Nov 08 14:39:27 MST 2024
-# Start of session at: Sun Apr 13 01:53:19 2025
-# Process ID         : 22720
+# Start of session at: Mon Apr 14 16:42:44 2025
+# Process ID         : 27108
 # Current directory  : C:/Users/jc050/Documents/SUTD/50.002/1DPROJECT/Lab4_BetaCPU/build/vivado/Lab4_BetaCPU.runs/synth_1
 # Command line       : vivado.exe -log alchitry_top.vds -product Vivado -mode batch -messageDb vivado.pb -notrace -source alchitry_top.tcl
 # Log file           : C:/Users/jc050/Documents/SUTD/50.002/1DPROJECT/Lab4_BetaCPU/build/vivado/Lab4_BetaCPU.runs/synth_1/alchitry_top.vds
@@ -19,7 +19,7 @@
 # Host memory        : 33685 MB
 # Swap memory        : 2147 MB
 # Total Virtual      : 35833 MB
-# Available Virtual  : 14718 MB
+# Available Virtual  : 8949 MB
 #-----------------------------------------------------------
 source alchitry_top.tcl -notrace
 Command: synth_design -top alchitry_top -part xc7a35tftg256-1
@@ -29,18 +29,18 @@ INFO: [Common 17-349] Got license for feature 'Synthesis' and/or device 'xc7a35t
 INFO: [Device 21-403] Loading part xc7a35tftg256-1
 INFO: [Synth 8-7079] Multithreading enabled for synth_design using a maximum of 2 processes.
 INFO: [Synth 8-7078] Launching helper process for spawning children vivado processes
-INFO: [Synth 8-7075] Helper process launched with PID 25084
+INFO: [Synth 8-7075] Helper process launched with PID 28328
 ---------------------------------------------------------------------------------
-Starting RTL Elaboration : Time (s): cpu = 00:00:03 ; elapsed = 00:00:03 . Memory (MB): peak = 947.758 ; gain = 466.105
+Starting RTL Elaboration : Time (s): cpu = 00:00:03 ; elapsed = 00:00:03 . Memory (MB): peak = 948.762 ; gain = 467.043
 ---------------------------------------------------------------------------------
 INFO: [Synth 8-6157] synthesizing module 'alchitry_top' [C:/Users/jc050/Documents/SUTD/50.002/1DPROJECT/Lab4_BetaCPU/build/vivado/Lab4_BetaCPU.srcs/sources_1/imports/source/alchitry_top.sv:7]
 INFO: [Synth 8-6157] synthesizing module 'reset_conditioner' [C:/Users/jc050/Documents/SUTD/50.002/1DPROJECT/Lab4_BetaCPU/build/vivado/Lab4_BetaCPU.srcs/sources_1/imports/source/reset_conditioner.sv:7]
 	Parameter STAGES bound to: 3'b100 
 INFO: [Synth 8-6155] done synthesizing module 'reset_conditioner' (0#1) [C:/Users/jc050/Documents/SUTD/50.002/1DPROJECT/Lab4_BetaCPU/build/vivado/Lab4_BetaCPU.srcs/sources_1/imports/source/reset_conditioner.sv:7]
 INFO: [Synth 8-6157] synthesizing module 'beta_manual_tester' [C:/Users/jc050/Documents/SUTD/50.002/1DPROJECT/Lab4_BetaCPU/build/vivado/Lab4_BetaCPU.srcs/sources_1/imports/source/beta_manual_tester.sv:7]
-	Parameter CLK_FREQ bound to: 23'b10011000100101101000000 
+	Parameter CLK_FREQ bound to: 24'b100110001001011010000000 
 INFO: [Synth 8-6157] synthesizing module 'button_conditioner' [C:/Users/jc050/Documents/SUTD/50.002/1DPROJECT/Lab4_BetaCPU/build/vivado/Lab4_BetaCPU.srcs/sources_1/imports/source/button_conditioner.sv:7]
-	Parameter CLK_FREQ bound to: 5000000 - type: integer 
+	Parameter CLK_FREQ bound to: 10000000 - type: integer 
 	Parameter MIN_DELAY bound to: 5'b10100 
 	Parameter NUM_SYNC bound to: 2'b10 
 INFO: [Synth 8-6157] synthesizing module 'pipeline' [C:/Users/jc050/Documents/SUTD/50.002/1DPROJECT/Lab4_BetaCPU/build/vivado/Lab4_BetaCPU.srcs/sources_1/imports/source/pipeline.sv:7]
@@ -73,6 +73,9 @@ INFO: [Synth 8-6155] done synthesizing module 'compare' (0#1) [C:/Users/jc050/Do
 INFO: [Synth 8-6157] synthesizing module 'boolean' [C:/Users/jc050/Documents/SUTD/50.002/1DPROJECT/Lab4_BetaCPU/build/vivado/Lab4_BetaCPU.srcs/sources_1/imports/source/boolean.sv:7]
 	Parameter SIZE bound to: 6'b100000 
 INFO: [Synth 8-6155] done synthesizing module 'boolean' (0#1) [C:/Users/jc050/Documents/SUTD/50.002/1DPROJECT/Lab4_BetaCPU/build/vivado/Lab4_BetaCPU.srcs/sources_1/imports/source/boolean.sv:7]
+INFO: [Synth 8-6157] synthesizing module 'divider' [C:/Users/jc050/Documents/SUTD/50.002/1DPROJECT/Lab4_BetaCPU/build/vivado/Lab4_BetaCPU.srcs/sources_1/imports/source/divider.sv:7]
+	Parameter WIDTH bound to: 6'b100000 
+INFO: [Synth 8-6155] done synthesizing module 'divider' (0#1) [C:/Users/jc050/Documents/SUTD/50.002/1DPROJECT/Lab4_BetaCPU/build/vivado/Lab4_BetaCPU.srcs/sources_1/imports/source/divider.sv:7]
 INFO: [Synth 8-6157] synthesizing module 'shifter' [C:/Users/jc050/Documents/SUTD/50.002/1DPROJECT/Lab4_BetaCPU/build/vivado/Lab4_BetaCPU.srcs/sources_1/imports/source/shifter.sv:7]
 INFO: [Synth 8-6155] done synthesizing module 'shifter' (0#1) [C:/Users/jc050/Documents/SUTD/50.002/1DPROJECT/Lab4_BetaCPU/build/vivado/Lab4_BetaCPU.srcs/sources_1/imports/source/shifter.sv:7]
 INFO: [Synth 8-6157] synthesizing module 'multiplier' [C:/Users/jc050/Documents/SUTD/50.002/1DPROJECT/Lab4_BetaCPU/build/vivado/Lab4_BetaCPU.srcs/sources_1/imports/source/multiplier.sv:7]
@@ -93,8 +96,15 @@ INFO: [Synth 8-226] default block is never used [C:/Users/jc050/Documents/SUTD/5
 INFO: [Synth 8-6155] done synthesizing module 'beta_cpu' (0#1) [C:/Users/jc050/Documents/SUTD/50.002/1DPROJECT/Lab4_BetaCPU/build/vivado/Lab4_BetaCPU.srcs/sources_1/imports/source/beta_cpu.sv:7]
 INFO: [Synth 8-6157] synthesizing module 'lcd_spi_driver' [C:/Users/jc050/Documents/SUTD/50.002/1DPROJECT/Lab4_BetaCPU/build/vivado/Lab4_BetaCPU.srcs/sources_1/imports/source/lcd_spi_driver.sv:7]
 INFO: [Synth 8-6155] done synthesizing module 'lcd_spi_driver' (0#1) [C:/Users/jc050/Documents/SUTD/50.002/1DPROJECT/Lab4_BetaCPU/build/vivado/Lab4_BetaCPU.srcs/sources_1/imports/source/lcd_spi_driver.sv:7]
-INFO: [Synth 8-6157] synthesizing module 'accel_spi_driver' [C:/Users/jc050/Documents/SUTD/50.002/1DPROJECT/Lab4_BetaCPU/build/vivado/Lab4_BetaCPU.srcs/sources_1/imports/source/accel_spi_driver.sv:7]
-INFO: [Synth 8-6155] done synthesizing module 'accel_spi_driver' (0#1) [C:/Users/jc050/Documents/SUTD/50.002/1DPROJECT/Lab4_BetaCPU/build/vivado/Lab4_BetaCPU.srcs/sources_1/imports/source/accel_spi_driver.sv:7]
+INFO: [Synth 8-6157] synthesizing module 'counter' [C:/Users/jc050/Documents/SUTD/50.002/1DPROJECT/Lab4_BetaCPU/build/vivado/Lab4_BetaCPU.srcs/sources_1/imports/source/counter.sv:7]
+	Parameter SIZE bound to: 3'b101 
+	Parameter DIV bound to: 1'b0 
+	Parameter TOP bound to: 1'b0 
+	Parameter UP bound to: 1'b1 
+INFO: [Synth 8-6155] done synthesizing module 'counter' (0#1) [C:/Users/jc050/Documents/SUTD/50.002/1DPROJECT/Lab4_BetaCPU/build/vivado/Lab4_BetaCPU.srcs/sources_1/imports/source/counter.sv:7]
+INFO: [Synth 8-6157] synthesizing module 'pn_gen' [C:/Users/jc050/Documents/SUTD/50.002/1DPROJECT/Lab4_BetaCPU/build/vivado/Lab4_BetaCPU.srcs/sources_1/imports/source/pn_gen.sv:7]
+	Parameter SEED bound to: 33'b110010100001100001111010000011000 
+INFO: [Synth 8-6155] done synthesizing module 'pn_gen' (0#1) [C:/Users/jc050/Documents/SUTD/50.002/1DPROJECT/Lab4_BetaCPU/build/vivado/Lab4_BetaCPU.srcs/sources_1/imports/source/pn_gen.sv:7]
 INFO: [Synth 8-6157] synthesizing module 'instruction_rom' [C:/Users/jc050/Documents/SUTD/50.002/1DPROJECT/Lab4_BetaCPU/build/vivado/Lab4_BetaCPU.srcs/sources_1/imports/source/instruction_rom.sv:7]
 	Parameter WORDS bound to: 10'b1000000000 
 INFO: [Synth 8-6155] done synthesizing module 'instruction_rom' (0#1) [C:/Users/jc050/Documents/SUTD/50.002/1DPROJECT/Lab4_BetaCPU/build/vivado/Lab4_BetaCPU.srcs/sources_1/imports/source/instruction_rom.sv:7]
@@ -109,28 +119,28 @@ INFO: [Synth 8-6157] synthesizing module 'simple_dual_port_ram' [C:/Users/jc050/
 	Parameter ENTRIES bound to: 10'b1000000000 
 INFO: [Synth 8-6155] done synthesizing module 'simple_dual_port_ram' (0#1) [C:/Users/jc050/Documents/SUTD/50.002/1DPROJECT/Lab4_BetaCPU/build/vivado/Lab4_BetaCPU.srcs/sources_1/imports/source/simple_dual_port_ram.v:47]
 INFO: [Synth 8-6155] done synthesizing module 'memory_unit' (0#1) [C:/Users/jc050/Documents/SUTD/50.002/1DPROJECT/Lab4_BetaCPU/build/vivado/Lab4_BetaCPU.srcs/sources_1/imports/source/memory_unit.sv:7]
-INFO: [Synth 8-155] case statement is not full and has no default [C:/Users/jc050/Documents/SUTD/50.002/1DPROJECT/Lab4_BetaCPU/build/vivado/Lab4_BetaCPU.srcs/sources_1/imports/source/motherboard.sv:201]
+INFO: [Synth 8-155] case statement is not full and has no default [C:/Users/jc050/Documents/SUTD/50.002/1DPROJECT/Lab4_BetaCPU/build/vivado/Lab4_BetaCPU.srcs/sources_1/imports/source/motherboard.sv:208]
 INFO: [Synth 8-6155] done synthesizing module 'motherboard' (0#1) [C:/Users/jc050/Documents/SUTD/50.002/1DPROJECT/Lab4_BetaCPU/build/vivado/Lab4_BetaCPU.srcs/sources_1/imports/source/motherboard.sv:7]
 INFO: [Synth 8-6157] synthesizing module 'button_conditioner__parameterized0' [C:/Users/jc050/Documents/SUTD/50.002/1DPROJECT/Lab4_BetaCPU/build/vivado/Lab4_BetaCPU.srcs/sources_1/imports/source/button_conditioner.sv:7]
-	Parameter CLK_FREQ bound to: 23'b10011000100101101000000 
+	Parameter CLK_FREQ bound to: 24'b100110001001011010000000 
 	Parameter MIN_DELAY bound to: 5'b10100 
 	Parameter NUM_SYNC bound to: 2'b10 
 INFO: [Synth 8-6155] done synthesizing module 'button_conditioner__parameterized0' (0#1) [C:/Users/jc050/Documents/SUTD/50.002/1DPROJECT/Lab4_BetaCPU/build/vivado/Lab4_BetaCPU.srcs/sources_1/imports/source/button_conditioner.sv:7]
-INFO: [Synth 8-6157] synthesizing module 'counter' [C:/Users/jc050/Documents/SUTD/50.002/1DPROJECT/Lab4_BetaCPU/build/vivado/Lab4_BetaCPU.srcs/sources_1/imports/source/counter.sv:7]
+INFO: [Synth 8-6157] synthesizing module 'counter__parameterized0' [C:/Users/jc050/Documents/SUTD/50.002/1DPROJECT/Lab4_BetaCPU/build/vivado/Lab4_BetaCPU.srcs/sources_1/imports/source/counter.sv:7]
 	Parameter SIZE bound to: 5'b11100 
 	Parameter DIV bound to: 1'b0 
 	Parameter TOP bound to: 1'b0 
 	Parameter UP bound to: 1'b1 
-INFO: [Synth 8-6155] done synthesizing module 'counter' (0#1) [C:/Users/jc050/Documents/SUTD/50.002/1DPROJECT/Lab4_BetaCPU/build/vivado/Lab4_BetaCPU.srcs/sources_1/imports/source/counter.sv:7]
+INFO: [Synth 8-6155] done synthesizing module 'counter__parameterized0' (0#1) [C:/Users/jc050/Documents/SUTD/50.002/1DPROJECT/Lab4_BetaCPU/build/vivado/Lab4_BetaCPU.srcs/sources_1/imports/source/counter.sv:7]
 INFO: [Synth 8-6157] synthesizing module 'multi_seven_seg' [C:/Users/jc050/Documents/SUTD/50.002/1DPROJECT/Lab4_BetaCPU/build/vivado/Lab4_BetaCPU.srcs/sources_1/imports/source/multi_seven_seg.sv:7]
 	Parameter DIGITS bound to: 3'b100 
 	Parameter DIV bound to: 5'b10000 
-INFO: [Synth 8-6157] synthesizing module 'counter__parameterized0' [C:/Users/jc050/Documents/SUTD/50.002/1DPROJECT/Lab4_BetaCPU/build/vivado/Lab4_BetaCPU.srcs/sources_1/imports/source/counter.sv:7]
+INFO: [Synth 8-6157] synthesizing module 'counter__parameterized1' [C:/Users/jc050/Documents/SUTD/50.002/1DPROJECT/Lab4_BetaCPU/build/vivado/Lab4_BetaCPU.srcs/sources_1/imports/source/counter.sv:7]
 	Parameter SIZE bound to: 2 - type: integer 
 	Parameter DIV bound to: 5'b10000 
 	Parameter TOP bound to: 3'b011 
 	Parameter UP bound to: 1'b1 
-INFO: [Synth 8-6155] done synthesizing module 'counter__parameterized0' (0#1) [C:/Users/jc050/Documents/SUTD/50.002/1DPROJECT/Lab4_BetaCPU/build/vivado/Lab4_BetaCPU.srcs/sources_1/imports/source/counter.sv:7]
+INFO: [Synth 8-6155] done synthesizing module 'counter__parameterized1' (0#1) [C:/Users/jc050/Documents/SUTD/50.002/1DPROJECT/Lab4_BetaCPU/build/vivado/Lab4_BetaCPU.srcs/sources_1/imports/source/counter.sv:7]
 INFO: [Synth 8-6157] synthesizing module 'seven_seg' [C:/Users/jc050/Documents/SUTD/50.002/1DPROJECT/Lab4_BetaCPU/build/vivado/Lab4_BetaCPU.srcs/sources_1/imports/source/seven_seg.sv:7]
 INFO: [Synth 8-226] default block is never used [C:/Users/jc050/Documents/SUTD/50.002/1DPROJECT/Lab4_BetaCPU/build/vivado/Lab4_BetaCPU.srcs/sources_1/imports/source/seven_seg.sv:13]
 INFO: [Synth 8-6155] done synthesizing module 'seven_seg' (0#1) [C:/Users/jc050/Documents/SUTD/50.002/1DPROJECT/Lab4_BetaCPU/build/vivado/Lab4_BetaCPU.srcs/sources_1/imports/source/seven_seg.sv:7]
@@ -138,12 +148,15 @@ INFO: [Synth 8-6157] synthesizing module 'decoder' [C:/Users/jc050/Documents/SUT
 	Parameter WIDTH bound to: 2 - type: integer 
 INFO: [Synth 8-6155] done synthesizing module 'decoder' (0#1) [C:/Users/jc050/Documents/SUTD/50.002/1DPROJECT/Lab4_BetaCPU/build/vivado/Lab4_BetaCPU.srcs/sources_1/imports/source/decoder.sv:7]
 INFO: [Synth 8-6155] done synthesizing module 'multi_seven_seg' (0#1) [C:/Users/jc050/Documents/SUTD/50.002/1DPROJECT/Lab4_BetaCPU/build/vivado/Lab4_BetaCPU.srcs/sources_1/imports/source/multi_seven_seg.sv:7]
-INFO: [Synth 8-155] case statement is not full and has no default [C:/Users/jc050/Documents/SUTD/50.002/1DPROJECT/Lab4_BetaCPU/build/vivado/Lab4_BetaCPU.srcs/sources_1/imports/source/beta_manual_tester.sv:236]
+INFO: [Synth 8-155] case statement is not full and has no default [C:/Users/jc050/Documents/SUTD/50.002/1DPROJECT/Lab4_BetaCPU/build/vivado/Lab4_BetaCPU.srcs/sources_1/imports/source/beta_manual_tester.sv:237]
 INFO: [Synth 8-6155] done synthesizing module 'beta_manual_tester' (0#1) [C:/Users/jc050/Documents/SUTD/50.002/1DPROJECT/Lab4_BetaCPU/build/vivado/Lab4_BetaCPU.srcs/sources_1/imports/source/beta_manual_tester.sv:7]
 INFO: [Synth 8-6155] done synthesizing module 'alchitry_top' (0#1) [C:/Users/jc050/Documents/SUTD/50.002/1DPROJECT/Lab4_BetaCPU/build/vivado/Lab4_BetaCPU.srcs/sources_1/imports/source/alchitry_top.sv:7]
 WARNING: [Synth 8-3936] Found unconnected internal register 'pc_4raw_reg' and it is trimmed from '32' to '31' bits. [C:/Users/jc050/Documents/SUTD/50.002/1DPROJECT/Lab4_BetaCPU/build/vivado/Lab4_BetaCPU.srcs/sources_1/imports/source/pc_unit.sv:36]
 WARNING: [Synth 8-3936] Found unconnected internal register 'intermediate_reg' and it is trimmed from '32' to '31' bits. [C:/Users/jc050/Documents/SUTD/50.002/1DPROJECT/Lab4_BetaCPU/build/vivado/Lab4_BetaCPU.srcs/sources_1/imports/source/pc_unit.sv:35]
 WARNING: [Synth 8-3936] Found unconnected internal register 'pc_4sxtc3_2sig_reg' and it is trimmed from '32' to '31' bits. [C:/Users/jc050/Documents/SUTD/50.002/1DPROJECT/Lab4_BetaCPU/build/vivado/Lab4_BetaCPU.srcs/sources_1/imports/source/pc_unit.sv:32]
+WARNING: [Synth 8-3917] design alchitry_top has port acc[2] driven by constant 0
+WARNING: [Synth 8-3917] design alchitry_top has port acc[1] driven by constant 0
+WARNING: [Synth 8-3917] design alchitry_top has port acc[0] driven by constant 0
 WARNING: [Synth 8-7129] Port raddr[1] in module memory_unit is either unconnected or has no load
 WARNING: [Synth 8-7129] Port raddr[0] in module memory_unit is either unconnected or has no load
 WARNING: [Synth 8-7129] Port waddr[1] in module memory_unit is either unconnected or has no load
@@ -167,6 +180,7 @@ WARNING: [Synth 8-7129] Port alufn[4] in module adder_32b is either unconnected 
 WARNING: [Synth 8-7129] Port alufn[3] in module adder_32b is either unconnected or has no load
 WARNING: [Synth 8-7129] Port alufn[2] in module adder_32b is either unconnected or has no load
 WARNING: [Synth 8-7129] Port alufn[1] in module adder_32b is either unconnected or has no load
+WARNING: [Synth 8-7129] Port acc_miso in module motherboard is either unconnected or has no load
 WARNING: [Synth 8-7129] Port io_dip[2][5] in module beta_manual_tester is either unconnected or has no load
 WARNING: [Synth 8-7129] Port io_dip[2][4] in module beta_manual_tester is either unconnected or has no load
 WARNING: [Synth 8-7129] Port io_dip[2][3] in module beta_manual_tester is either unconnected or has no load
@@ -182,18 +196,18 @@ WARNING: [Synth 8-7129] Port io_dip[1][2] in module beta_manual_tester is either
 WARNING: [Synth 8-7129] Port io_dip[1][1] in module beta_manual_tester is either unconnected or has no load
 WARNING: [Synth 8-7129] Port io_dip[1][0] in module beta_manual_tester is either unconnected or has no load
 ---------------------------------------------------------------------------------
-Finished RTL Elaboration : Time (s): cpu = 00:00:04 ; elapsed = 00:00:04 . Memory (MB): peak = 1093.488 ; gain = 611.836
+Finished RTL Elaboration : Time (s): cpu = 00:00:04 ; elapsed = 00:00:04 . Memory (MB): peak = 1093.500 ; gain = 611.781
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
 Start Handling Custom Attributes
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
-Finished Handling Custom Attributes : Time (s): cpu = 00:00:04 ; elapsed = 00:00:04 . Memory (MB): peak = 1093.488 ; gain = 611.836
+Finished Handling Custom Attributes : Time (s): cpu = 00:00:04 ; elapsed = 00:00:04 . Memory (MB): peak = 1093.500 ; gain = 611.781
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
-Finished RTL Optimization Phase 1 : Time (s): cpu = 00:00:04 ; elapsed = 00:00:04 . Memory (MB): peak = 1093.488 ; gain = 611.836
+Finished RTL Optimization Phase 1 : Time (s): cpu = 00:00:04 ; elapsed = 00:00:04 . Memory (MB): peak = 1093.500 ; gain = 611.781
 ---------------------------------------------------------------------------------
-Netlist sorting complete. Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.020 . Memory (MB): peak = 1093.488 ; gain = 0.000
+Netlist sorting complete. Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.020 . Memory (MB): peak = 1093.500 ; gain = 0.000
 INFO: [Project 1-570] Preparing netlist for logic optimization
 
 Processing XDC Constraints
@@ -206,26 +220,26 @@ Parsing XDC File [C:/Users/jc050/Documents/SUTD/50.002/1DPROJECT/Lab4_BetaCPU/bu
 Finished Parsing XDC File [C:/Users/jc050/Documents/SUTD/50.002/1DPROJECT/Lab4_BetaCPU/build/constraint/au_props.xdc]
 Completed Processing XDC Constraints
 
-Netlist sorting complete. Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.002 . Memory (MB): peak = 1186.934 ; gain = 0.000
+Netlist sorting complete. Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.001 . Memory (MB): peak = 1152.457 ; gain = 0.000
 INFO: [Project 1-111] Unisim Transformation Summary:
 No Unisim elements were transformed.
 
-Constraint Validation Runtime : Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.009 . Memory (MB): peak = 1186.934 ; gain = 0.000
+Constraint Validation Runtime : Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.008 . Memory (MB): peak = 1152.457 ; gain = 0.000
 ---------------------------------------------------------------------------------
-Finished Constraint Validation : Time (s): cpu = 00:00:08 ; elapsed = 00:00:09 . Memory (MB): peak = 1186.934 ; gain = 705.281
+Finished Constraint Validation : Time (s): cpu = 00:00:08 ; elapsed = 00:00:09 . Memory (MB): peak = 1152.457 ; gain = 670.738
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
 Start Loading Part and Timing Information
 ---------------------------------------------------------------------------------
 Loading part: xc7a35tftg256-1
 ---------------------------------------------------------------------------------
-Finished Loading Part and Timing Information : Time (s): cpu = 00:00:08 ; elapsed = 00:00:09 . Memory (MB): peak = 1186.934 ; gain = 705.281
+Finished Loading Part and Timing Information : Time (s): cpu = 00:00:08 ; elapsed = 00:00:09 . Memory (MB): peak = 1152.457 ; gain = 670.738
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
 Start Applying 'set_property' XDC Constraints
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
-Finished applying 'set_property' XDC Constraints : Time (s): cpu = 00:00:09 ; elapsed = 00:00:09 . Memory (MB): peak = 1186.934 ; gain = 705.281
+Finished applying 'set_property' XDC Constraints : Time (s): cpu = 00:00:08 ; elapsed = 00:00:09 . Memory (MB): peak = 1152.457 ; gain = 670.738
 ---------------------------------------------------------------------------------
 INFO: [Synth 8-802] inferred FSM for state register 'D_motherboard_q_reg' in module 'motherboard'
 ---------------------------------------------------------------------------------------------------
@@ -239,7 +253,7 @@ INFO: [Synth 8-802] inferred FSM for state register 'D_motherboard_q_reg' in mod
 ---------------------------------------------------------------------------------------------------
 INFO: [Synth 8-3354] encoded FSM with state register 'D_motherboard_q_reg' using encoding 'sequential' in module 'motherboard'
 ---------------------------------------------------------------------------------
-Finished RTL Optimization Phase 2 : Time (s): cpu = 00:00:09 ; elapsed = 00:00:10 . Memory (MB): peak = 1186.934 ; gain = 705.281
+Finished RTL Optimization Phase 2 : Time (s): cpu = 00:00:09 ; elapsed = 00:00:10 . Memory (MB): peak = 1152.457 ; gain = 670.738
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
 Start RTL Component Statistics 
@@ -251,32 +265,33 @@ Detailed RTL Component Info :
 	   2 Input    9 Bit       Adders := 1     
 	   2 Input    5 Bit       Adders := 1     
 	   2 Input    4 Bit       Adders := 1     
-	   2 Input    3 Bit       Adders := 2     
+	   2 Input    3 Bit       Adders := 1     
 +---XORs : 
-	   2 Input     32 Bit         XORs := 1     
+	   2 Input     32 Bit         XORs := 3     
+	   4 Input     32 Bit         XORs := 1     
 	   2 Input      1 Bit         XORs := 65    
 +---Registers : 
-	               32 Bit    Registers := 36    
+	               32 Bit    Registers := 40    
 	                9 Bit    Registers := 1     
-	                8 Bit    Registers := 5     
+	                8 Bit    Registers := 2     
 	                5 Bit    Registers := 1     
 	                4 Bit    Registers := 2     
-	                3 Bit    Registers := 2     
+	                3 Bit    Registers := 1     
 	                2 Bit    Registers := 4     
-	                1 Bit    Registers := 15    
+	                1 Bit    Registers := 11    
 +---Multipliers : 
-	              32x32  Multipliers := 1     
+	              32x32  Multipliers := 2     
 +---RAMs : 
 	              16K Bit	(512 X 32 bit)          RAMs := 2     
 +---Muxes : 
 	   4 Input   32 Bit        Muxes := 2     
-	   2 Input   32 Bit        Muxes := 5     
+	   2 Input   32 Bit        Muxes := 6     
 	   7 Input   32 Bit        Muxes := 2     
 	   3 Input   32 Bit        Muxes := 1     
 	   5 Input   32 Bit        Muxes := 2     
 	   5 Input   11 Bit        Muxes := 3     
 	   5 Input    9 Bit        Muxes := 1     
-	   2 Input    8 Bit        Muxes := 13    
+	   2 Input    8 Bit        Muxes := 8     
 	   4 Input    8 Bit        Muxes := 1     
 	   3 Input    6 Bit        Muxes := 1     
 	   2 Input    6 Bit        Muxes := 3     
@@ -290,8 +305,8 @@ Detailed RTL Component Info :
 	   3 Input    2 Bit        Muxes := 1     
 	   2 Input    2 Bit        Muxes := 391   
 	   4 Input    2 Bit        Muxes := 160   
-	   2 Input    1 Bit        Muxes := 671   
-	   3 Input    1 Bit        Muxes := 8     
+	   2 Input    1 Bit        Muxes := 694   
+	   3 Input    1 Bit        Muxes := 7     
 	   4 Input    1 Bit        Muxes := 65    
 	   5 Input    1 Bit        Muxes := 5     
 ---------------------------------------------------------------------------------
@@ -310,22 +325,26 @@ Finished Part Resource Summary
 Start Cross Boundary and Area Optimization
 ---------------------------------------------------------------------------------
 WARNING: [Synth 8-7080] Parallel synthesis criteria is not met
-DSP Report: Generating DSP multiplier/mul0, operation Mode is: A*B.
-DSP Report: operator multiplier/mul0 is absorbed into DSP multiplier/mul0.
-DSP Report: operator multiplier/mul0 is absorbed into DSP multiplier/mul0.
-DSP Report: Generating DSP multiplier/mul0, operation Mode is: (PCIN>>17)+A*B.
-DSP Report: operator multiplier/mul0 is absorbed into DSP multiplier/mul0.
-DSP Report: operator multiplier/mul0 is absorbed into DSP multiplier/mul0.
-DSP Report: Generating DSP multiplier/mul0, operation Mode is: A*B.
-DSP Report: operator multiplier/mul0 is absorbed into DSP multiplier/mul0.
-DSP Report: operator multiplier/mul0 is absorbed into DSP multiplier/mul0.
-DSP Report: Generating DSP multiplier/mul0, operation Mode is: (PCIN>>17)+A*B.
-DSP Report: operator multiplier/mul0 is absorbed into DSP multiplier/mul0.
-DSP Report: operator multiplier/mul0 is absorbed into DSP multiplier/mul0.
+DSP Report: Generating DSP divider/div0, operation Mode is: A*B.
+DSP Report: operator divider/div0 is absorbed into DSP divider/div0.
+DSP Report: operator divider/div0 is absorbed into DSP divider/div0.
+DSP Report: Generating DSP divider/div0, operation Mode is: (PCIN>>17)+A*B.
+DSP Report: operator divider/div0 is absorbed into DSP divider/div0.
+DSP Report: operator divider/div0 is absorbed into DSP divider/div0.
+DSP Report: Generating DSP divider/div0, operation Mode is: A*B.
+DSP Report: operator divider/div0 is absorbed into DSP divider/div0.
+DSP Report: operator divider/div0 is absorbed into DSP divider/div0.
+DSP Report: Generating DSP divider/div0, operation Mode is: (PCIN>>17)+A*B.
+DSP Report: operator divider/div0 is absorbed into DSP divider/div0.
+DSP Report: operator divider/div0 is absorbed into DSP divider/div0.
+WARNING: [Synth 8-3917] design alchitry_top has port acc[2] driven by constant 0
+WARNING: [Synth 8-3917] design alchitry_top has port acc[1] driven by constant 0
+WARNING: [Synth 8-3917] design alchitry_top has port acc[0] driven by constant 0
 WARNING: [Synth 8-7129] Port alufn[5] in module shifter is either unconnected or has no load
 WARNING: [Synth 8-7129] Port alufn[4] in module shifter is either unconnected or has no load
 WARNING: [Synth 8-7129] Port alufn[3] in module shifter is either unconnected or has no load
 WARNING: [Synth 8-7129] Port alufn[2] in module shifter is either unconnected or has no load
+WARNING: [Synth 8-7129] Port acc_miso in module motherboard is either unconnected or has no load
 WARNING: [Synth 8-7129] Port io_dip[2][5] in module beta_manual_tester is either unconnected or has no load
 WARNING: [Synth 8-7129] Port io_dip[2][4] in module beta_manual_tester is either unconnected or has no load
 WARNING: [Synth 8-7129] Port io_dip[2][3] in module beta_manual_tester is either unconnected or has no load
@@ -341,12 +360,12 @@ WARNING: [Synth 8-7129] Port io_dip[1][2] in module beta_manual_tester is either
 WARNING: [Synth 8-7129] Port io_dip[1][1] in module beta_manual_tester is either unconnected or has no load
 WARNING: [Synth 8-7129] Port io_dip[1][0] in module beta_manual_tester is either unconnected or has no load
 ---------------------------------------------------------------------------------
-Finished Cross Boundary and Area Optimization : Time (s): cpu = 00:00:23 ; elapsed = 00:00:24 . Memory (MB): peak = 1232.688 ; gain = 751.035
+Finished Cross Boundary and Area Optimization : Time (s): cpu = 00:00:23 ; elapsed = 00:00:24 . Memory (MB): peak = 1252.305 ; gain = 770.586
 ---------------------------------------------------------------------------------
- Sort Area is  multiplier/mul0_0 : 0 0 : 3101 5879 : Used 1 time 0
- Sort Area is  multiplier/mul0_0 : 0 1 : 2778 5879 : Used 1 time 0
- Sort Area is  multiplier/mul0_3 : 0 0 : 2759 5418 : Used 1 time 0
- Sort Area is  multiplier/mul0_3 : 0 1 : 2659 5418 : Used 1 time 0
+ Sort Area is  divider/div0_0 : 0 0 : 2701 5047 : Used 1 time 0
+ Sort Area is  divider/div0_0 : 0 1 : 2346 5047 : Used 1 time 0
+ Sort Area is  divider/div0_3 : 0 0 : 2339 4494 : Used 1 time 0
+ Sort Area is  divider/div0_3 : 0 1 : 2155 4494 : Used 1 time 0
 ---------------------------------------------------------------------------------
 Start ROM, RAM, DSP, Shift Register and Retiming Reporting
 ---------------------------------------------------------------------------------
@@ -379,37 +398,38 @@ Finished ROM, RAM, DSP, Shift Register and Retiming Reporting
 Start Applying XDC Timing Constraints
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
-Finished Applying XDC Timing Constraints : Time (s): cpu = 00:00:27 ; elapsed = 00:00:28 . Memory (MB): peak = 1311.637 ; gain = 829.984
+Finished Applying XDC Timing Constraints : Time (s): cpu = 00:00:27 ; elapsed = 00:00:29 . Memory (MB): peak = 1318.340 ; gain = 836.621
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
 Start Timing Optimization
 ---------------------------------------------------------------------------------
+INFO: [Synth 8-5584] The signal "alchitry_top/beta_manual/motherboard/memory_unit/instruction_memory/ram_reg" is implemented as distributed LUT RAM for the following reason(s): The timing constraints suggest that the chosen mapping will yield better timing results.
 ---------------------------------------------------------------------------------
-Finished Timing Optimization : Time (s): cpu = 00:00:30 ; elapsed = 00:00:31 . Memory (MB): peak = 1315.590 ; gain = 833.938
+Finished Timing Optimization : Time (s): cpu = 00:00:34 ; elapsed = 00:00:36 . Memory (MB): peak = 1469.547 ; gain = 987.828
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
 Start ROM, RAM, DSP, Shift Register and Retiming Reporting
 ---------------------------------------------------------------------------------
 
 Block RAM: Final Mapping Report
-+-------------+----------------------------------------------------------------+------------------------+---+---+------------------------+---+---+------------------+--------+--------+
-|Module Name  | RTL Object                                                     | PORT A (Depth x Width) | W | R | PORT B (Depth x Width) | W | R | Ports driving FF | RAMB18 | RAMB36 | 
-+-------------+----------------------------------------------------------------+------------------------+---+---+------------------------+---+---+------------------+--------+--------+
-|alchitry_top | beta_manual/motherboard/memory_unit/instruction_memory/ram_reg | 512 x 32(READ_FIRST)   | W | R |                        |   |   | Port A           | 1      | 0      | 
-|alchitry_top | beta_manual/motherboard/memory_unit/data_memory/mem_reg        | 512 x 32(READ_FIRST)   | W |   | 512 x 32(WRITE_FIRST)  |   | R | Port A and B     | 1      | 0      | 
-+-------------+----------------------------------------------------------------+------------------------+---+---+------------------------+---+---+------------------+--------+--------+
++-------------+---------------------------------------------------------+------------------------+---+---+------------------------+---+---+------------------+--------+--------+
+|Module Name  | RTL Object                                              | PORT A (Depth x Width) | W | R | PORT B (Depth x Width) | W | R | Ports driving FF | RAMB18 | RAMB36 | 
++-------------+---------------------------------------------------------+------------------------+---+---+------------------------+---+---+------------------+--------+--------+
+|alchitry_top | beta_manual/motherboard/memory_unit/data_memory/mem_reg | 512 x 32(READ_FIRST)   | W |   | 512 x 32(WRITE_FIRST)  |   | R | Port A and B     | 1      | 0      | 
++-------------+---------------------------------------------------------+------------------------+---+---+------------------------+---+---+------------------+--------+--------+
 
+
+Distributed RAM: Final Mapping Report
+-------NONE-------
 ---------------------------------------------------------------------------------
 Finished ROM, RAM, DSP, Shift Register and Retiming Reporting
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
 Start Technology Mapping
 ---------------------------------------------------------------------------------
-INFO: [Synth 8-7052] The timing for the instance beta_manual/motherboard/memory_unit/instruction_memory/ram_reg (implemented as a Block RAM) might be sub-optimal as no optional output register could be merged into the ram block. Providing additional output register may help in improving timing.
-INFO: [Synth 8-7052] The timing for the instance beta_manual/motherboard/memory_unit/instruction_memory/ram_reg (implemented as a Block RAM) might be sub-optimal as no optional output register could be merged into the ram block. Providing additional output register may help in improving timing.
 INFO: [Synth 8-7052] The timing for the instance beta_manual/motherboard/memory_unit/data_memory/mem_reg (implemented as a Block RAM) might be sub-optimal as no optional output register could be merged into the ram block. Providing additional output register may help in improving timing.
 ---------------------------------------------------------------------------------
-Finished Technology Mapping : Time (s): cpu = 00:00:32 ; elapsed = 00:00:33 . Memory (MB): peak = 1389.934 ; gain = 908.281
+Finished Technology Mapping : Time (s): cpu = 00:00:37 ; elapsed = 00:00:38 . Memory (MB): peak = 1494.863 ; gain = 1013.145
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
 Start IO Insertion
@@ -427,37 +447,37 @@ Start Final Netlist Cleanup
 Finished Final Netlist Cleanup
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
-Finished IO Insertion : Time (s): cpu = 00:00:34 ; elapsed = 00:00:35 . Memory (MB): peak = 1531.801 ; gain = 1050.148
+Finished IO Insertion : Time (s): cpu = 00:00:38 ; elapsed = 00:00:40 . Memory (MB): peak = 1608.801 ; gain = 1127.082
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
 Start Renaming Generated Instances
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
-Finished Renaming Generated Instances : Time (s): cpu = 00:00:34 ; elapsed = 00:00:35 . Memory (MB): peak = 1531.801 ; gain = 1050.148
+Finished Renaming Generated Instances : Time (s): cpu = 00:00:38 ; elapsed = 00:00:40 . Memory (MB): peak = 1608.801 ; gain = 1127.082
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
 Start Rebuilding User Hierarchy
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
-Finished Rebuilding User Hierarchy : Time (s): cpu = 00:00:34 ; elapsed = 00:00:35 . Memory (MB): peak = 1531.801 ; gain = 1050.148
+Finished Rebuilding User Hierarchy : Time (s): cpu = 00:00:39 ; elapsed = 00:00:40 . Memory (MB): peak = 1608.801 ; gain = 1127.082
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
 Start Renaming Generated Ports
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
-Finished Renaming Generated Ports : Time (s): cpu = 00:00:34 ; elapsed = 00:00:35 . Memory (MB): peak = 1531.801 ; gain = 1050.148
+Finished Renaming Generated Ports : Time (s): cpu = 00:00:39 ; elapsed = 00:00:40 . Memory (MB): peak = 1608.801 ; gain = 1127.082
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
 Start Handling Custom Attributes
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
-Finished Handling Custom Attributes : Time (s): cpu = 00:00:34 ; elapsed = 00:00:35 . Memory (MB): peak = 1535.086 ; gain = 1053.434
+Finished Handling Custom Attributes : Time (s): cpu = 00:00:39 ; elapsed = 00:00:40 . Memory (MB): peak = 1611.785 ; gain = 1130.066
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
 Start Renaming Generated Nets
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
-Finished Renaming Generated Nets : Time (s): cpu = 00:00:34 ; elapsed = 00:00:35 . Memory (MB): peak = 1535.086 ; gain = 1053.434
+Finished Renaming Generated Nets : Time (s): cpu = 00:00:39 ; elapsed = 00:00:40 . Memory (MB): peak = 1611.785 ; gain = 1130.066
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
 Start Writing Synthesis Report
@@ -480,48 +500,51 @@ Report BlackBoxes:
 +-+--------------+----------+
 
 Report Cell Usage: 
-+------+---------+------+
-|      |Cell     |Count |
-+------+---------+------+
-|1     |BUFG     |     2|
-|2     |CARRY4   |    51|
-|3     |DSP48E1  |     3|
-|4     |LUT1     |    26|
-|5     |LUT2     |   148|
-|6     |LUT3     |   207|
-|7     |LUT4     |    94|
-|8     |LUT5     |   364|
-|9     |LUT6     |  1177|
-|10    |MUXF7    |   285|
-|11    |MUXF8    |    24|
-|12    |RAMB18E1 |     2|
-|14    |FDPE     |     4|
-|15    |FDRE     |  1232|
-|16    |IBUF     |    19|
-|17    |OBUF     |    52|
-+------+---------+------+
++------+----------+------+
+|      |Cell      |Count |
++------+----------+------+
+|1     |BUFG      |     1|
+|2     |CARRY4    |    51|
+|3     |DSP48E1   |     3|
+|4     |LUT1      |    21|
+|5     |LUT2      |   162|
+|6     |LUT3      |   210|
+|7     |LUT4      |   140|
+|8     |LUT5      |   365|
+|9     |LUT6      |  1067|
+|10    |MUXF7     |   271|
+|11    |MUXF8     |    32|
+|12    |RAM256X1S |    62|
+|13    |RAMB18E1  |     1|
+|14    |FDPE      |     4|
+|15    |FDRE      |  1344|
+|16    |FDSE      |    22|
+|17    |IBUF      |    18|
+|18    |OBUF      |    52|
++------+----------+------+
 ---------------------------------------------------------------------------------
-Finished Writing Synthesis Report : Time (s): cpu = 00:00:34 ; elapsed = 00:00:35 . Memory (MB): peak = 1535.086 ; gain = 1053.434
+Finished Writing Synthesis Report : Time (s): cpu = 00:00:39 ; elapsed = 00:00:40 . Memory (MB): peak = 1611.785 ; gain = 1130.066
 ---------------------------------------------------------------------------------
-Synthesis finished with 0 errors, 0 critical warnings and 19 warnings.
-Synthesis Optimization Runtime : Time (s): cpu = 00:00:29 ; elapsed = 00:00:34 . Memory (MB): peak = 1535.086 ; gain = 959.988
-Synthesis Optimization Complete : Time (s): cpu = 00:00:34 ; elapsed = 00:00:35 . Memory (MB): peak = 1535.086 ; gain = 1053.434
+Synthesis finished with 0 errors, 0 critical warnings and 23 warnings.
+Synthesis Optimization Runtime : Time (s): cpu = 00:00:34 ; elapsed = 00:00:39 . Memory (MB): peak = 1611.785 ; gain = 1071.109
+Synthesis Optimization Complete : Time (s): cpu = 00:00:39 ; elapsed = 00:00:41 . Memory (MB): peak = 1611.785 ; gain = 1130.066
 INFO: [Project 1-571] Translating synthesized netlist
-Netlist sorting complete. Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.016 . Memory (MB): peak = 1544.285 ; gain = 0.000
-INFO: [Netlist 29-17] Analyzing 365 Unisim elements for replacement
+Netlist sorting complete. Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.017 . Memory (MB): peak = 1620.957 ; gain = 0.000
+INFO: [Netlist 29-17] Analyzing 420 Unisim elements for replacement
 INFO: [Netlist 29-28] Unisim Transformation completed in 0 CPU seconds
 INFO: [Project 1-570] Preparing netlist for logic optimization
 INFO: [Opt 31-138] Pushed 0 inverter(s) to 0 load pin(s).
-Netlist sorting complete. Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.001 . Memory (MB): peak = 1548.555 ; gain = 0.000
+Netlist sorting complete. Time (s): cpu = 00:00:00 ; elapsed = 00:00:00 . Memory (MB): peak = 1624.629 ; gain = 0.000
 INFO: [Project 1-111] Unisim Transformation Summary:
-No Unisim elements were transformed.
+  A total of 62 instances were transformed.
+  RAM256X1S => RAM256X1S (MUXF7(x2), MUXF8, RAMS64E(x4)): 62 instances
 
-Synth Design complete | Checksum: 9adc28db
+Synth Design complete | Checksum: b4d65144
 INFO: [Common 17-83] Releasing license: Synthesis
-98 Infos, 59 Warnings, 0 Critical Warnings and 0 Errors encountered.
+101 Infos, 67 Warnings, 0 Critical Warnings and 0 Errors encountered.
 synth_design completed successfully
-synth_design: Time (s): cpu = 00:00:36 ; elapsed = 00:00:39 . Memory (MB): peak = 1548.555 ; gain = 1262.098
-Write ShapeDB Complete: Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.003 . Memory (MB): peak = 1548.555 ; gain = 0.000
+synth_design: Time (s): cpu = 00:00:41 ; elapsed = 00:00:44 . Memory (MB): peak = 1624.629 ; gain = 1337.793
+Write ShapeDB Complete: Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.006 . Memory (MB): peak = 1624.629 ; gain = 0.000
 INFO: [Common 17-1381] The checkpoint 'C:/Users/jc050/Documents/SUTD/50.002/1DPROJECT/Lab4_BetaCPU/build/vivado/Lab4_BetaCPU.runs/synth_1/alchitry_top.dcp' has been generated.
 INFO: [Vivado 12-24828] Executing command : report_utilization -file alchitry_top_utilization_synth.rpt -pb alchitry_top_utilization_synth.pb
-INFO: [Common 17-206] Exiting Vivado at Sun Apr 13 01:53:59 2025...
+INFO: [Common 17-206] Exiting Vivado at Mon Apr 14 16:43:30 2025...

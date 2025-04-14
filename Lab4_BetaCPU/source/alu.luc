@@ -10,10 +10,12 @@ module alu (
 
     mux_4 mux_4[32]
     mux_2 mux_2[32]
+    mux_2 mux_2_md[32]
     //adder adder
     adder_32b adder
     compare compare
     boolean boolean
+    divider divider
     shifter shifter
     multiplier multiplier
     
@@ -44,10 +46,19 @@ module alu (
         multiplier.a = a
         multiplier.b = b
         
+        divider.a = a
+        divider.b = b
+        //added divider, ALUFN 000011
+        repeat(i,32){
+            //mux_2.in[i][0] = adder.s[i]
+            mux_2_md.in[i][0] = multiplier.mul[i]
+            mux_2_md.in[i][1] = divider.div[i]
+            mux_2_md.s0[i] = alufn[0]
+        }
         repeat(i,32){
             //mux_2.in[i][0] = adder.s[i]
             mux_2.in[i][0] = adder.out[i]
-            mux_2.in[i][1] = multiplier.mul[i]
+            mux_2.in[i][1] = mux_2_md.out[i]
             mux_2.s0[i] = alufn[1]
         }
         repeat(i,32){

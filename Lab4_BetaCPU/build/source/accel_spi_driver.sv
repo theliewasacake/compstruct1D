@@ -21,12 +21,14 @@ module accel_spi_driver (
     logic [7:0] D_out_byte_cache_d, D_out_byte_cache_q = 0;
     logic [7:0] D_in_byte_cache_d, D_in_byte_cache_q = 0;
     logic [7:0] D_in_byte_output_buffer_d, D_in_byte_output_buffer_q = 0;
+    logic [3:0] D_delay_d, D_delay_q = 0;
     logic D_active_d, D_active_q = 0;
     logic D_mosi_enable_d, D_mosi_enable_q = 0;
     logic D_rw_d, D_rw_q = 0;
     logic spi_clock;
     always @* begin
         D_out_byte_cache_d = D_out_byte_cache_q;
+        D_delay_d = D_delay_q;
         D_active_d = D_active_q;
         D_clock_ctr_d = D_clock_ctr_q;
         D_mosi_enable_d = D_mosi_enable_q;
@@ -37,19 +39,26 @@ module accel_spi_driver (
         
         if (enable && ~D_active_q) begin
             D_out_byte_cache_d = out_byte;
+            csx = 1'h1;
+            next_byte = 1'h0;
+            D_delay_d = 4'hf;
+        end
+        if ((|D_delay_q)) begin
+            csx = 1'h1;
+            D_delay_d = D_delay_q - 1'h1;
+        end else begin
             D_active_d = 1'h1;
         end
         in_byte = D_in_byte_output_buffer_q;
-        if (D_active_q) begin
+        if (D_active_q && !D_delay_q) begin
             D_clock_ctr_d = D_clock_ctr_q + 1'h1;
             spi_clock = D_clock_ctr_q[4];
             scl = spi_clock;
             csx = 1'h0;
-            next_byte = 1'h0;
             if (D_bit_ptr_q == 1'h0 && D_clock_ctr_q == 1'h0) begin
                 
             end
-            if (D_clock_ctr_q == 4'he) begin
+            if (D_clock_ctr_q == 4'hc) begin
                 D_mosi_enable_d = !D_mosi_enable_q;
             end
             if (D_clock_ctr_q == 5'h1e) begin
@@ -74,7 +83,7 @@ module accel_spi_driver (
                 end
             end
             if (D_bit_ptr_q == 3'h7 && D_rw_q) begin
-                if (D_clock_ctr_q == 5'h16) begin
+                if (D_clock_ctr_q == 5'h1c) begin
                     D_in_byte_output_buffer_d = D_in_byte_cache_q;
                 end
                 if ((&D_clock_ctr_q)) begin
@@ -87,10 +96,10 @@ module accel_spi_driver (
             csx = 1'h1;
             spi_clock = 1'h0;
             scl = spi_clock;
-            next_byte = 1'h1;
             mosi = 1'h0;
             D_in_byte_cache_d = 1'h0;
         end
+        next_byte = ~(D_active_q | ((|D_delay_q)));
     end
     
     
@@ -101,6 +110,7 @@ module accel_spi_driver (
             D_out_byte_cache_q <= 0;
             D_in_byte_cache_q <= 0;
             D_in_byte_output_buffer_q <= 0;
+            D_delay_q <= 0;
             D_active_q <= 0;
             D_mosi_enable_q <= 0;
             D_rw_q <= 0;
@@ -110,6 +120,7 @@ module accel_spi_driver (
             D_out_byte_cache_q <= D_out_byte_cache_d;
             D_in_byte_cache_q <= D_in_byte_cache_d;
             D_in_byte_output_buffer_q <= D_in_byte_output_buffer_d;
+            D_delay_q <= D_delay_d;
             D_active_q <= D_active_d;
             D_mosi_enable_q <= D_mosi_enable_d;
             D_rw_q <= D_rw_d;

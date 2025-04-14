@@ -20,17 +20,22 @@ module alchitry_top (
         // The reset conditioner is used to synchronize the reset signal to the FPGA
         // clock. This ensures the entire FPGA comes out of reset at the same time.
         reset_conditioner reset_cond
-        dff s
+        //dff s
     }
-    const CLK_FREQ = $is_sim() ? 1000 : 5000000 // put 1000 for sim, 10000000 otherwise in hardware
+    const CLK_FREQ = $is_sim() ? 1000 : 10000000 // put 1000 for sim, 10000000 otherwise in hardware
     
     beta_manual_tester beta_manual( .rst(rst), .io_button(io_button), .io_dip(io_dip), #CLK_FREQ(CLK_FREQ))
     //LCD SPI driver
     //lcd_spi_driver lcd_drive(.clk(clk), .rst(rst))
     
     always {
-        s.d = ~s.q
-        beta_manual.clk = s.q
+        //aaa.out_byte = 8b10000000
+        //acc[1] = aaa.mosi
+        //acc[0] = aaa.scl 
+        //acc[2] = aaa.csx
+        //s.d = ~s.q
+        acc = 0
+        beta_manual.clk = clk
         reset_cond.in = ~rst_n  // input raw inverted reset signal
         rst = reset_cond.out    // conditioned reset
         
@@ -43,10 +48,10 @@ module alchitry_top (
         io_segment = beta_manual.io_segment
         io_select = beta_manual.io_select
         led = beta_manual.led
-        
+        //led = aaa.in_byte
         
         lcd = beta_manual.lcd
-        acc = beta_manual.acc 
+        //acc = beta_manual.acc 
         beta_manual.acc_in = acc_in
         //lcd_drive.out_byte = 8hc3
         //lcd_drive.dcx_in = 1

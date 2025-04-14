@@ -10,6 +10,7 @@ module motherboard (
         input wire [2:0] irq,
         input wire slowclk,
         input wire acc_miso,
+        input wire [7:0] buttons,
         output reg [31:0] id,
         output reg [31:0] ia,
         output reg [31:0] ma,
@@ -18,7 +19,6 @@ module motherboard (
         output reg [31:0] output_buffer,
         output reg [31:0] input_buffer,
         output reg [3:0] lcd_spi_out,
-        output reg [2:0] acc_spi_out,
         output reg [3:0][15:0] debug
     );
     logic M_beta_slowclk;
@@ -26,7 +26,7 @@ module motherboard (
     logic M_beta_irq;
     logic M_beta_lcd_spi_busy;
     logic M_beta_acc_spi_busy;
-    logic [7:0] M_beta_spi_in_data;
+    logic [31:0] M_beta_spi_in_data;
     logic [31:0] M_beta_instruction;
     logic [31:0] M_beta_mem_data_input;
     logic [31:0] M_beta_ia;
@@ -80,37 +80,47 @@ module motherboard (
     );
     
     
-    logic [7:0] M_acc_out_byte;
-    logic M_acc_enable;
-    logic M_acc_miso;
-    logic M_acc_mosi;
-    logic M_acc_scl;
-    logic M_acc_csx;
-    logic [7:0] M_acc_in_byte;
-    logic M_acc_next_byte;
+    localparam _MP_SIZE_1909626421 = 3'h5;
+    localparam _MP_DIV_1909626421 = 1'h0;
+    localparam _MP_TOP_1909626421 = 1'h0;
+    localparam _MP_UP_1909626421 = 1'h1;
+    logic [4:0] M_frequency_divider_value;
     
-    accel_spi_driver acc (
+    counter #(
+        .SIZE(_MP_SIZE_1909626421),
+        .DIV(_MP_DIV_1909626421),
+        .TOP(_MP_TOP_1909626421),
+        .UP(_MP_UP_1909626421)
+    ) frequency_divider (
         .clk(clk),
         .rst(rst),
-        .out_byte(M_acc_out_byte),
-        .enable(M_acc_enable),
-        .miso(M_acc_miso),
-        .mosi(M_acc_mosi),
-        .scl(M_acc_scl),
-        .csx(M_acc_csx),
-        .in_byte(M_acc_in_byte),
-        .next_byte(M_acc_next_byte)
+        .value(M_frequency_divider_value)
+    );
+    
+    
+    localparam _MP_SEED_620898034 = 33'h19430f418;
+    logic M_pn_next;
+    logic [31:0] M_pn_num;
+    
+    pn_gen #(
+        .SEED(_MP_SEED_620898034)
+    ) pn (
+        .clk(clk),
+        .rst(rst),
+        .seed(33'h19430f418),
+        .next(M_pn_next),
+        .num(M_pn_num)
     );
     
     
     localparam MEMORY_SIZE = 10'h200;
-    localparam _MP_WORDS_2133089017 = 10'h200;
+    localparam _MP_WORDS_1498490836 = 10'h200;
     logic [8:0] M_instruction_unit_addr;
     logic [31:0] M_instruction_unit_out;
     logic [9:0] M_instruction_unit_numinstr;
     
     instruction_rom #(
-        .WORDS(_MP_WORDS_2133089017)
+        .WORDS(_MP_WORDS_1498490836)
     ) instruction_unit (
         .addr(M_instruction_unit_addr),
         .out(M_instruction_unit_out),
@@ -118,7 +128,7 @@ module motherboard (
     );
     
     
-    localparam _MP_WORDS_2071364643 = 10'h200;
+    localparam _MP_WORDS_221975715 = 10'h200;
     logic [10:0] M_memory_unit_raddr;
     logic [10:0] M_memory_unit_waddr;
     logic [31:0] M_memory_unit_wd;
@@ -130,7 +140,7 @@ module motherboard (
     logic [31:0] M_memory_unit_id;
     
     memory_unit #(
-        .WORDS(_MP_WORDS_2071364643)
+        .WORDS(_MP_WORDS_221975715)
     ) memory_unit (
         .clk(clk),
         .raddr(M_memory_unit_raddr),
@@ -167,12 +177,9 @@ module motherboard (
         M_lcd_out_byte = M_beta_mem_data_output[3'h7:1'h0];
         M_lcd_dcx_in = M_beta_mem_data_output[4'h8];
         M_lcd_enable = M_beta_lcd_enable;
-        M_beta_acc_spi_busy = ~M_acc_next_byte;
-        M_acc_miso = acc_miso;
-        acc_spi_out = {M_acc_scl, M_acc_mosi, M_acc_csx};
-        M_acc_out_byte = M_beta_mem_data_output[3'h7:1'h0];
-        M_acc_enable = M_beta_acc_enable;
-        M_beta_spi_in_data = M_acc_in_byte;
+        M_beta_acc_spi_busy = 1'h0;
+        M_pn_next = ((&M_frequency_divider_value));
+        M_beta_spi_in_data = {M_pn_num[5'h1f:4'h8], buttons};
         if ((|irq)) begin
             if (irq[1'h0]) begin
                 D_system_input_buffer_d = 32'hb0;

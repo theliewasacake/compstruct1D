@@ -4,6 +4,7 @@ module motherboard (
     input irq[3],
     input slowclk, 
     input acc_miso,
+    input buttons[8],
     output id[32],
     output ia[32],
     output ma[32],  // ALU output / EA
@@ -12,14 +13,16 @@ module motherboard (
     output output_buffer[32],
     output input_buffer[32],
     output lcd_spi_out[4], //sck,mosi,dcx,cs
-    output acc_spi_out[3], //sck,mosi,cs
+    //output acc_spi_out[3], //sck,mosi,cs
     output debug[4][16]
 ) {
     
     // Beta CPU
     beta_cpu beta(.clk(clk))
     lcd_spi_driver lcd(.clk(clk), .rst(rst))
-    accel_spi_driver acc(.clk(clk), .rst(rst))
+    //accel_spi_driver acc(.clk(clk), .rst(rst))
+    counter frequency_divider(#SIZE(5), .clk(clk), .rst(rst))
+    pn_gen pn(.clk(clk), .rst(rst), .seed(6781203480))
     // setup and instantiate memory unit and instruction ROM
     const MEMORY_SIZE = 512
     instruction_rom instruction_unit(#WORDS(MEMORY_SIZE))
@@ -47,12 +50,15 @@ module motherboard (
         lcd.enable = beta.lcd_enable
         
         //ACC handling
-        beta.acc_spi_busy = ~acc.next_byte
-        acc.miso = acc_miso
-        acc_spi_out = c{acc.scl,acc.mosi,acc.csx}
-        acc.out_byte = beta.mem_data_output[7:0]
-        acc.enable = beta.acc_enable
-        beta.spi_in_data = acc.in_byte
+        beta.acc_spi_busy = 0//~acc.next_byte
+        //acc.miso = acc_miso
+        //acc_spi_out = c{acc.scl,acc.mosi,acc.csx}
+        //acc.out_byte = beta.mem_data_output[7:0]
+        //acc.enable = beta.acc_enable
+        
+        pn.next = (&frequency_divider.value)
+        
+        beta.spi_in_data = c{pn.num[31:8],buttons}//acc.in_byte
         
         // store the button press to input buffer 
         if (|irq){

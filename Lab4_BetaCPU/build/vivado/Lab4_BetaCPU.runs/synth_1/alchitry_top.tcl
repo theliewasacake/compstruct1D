@@ -70,7 +70,6 @@ set_property ip_cache_permissions {read write} [current_project]
 OPTRACE "Creating in-memory project" END { }
 OPTRACE "Adding files" START { }
 read_verilog -library xil_defaultlib -sv {
-  C:/Users/jc050/Documents/SUTD/50.002/1DPROJECT/Lab4_BetaCPU/build/vivado/Lab4_BetaCPU.srcs/sources_1/imports/source/accel_spi_driver.sv
   C:/Users/jc050/Documents/SUTD/50.002/1DPROJECT/Lab4_BetaCPU/build/vivado/Lab4_BetaCPU.srcs/sources_1/imports/source/adder_32b.sv
   C:/Users/jc050/Documents/SUTD/50.002/1DPROJECT/Lab4_BetaCPU/build/vivado/Lab4_BetaCPU.srcs/sources_1/imports/source/alu.sv
   C:/Users/jc050/Documents/SUTD/50.002/1DPROJECT/Lab4_BetaCPU/build/vivado/Lab4_BetaCPU.srcs/sources_1/imports/source/beta_cpu.sv
@@ -82,6 +81,7 @@ read_verilog -library xil_defaultlib -sv {
   C:/Users/jc050/Documents/SUTD/50.002/1DPROJECT/Lab4_BetaCPU/build/vivado/Lab4_BetaCPU.srcs/sources_1/imports/source/control_unit.sv
   C:/Users/jc050/Documents/SUTD/50.002/1DPROJECT/Lab4_BetaCPU/build/vivado/Lab4_BetaCPU.srcs/sources_1/imports/source/counter.sv
   C:/Users/jc050/Documents/SUTD/50.002/1DPROJECT/Lab4_BetaCPU/build/vivado/Lab4_BetaCPU.srcs/sources_1/imports/source/decoder.sv
+  C:/Users/jc050/Documents/SUTD/50.002/1DPROJECT/Lab4_BetaCPU/build/vivado/Lab4_BetaCPU.srcs/sources_1/imports/source/divider.sv
   C:/Users/jc050/Documents/SUTD/50.002/1DPROJECT/Lab4_BetaCPU/build/vivado/Lab4_BetaCPU.srcs/sources_1/imports/source/edge_detector.sv
   C:/Users/jc050/Documents/SUTD/50.002/1DPROJECT/Lab4_BetaCPU/build/vivado/Lab4_BetaCPU.srcs/sources_1/imports/source/instruction_rom.sv
   C:/Users/jc050/Documents/SUTD/50.002/1DPROJECT/Lab4_BetaCPU/build/vivado/Lab4_BetaCPU.srcs/sources_1/imports/source/lcd_spi_driver.sv
@@ -94,6 +94,7 @@ read_verilog -library xil_defaultlib -sv {
   C:/Users/jc050/Documents/SUTD/50.002/1DPROJECT/Lab4_BetaCPU/build/vivado/Lab4_BetaCPU.srcs/sources_1/imports/source/partial_cl_adder.sv
   C:/Users/jc050/Documents/SUTD/50.002/1DPROJECT/Lab4_BetaCPU/build/vivado/Lab4_BetaCPU.srcs/sources_1/imports/source/pc_unit.sv
   C:/Users/jc050/Documents/SUTD/50.002/1DPROJECT/Lab4_BetaCPU/build/vivado/Lab4_BetaCPU.srcs/sources_1/imports/source/pipeline.sv
+  C:/Users/jc050/Documents/SUTD/50.002/1DPROJECT/Lab4_BetaCPU/build/vivado/Lab4_BetaCPU.srcs/sources_1/imports/source/pn_gen.sv
   C:/Users/jc050/Documents/SUTD/50.002/1DPROJECT/Lab4_BetaCPU/build/vivado/Lab4_BetaCPU.srcs/sources_1/imports/source/regfile_memory.sv
   C:/Users/jc050/Documents/SUTD/50.002/1DPROJECT/Lab4_BetaCPU/build/vivado/Lab4_BetaCPU.srcs/sources_1/imports/source/regfile_unit.sv
   C:/Users/jc050/Documents/SUTD/50.002/1DPROJECT/Lab4_BetaCPU/build/vivado/Lab4_BetaCPU.srcs/sources_1/imports/source/reset_conditioner.sv

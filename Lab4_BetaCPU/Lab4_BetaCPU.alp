@@ -194,12 +194,6 @@
             {
                 "file": {
                     "type": "DiskFile",
-                    "path": "source/display_controller.luc"
-                }
-            },
-            {
-                "file": {
-                    "type": "DiskFile",
                     "path": "source/lcd_spi_driver.luc"
                 }
             },
@@ -213,6 +207,18 @@
                 "file": {
                     "type": "DiskFile",
                     "path": "source/accel_spi_driver.luc"
+                }
+            },
+            {
+                "file": {
+                    "type": "DiskFile",
+                    "path": "source/divider.luc"
+                }
+            },
+            {
+                "file": {
+                    "type": "DiskFile",
+                    "path": "source/pn_gen.luc"
                 }
             }
         ],

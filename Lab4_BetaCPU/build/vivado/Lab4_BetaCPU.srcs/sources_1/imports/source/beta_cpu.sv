@@ -11,7 +11,7 @@ module beta_cpu (
         input wire irq,
         input wire lcd_spi_busy,
         input wire acc_spi_busy,
-        input wire [7:0] spi_in_data,
+        input wire [31:0] spi_in_data,
         input wire [31:0] instruction,
         input wire [31:0] mem_data_input,
         output reg [31:0] ia,
@@ -226,7 +226,7 @@ module beta_cpu (
                 wdsel_out = mem_data_input;
             end
             2'h3: begin
-                wdsel_out = {24'h0, spi_in_data};
+                wdsel_out = spi_in_data;
             end
             default: begin
                 wdsel_out = {M_pc_system_ia[5'h1f], M_pc_system_pc_4[5'h1e:1'h0]};

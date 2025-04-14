@@ -20,12 +20,12 @@ module alchitry_top (
         input wire [2:0][7:0] io_dip
     );
     logic rst;
-    localparam _MP_STAGES_1659909235 = 3'h4;
+    localparam _MP_STAGES_1583764876 = 3'h4;
     logic M_reset_cond_in;
     logic M_reset_cond_out;
     
     reset_conditioner #(
-        .STAGES(_MP_STAGES_1659909235)
+        .STAGES(_MP_STAGES_1583764876)
     ) reset_cond (
         .clk(clk),
         .in(M_reset_cond_in),
@@ -33,9 +33,8 @@ module alchitry_top (
     );
     
     
-    logic D_s_d, D_s_q = 0;
-    localparam CLK_FREQ = 23'h4c4b40;
-    localparam _MP_CLK_FREQ_1384680469 = 23'h4c4b40;
+    localparam CLK_FREQ = 24'h989680;
+    localparam _MP_CLK_FREQ_250491400 = 24'h989680;
     logic M_beta_manual_clk;
     logic M_beta_manual_acc_in;
     logic [2:0] M_beta_manual_acc;
@@ -46,7 +45,7 @@ module alchitry_top (
     logic [3:0] M_beta_manual_io_select;
     
     beta_manual_tester #(
-        .CLK_FREQ(_MP_CLK_FREQ_1384680469)
+        .CLK_FREQ(_MP_CLK_FREQ_250491400)
     ) beta_manual (
         .rst(rst),
         .io_button(io_button),
@@ -63,10 +62,8 @@ module alchitry_top (
     
     
     always @* begin
-        D_s_d = D_s_q;
-        
-        D_s_d = ~D_s_q;
-        M_beta_manual_clk = D_s_q;
+        acc = 1'h0;
+        M_beta_manual_clk = clk;
         M_reset_cond_in = ~rst_n;
         rst = M_reset_cond_out;
         led = 8'h0;
@@ -76,13 +73,8 @@ module alchitry_top (
         io_select = M_beta_manual_io_select;
         led = M_beta_manual_led;
         lcd = M_beta_manual_lcd;
-        acc = M_beta_manual_acc;
         M_beta_manual_acc_in = acc_in;
     end
     
     
-    always @(posedge (clk)) begin
-        D_s_q <= D_s_d;
-        
-    end
 endmodule

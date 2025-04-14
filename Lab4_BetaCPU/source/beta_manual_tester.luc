@@ -44,9 +44,11 @@ module beta_manual_tester#(
         io_segment = 8hff // connect segments to the driver
         io_select = 4hf // connect digit select to the driver
         
+        motherboard.buttons = io_button
+        
         lcd = motherboard.lcd_spi_out//LCD
         motherboard.acc_miso = acc_in
-        acc = motherboard.acc_spi_out
+        acc = 0// motherboard.acc_spi_out
         
         led = c{3b0, io_button}  // connect buttons to LEDs
 

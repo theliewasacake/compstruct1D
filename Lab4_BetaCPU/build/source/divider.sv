@@ -4,17 +4,15 @@
     This is a temporary file and any changes made to it will be destroyed.
 */
 
-module display_controller (
-        input wire clk,
-        input wire rst,
-        input wire [5:0][31:0] gameGrid,
-        input wire [31:0] ballState,
-        input wire [31:0] padState,
-        input wire [31:0] gameStatus,
-        input wire frameWriteTrigger
+module divider #(
+        parameter WIDTH = 6'h20
+    ) (
+        input wire [(WIDTH)-1:0] a,
+        input wire [(WIDTH)-1:0] b,
+        output reg [(WIDTH)-1:0] div
     );
     always @* begin
-        
+        div = a * b;
     end
     
     

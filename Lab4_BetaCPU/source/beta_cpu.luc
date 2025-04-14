@@ -5,7 +5,7 @@ module beta_cpu (
     input irq,
     input lcd_spi_busy,
     input acc_spi_busy,
-    input spi_in_data[8],
+    input spi_in_data[32],
     input instruction[32],
     input mem_data_input[32],
     output ia[32],
@@ -114,7 +114,7 @@ module beta_cpu (
             2b00: wdsel_out = c{pc_system.ia[31], pc_system.pc_4[30:0]}
             2b01: wdsel_out = alu_system.out
             2b10: wdsel_out = mem_data_input //mrd
-            2b11: wdsel_out = c{24h0, spi_in_data}
+            2b11: wdsel_out = spi_in_data
             default: wdsel_out = c{pc_system.ia[31], pc_system.pc_4[30:0]}
         }
 

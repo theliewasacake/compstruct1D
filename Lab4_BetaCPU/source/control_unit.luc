@@ -34,11 +34,11 @@ module control_unit (
     b00000011101110110,
     b00000011101010110,
     b00000011100110110,
-    b01110000000000010,
+    b00000010000110110,// DIVC
     b00000010000100110,// MULC
     b00000010000010110,// SUBC
     b00000010000000110,// ADDC
-    b01110000000000010,
+    b00000000000001110,// BTNRD
     b00000001000110110,// SRA
     b00000001000010110,// SHR
     b00000001000000110,// SHL
@@ -50,14 +50,14 @@ module control_unit (
     b00000001101110110,// CMPLE
     b00000001101010110,// CMPLT
     b00000001100110110,// CMPEQ
-    b01110000000000010,// DIV [NOT IMPL]
+    b00000000000110110,// DIV
     b00000000000100110,// MUL 
     b00000000000010110,// SUB
     b00000000000000110,// ADD
     b00001000110101010,// LDR
     b00001000110100010,// BNE
     b00001000110100010,// BEQ
-    b00010000000001110,// SPIRD (ACCEL)
+    b00010010000001110,// SPIRD (ACCEL)
     b01001000110100010,// JMP
     b00010000000000010,// SPIWRT (LCD)
     b00000110000000001,// ST
@@ -89,7 +89,7 @@ module control_unit (
   };
     
   dff irq_sampler(#INIT(0), .clk(clk));
-  dff acc_wait(#INIT(0), .clk(clk))
+  dff acc_wait(#INIT(1), .clk(clk))
   always {
   
     // sample interrupt at the beginning of each cycle
@@ -163,7 +163,7 @@ module control_unit (
             pcsel = 3b101    //go back to original pc, repeat instruction
             wasel = 0    //do nothing else
             asel = 0
-            ra2sel = 0
+            ra2sel = 1
             bsel = 0
             alufn = 0
             wdsel = 0
