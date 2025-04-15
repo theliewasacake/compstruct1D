@@ -1,0 +1,377 @@
+/*
+This module demonstrates a simple game using RAM to manage player and obstacle positions
+Player is rendered as a square (2 dots wide)
+Dots move upward and player must catch them
+*/
+module data_ram #(
+    ROW_DIMENSION = 8 : ROW_DIMENSION > 1,
+    COLUMN_DIMENSION = 8 : COLUMN_DIMENSION > 0,
+    ENCODING_AMOUNT = 4 : ENCODING_AMOUNT > 0
+)(
+    input clk,  // clock
+    input rst,  // reset
+    input update,
+    input player_x_pos[$clog2(COLUMN_DIMENSION)],
+    input player_y_pos[$clog2(ROW_DIMENSION)],
+    input address[$clog2($resize(ROW_DIMENSION*COLUMN_DIMENSION, 16))],
+    output out_encoding[3],
+    output ready,
+    output debug_address_pointer[$clog2($resize(ROW_DIMENSION*COLUMN_DIMENSION, 16))],
+    input start_button,
+    output debug_data[2],
+    input start_game,
+    output player_collided
+) {
+    
+    const DEPTH = $resize(COLUMN_DIMENSION * ROW_DIMENSION, 16)
+    
+    enum States {
+        WAIT,           // Waiting for game to start
+        CLEAR,          // Clear the display
+        CLEAR_PLAYER,   // Clear previous player position
+        WRITE_PLAYER,   // Write the player position
+        WRITE_DOT,      // Write the falling dot
+        CLEAR_DOT,      // Clear the previous dot position
+        CHECK_COLLISION, // Check for collisions
+        CHECK_MISS,     // Check if dot reached top without being caught
+        IDLE,           // Ready for next update
+        GAME_OVER_INIT, // Initialize game over state
+        GAME_OVER       // Game over state - full red screen
+    }
+    
+    const CLK_FREQ = $is_sim() ? 1000 : 10000000
+    
+    // Color constants
+    const BACKGROUND_COLOR = b00 // OFF
+    const PLAYER_COLOR = b01    // red player color
+    const DOT_COLOR = b10       // blue dot game object
+    const WHITE_COLOR = b11     // for collision detection with player
+    
+    const O = b00
+    const X = b10
+    const Y = b01
+    
+    const GAME_OVER_BITMAP = {
+        O,X,O,X,O,Y,Y,Y,
+        X,O,X,O,X,O,O,Y,
+        X,O,X,O,X,Y,Y,Y,
+        X,O,X,O,X,Y,Y,Y,
+        O,Y,O,Y,O,X,X,X,
+        O,Y,O,Y,O,X,O,X,
+        O,Y,O,Y,O,X,O,X,
+        O,O,Y,O,O,X,X,X
+    }
+    
+    // State machine and control registers
+    dff fsm[$width(States)](.clk(clk), .rst(rst), #INIT(States.WAIT))
+    dff writer_pointer[$clog2(DEPTH)](.clk(clk), .rst(rst), #INIT(0))
+    dff update_flag(.clk(clk), .rst(rst), #INIT(0))
+    dff tick_counter[24](.clk(clk), .rst(rst), #INIT(0))
+    
+    // Dot position registers
+    dff dot_y_pos[$clog2(ROW_DIMENSION)](.clk(clk), .rst(rst), #INIT(0))
+    dff dot_x_pos[$clog2(COLUMN_DIMENSION)](.clk(clk), .rst(rst), #INIT(0))
+    dff prev_dot_y_pos[$clog2(ROW_DIMENSION)](.clk(clk), .rst(rst), #INIT(0))
+    dff prev_dot_x_pos[$clog2(COLUMN_DIMENSION)](.clk(clk), .rst(rst), #INIT(0))
+    
+    // Player position tracking
+    dff prev_player_x[$clog2(COLUMN_DIMENSION)](.clk(clk), .rst(rst), #INIT(0))
+    dff prev_player_y[$clog2(ROW_DIMENSION)](.clk(clk), .rst(rst), #INIT(0))
+    
+    // Game state registers
+    dff start_dot(.clk(clk), .rst(rst), #INIT(0))
+    dff lives[2](.clk(clk), .rst(rst), #INIT(3)) // 2 bits is enough for 3 lives
+    dff dot_caught(.clk(clk), .rst(rst), #INIT(0)) // Track if current dot was caught
+    dff game_over_flag(.clk(clk), .rst(rst), #INIT(0)) // Flag to indicate game over state
+    
+    // Random number generator for dot positions
+    dff seed[32](.clk(clk), #INIT(0))
+    pn_gen rng(.clk(clk), .rst(rst), .seed(seed.q))
+    
+    // Button handling
+    button_conditioner start_button_cond(.clk(clk), #CLK_FREQ(CLK_FREQ))
+    edge_detector start_button_edge(.clk(clk), #RISE(1), #FALL(0))
+    
+    // Memory for display
+    simple_dual_port_ram ram(.rclk(clk), .wclk(clk), #ENTRIES(DEPTH), #WIDTH($clog2(ENCODING_AMOUNT)))
+    
+    dff player_col[4](#INIT(0), .clk(clk), .rst(rst))
+    
+    alu alu_game
+    
+    always {
+        // Default values
+        player_col.d = player_col.q
+        player_collided = 0
+        ram.raddr = address // Always read from the address provided for display
+        ram.waddr = 0
+        ram.write_data = 0
+        ram.write_enable = 0
+        out_encoding = ram.read_data // Output the data at the current address
+        debug_data = lives.q[1:0]  // Show lives count on debug output
+        
+        // alu default inputs
+        alu_game.a = 0
+        alu_game.b = 0
+        alu_game.alufn = 0
+        
+        // Button handling
+        start_button_cond.in = start_button
+        start_button_edge.in = start_button_cond.out
+        
+        // Maintain register values by default
+        seed.d = seed.q + 1
+        start_dot.d = start_dot.q
+        lives.d = lives.q
+        writer_pointer.d = writer_pointer.q 
+        dot_y_pos.d = dot_y_pos.q
+        dot_x_pos.d = dot_x_pos.q
+        prev_dot_y_pos.d = prev_dot_y_pos.q
+        prev_dot_x_pos.d = prev_dot_x_pos.q
+        prev_player_x.d = prev_player_x.q
+        prev_player_y.d = prev_player_y.q
+        fsm.d = fsm.q 
+        update_flag.d = update_flag.q
+        tick_counter.d = tick_counter.q + 1
+        dot_caught.d = dot_caught.q
+        game_over_flag.d = game_over_flag.q
+        rng.next = 0
+        
+        // Check for player movement - only update if not game over
+        if (!game_over_flag.q && (player_x_pos != prev_player_x.q || player_y_pos != prev_player_y.q)) {
+            update_flag.d = 1  // Request display update
+        }
+        
+        // Handle dot movement timing - only if not in game over state
+        if (&tick_counter.q && start_dot.q && !game_over_flag.q) {
+            tick_counter.d = 0
+            
+            // Save current position as previous
+            prev_dot_x_pos.d = dot_x_pos.q
+            prev_dot_y_pos.d = dot_y_pos.q
+            
+            // Move dot up (0 is bottom, ROW_DIMENSION-1 is top)
+            if (dot_y_pos.q > 0) {
+                dot_y_pos.d = dot_y_pos.q - 1
+            } else {
+                // Check if dot was missed before creating a new one
+                if (!dot_caught.q) {
+                    // Dot reached top without being caught
+                    fsm.d = States.CHECK_MISS
+                } else {
+                    // Reset dot_caught for the next dot
+                    dot_caught.d = 0
+                    
+                    // Dot reached top, reset to bottom with new X position
+                    dot_y_pos.d = ROW_DIMENSION - 1
+                    
+                    // Use a subset of random bits to ensure value is in range
+                    sig new_x_pos[$clog2(COLUMN_DIMENSION)] = rng.num[$clog2(COLUMN_DIMENSION)-1:0];
+                    
+                    // Adjust if needed to keep within bounds
+                    if (new_x_pos >= COLUMN_DIMENSION) {
+                        dot_x_pos.d = new_x_pos - (COLUMN_DIMENSION >> 1);
+                    } else {
+                        dot_x_pos.d = new_x_pos;
+                    }
+                    
+                    rng.next = 1
+                }
+            }
+            
+            update_flag.d = 1  // Request display update
+        }
+        
+        // Ready signal indicates when the FSM is idle
+        ready = fsm.q == States.IDLE || fsm.q == States.GAME_OVER
+        
+        // Catch update requests - only if not game over
+        if (update && !game_over_flag.q) {
+            update_flag.d = 1
+        }
+        
+        // State machine
+        case (fsm.q) {
+            States.WAIT:
+                if (start_game) {
+                    start_dot.d = 1
+                    dot_caught.d = 0
+                    game_over_flag.d = 0
+                    writer_pointer.d = 0
+                    prev_player_x.d = 3
+                    fsm.d = States.CLEAR
+                }
+            
+            States.CLEAR:
+                // Clear the display
+                ram.write_enable = 1
+                ram.waddr = writer_pointer.q 
+                ram.write_data = BACKGROUND_COLOR 
+                
+                writer_pointer.d = writer_pointer.q + 1
+                
+                if (&writer_pointer.q) {
+                    // All RAM cleared, now clear previous player position first
+                    writer_pointer.d = 0
+                    fsm.d = States.CLEAR_PLAYER
+                }
+            
+            States.CLEAR_PLAYER:
+                // Clear previous player position to prevent trailing
+                ram.write_enable = 1
+                ram.waddr = prev_player_y.q * COLUMN_DIMENSION + prev_player_x.q
+                ram.write_data = BACKGROUND_COLOR
+                
+                // Also clear adjacent position (for 2-wide player)
+                if (prev_player_x.q < COLUMN_DIMENSION - 1) {
+                    writer_pointer.d = prev_player_y.q * COLUMN_DIMENSION + prev_player_x.q + 1
+                } else {
+                    writer_pointer.d = player_y_pos * COLUMN_DIMENSION + player_x_pos
+                    fsm.d = States.WRITE_PLAYER
+                }
+                
+                if (fsm.q == States.CLEAR_PLAYER && writer_pointer.q == prev_player_y.q * COLUMN_DIMENSION + prev_player_x.q + 1) {
+                    ram.write_enable = 1
+                    ram.waddr = writer_pointer.q
+                    ram.write_data = BACKGROUND_COLOR
+                    writer_pointer.d = player_y_pos * COLUMN_DIMENSION + player_x_pos
+                    fsm.d = States.WRITE_PLAYER
+                }
+            
+            States.WRITE_PLAYER:
+                // Write player (2 dots wide)
+                ram.write_enable = 1
+                ram.waddr = writer_pointer.q
+                ram.write_data = PLAYER_COLOR
+                
+                // Record current player position
+                prev_player_x.d = player_x_pos
+                prev_player_y.d = player_y_pos
+                
+                // Write second player dot in next cycle
+                if (player_x_pos < COLUMN_DIMENSION - 1) {
+                    writer_pointer.d = player_y_pos * COLUMN_DIMENSION + player_x_pos + 1
+                } else {
+                    fsm.d = States.WRITE_DOT
+                }
+                
+                if (fsm.q == States.WRITE_PLAYER && writer_pointer.q == player_y_pos * COLUMN_DIMENSION + player_x_pos + 1) {
+                    ram.write_enable = 1
+                    ram.waddr = writer_pointer.q
+                    ram.write_data = PLAYER_COLOR
+                    fsm.d = States.WRITE_DOT
+                }
+            
+            States.WRITE_DOT:
+                // Check for collision between player and dot
+                if (dot_y_pos.q == player_y_pos && 
+                    (dot_x_pos.q == player_x_pos || dot_x_pos.q == player_x_pos + 1)) {
+                    // Collision: draw white
+                    player_col.d = 1
+                    player_collided = 1
+                    dot_caught.d = 1
+                    ram.write_enable = 1
+                    ram.waddr = dot_y_pos.q * COLUMN_DIMENSION + dot_x_pos.q
+                    ram.write_data = WHITE_COLOR
+                } else {
+                    // No collision: draw blue dot
+                    ram.write_enable = 1
+                    ram.waddr = dot_y_pos.q * COLUMN_DIMENSION + dot_x_pos.q
+                    ram.write_data = DOT_COLOR
+                }
+                fsm.d = States.IDLE
+
+            States.CHECK_COLLISION:
+                // Check for collision between player and dot - this is now a positive event
+                if (dot_y_pos.q == player_y_pos && 
+                   (dot_x_pos.q == player_x_pos || dot_x_pos.q == player_x_pos + 1)) {
+                    player_collided = 1  // Signal collision, but no life lost
+                    player_col.d = 1
+                    dot_caught.d = 1     // Mark dot as caught
+                }
+                fsm.d = States.IDLE
+            
+            States.CHECK_MISS:
+                // Dot reached top without being caught, decrement life
+                alu_game.a = lives.q
+                alu_game.b = 3b001
+                alu_game.alufn = 6h01
+                //lives.d = lives.q - 1
+                lives.d = alu_game.out[1:0] - 1
+                
+                if (lives.q  == 1) {  // Will become 0 after decrement
+                    player_col.d = 0
+                    game_over_flag.d = 1  // Set game over flag
+                    writer_pointer.d = 0  // Reset pointer for game over screen
+                    fsm.d = States.GAME_OVER_INIT
+                } else {
+                    // Reset dot position for next attempt
+                    player_col.d = 0
+                    dot_y_pos.d = ROW_DIMENSION - 1
+                    
+                    // Generate new x position
+                    sig new_x_pos[$clog2(COLUMN_DIMENSION)] = rng.num[$clog2(COLUMN_DIMENSION)-1:0];
+                    if (new_x_pos >= COLUMN_DIMENSION) {
+                        dot_x_pos.d = new_x_pos - (COLUMN_DIMENSION >> 1);
+                    } else {
+                        dot_x_pos.d = new_x_pos;
+                    }
+                    
+                    rng.next = 1
+                    dot_caught.d = 0
+                    fsm.d = States.IDLE
+                }
+            
+            States.IDLE:
+                // In idle state, just handle RAM reading for display
+                if (update_flag.q && !game_over_flag.q) {
+                    update_flag.d = 0
+                    fsm.d = States.CLEAR_DOT
+                }
+            
+            States.CLEAR_DOT:
+                // Clear the previous dot position
+                ram.write_enable = 1
+                ram.waddr = prev_dot_y_pos.q * COLUMN_DIMENSION + prev_dot_x_pos.q
+                ram.write_data = BACKGROUND_COLOR
+                fsm.d = States.CLEAR
+            
+            States.GAME_OVER_INIT:
+                // Initialize the game over state - Fill entire RAM with red
+                writer_pointer.d = 0
+                fsm.d = States.GAME_OVER
+            
+            States.GAME_OVER:
+                // 8x8 hardcoded "GO" pattern
+                // Draw "GO"
+                ram.write_enable = 1
+                ram.waddr = writer_pointer.q
+                ram.write_data = GAME_OVER_BITMAP[writer_pointer.q]
+                writer_pointer.d = writer_pointer.q + 1
+                
+                if (writer_pointer.q == 63) {
+                    writer_pointer.d = 0
+                    fsm.d = States.GAME_OVER_INIT
+                }
+                
+                // Only exit game over state when start_game is toggled
+                if (!start_game && start_button_edge.out) {
+                    prev_player_x.d = 0
+                    writer_pointer.d = 0
+                    lives.d = 3
+                    dot_caught.d = 0
+                    dot_y_pos.d = ROW_DIMENSION - 1
+                    dot_x_pos.d = 0
+                    prev_dot_y_pos.d = 0
+                    prev_dot_x_pos.d = 0
+                    game_over_flag.d = 0
+                    rng.next = 1  // Trigger new RNG seed for fresh start
+                    fsm.d = States.WAIT
+                }
+
+        }
+        
+        debug_address_pointer = writer_pointer.q
+        debug_data = lives.q
+    }
+}

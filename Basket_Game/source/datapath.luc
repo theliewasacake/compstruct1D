@@ -1,0 +1,93 @@
+module datapath#(
+    SLOW_CLOCK_DIV ~ 26 : SLOW_CLOCK_DIV > 0,
+    FAST_CLOCK_DIV ~ 21 : FAST_CLOCK_DIV > 0
+)(
+    input clk,  // clock
+    input rst,  // reset
+    input left_button,
+    input right_button,
+    input start_button,
+    output debug_general[4],
+    output data
+) {
+    
+    //temp variables
+    sig input_alu_a[32]
+    sig input_alu_b[32]
+    
+    const COLUMN_DIMENSION = 5d8 // how many "columns"? 
+    const ROW_DIMENSION = 5d8 // how many "rows"?
+    const PIXEL_COUNT = 10d64 // how many LEDs in total?
+    
+    alu game_alu
+    
+    sig player_collided_out
+    
+    .clk(clk){
+        .rst(rst){
+            control_unit control_unit(
+                .left_button(left_button),
+                .right_button(right_button),
+                .start_button(start_button), .player_collided(player_collided_out)
+            )
+            
+            register_files register_files(
+                .we(control_unit.regfile_we), 
+                .wa(control_unit.regfile_wa), 
+                .ra1(control_unit.regfile_ra1), 
+                .ra2(control_unit.regfile_ra2)
+            )
+            
+            player_mode player_mode(.left_button(left_button), 
+                    .right_button(right_button),
+                    .start_button(start_button),
+                    #COLUMN_DIMENSION(COLUMN_DIMENSION), #ROW_DIMENSION(ROW_DIMENSION),
+                    #PIXEL_COUNT(PIXEL_COUNT)
+                )
+        }
+    }
+    
+    always {
+        // bootstrap rd2 output to CU for convenient branching conditions
+        control_unit.regfile_rd2 = register_files.rd2
+        
+        // asel mux
+        case(control_unit.asel){
+            b00  : input_alu_a = register_files.rd1
+            b01  : input_alu_a = 3
+            b11  : input_alu_a = 0
+            default : //b10 unused
+                input_alu_a = 0
+        }
+        
+        // bsel mux
+        case(control_unit.bsel){
+            b00 : input_alu_b = register_files.rd2
+            b01 : input_alu_b = 1
+            b11 : input_alu_b = 3
+            b10 : input_alu_b = 0
+            default: //necessary to init
+                input_alu_b = 0
+        }
+        
+        // alu
+        game_alu.a = input_alu_a
+        game_alu.b = input_alu_b
+        game_alu.alufn = control_unit.alufn
+        
+        // wdsel mux
+        case (control_unit.alu_out_sel){
+            b01 : register_files.data = hFFFF
+            b10 : register_files.data = hF
+            b11 : register_files.data = 0
+            default : 
+                register_files.data = game_alu.out
+        }
+        
+        debug_general = control_unit.debug
+        data = player_mode.data
+        player_collided_out = player_mode.player_collided
+        
+        
+    }
+}

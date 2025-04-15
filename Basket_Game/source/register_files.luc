@@ -1,0 +1,67 @@
+module register_files (
+    input clk,  // clock
+    input rst,  // reset
+    input wa[3], // write address
+    input we, // write enable
+    input data[32], // data in
+    
+    input ra1[3], // read address port 1
+    input ra2[3], // read address port 2
+    output rd1[32], // read data port 1
+    output rd2[32], // read data port 1
+    output player_x_data[32]
+) {
+    
+    .clk(clk){
+        .rst(rst){
+            dff player_lives[32](#INIT(0))
+            dff player_score[32](#INIT(0))
+            dff player_x[32](#INIT(0))
+            dff player_y[32](#INIT(0))
+            dff dot_x[32](#INIT(0))
+            dff dot_y[32](#INIT(0))
+            dff collisionFlag(#INIT(0))
+        }
+    }
+    
+    always {
+        //write port
+        if (we){
+            case(wa){
+                d0 : player_lives.d = data
+                d1 : player_score.d = data
+                d2 : player_x.d = data
+                d3 : player_y.d = data
+                d4 : dot_x.d = data
+                d5 : dot_y.d = data
+                d6 : collisionFlag.d = data[0]
+            }
+        }
+        
+        //read port a
+        case(ra1){
+            d0 : rd1 = player_lives.q
+            d1 : rd1 = player_score.q
+            d2 : rd1 = player_x.q
+            d3 : rd1 = player_y.q
+            d4 : rd1 = dot_x.q
+            d5 : rd1 = dot_y.q
+            d6 : rd1 = collisionFlag.q
+            default : rd1 = 0
+        }
+        
+        //read port b
+        case(ra2){
+            d0 : rd2 = player_lives.q
+            d1 : rd2 = player_score.q
+            d2 : rd2 = player_x.q
+            d3 : rd2 = player_y.q
+            d4 : rd2 = dot_x.q
+            d5 : rd2 = dot_y.q
+            d6 : rd2 = collisionFlag.q
+            default : rd2 = 0
+        }
+        
+        player_x_data = player_x.q
+    }
+}

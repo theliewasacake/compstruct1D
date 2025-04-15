@@ -1,0 +1,146 @@
+module player_mode #(
+    COLUMN_DIMENSION = 16d8 : COLUMN_DIMENSION > 0,
+    ROW_DIMENSION = 16d8 : ROW_DIMENSION > 1,
+    PIXEL_COUNT = 16d64 : PIXEL_COUNT > 0,
+    BUFFER_SIZE = 1024 : BUFFER_SIZE > 0 // ensure this value is larger than PIXEL_COUNT * $clog2(COLOR_ENCODING)
+) (
+    input clk,              // 100MHz clock
+    input rst,            // reset button (active low)
+    output led[8],          // 8 user controllable LEDs
+    output io_led[3][8],    // LEDs on IO Shield
+    output io_segment[8],   // 7-segment LEDs on IO Shield
+    output io_select[4],    // Digit select on IO Shield
+    input left_button,
+    input right_button,
+    input start_button,
+    output data,
+    output debug[2],
+    output player_collided
+    //output player_x_data[32]
+) {
+    sig player_collided_out
+    const CLK_FREQ = $is_sim() ? 1000 : 100000000
+    // how many different encodings are used? As example, we use 4 colors, hence ENCODING_AMOUNT is 4
+     const ENCODING_AMOUNT = 4 
+    
+    // OFF WHITE (11), DIM BLUE (10), DIM RED (01), OFF(00)
+    const LEDCOLOR = {24h0F0F0F, 24h030000, 24h000300, 24h000000} 
+    index_reverser index_reverser(#COLUMN_DIMENSION(COLUMN_DIMENSION), #SIZE($clog2(PIXEL_COUNT)))
+    
+    
+    .clk(clk){
+        .rst(rst){
+            // the data_ram, this is a custom data_ram for demonstration purposes
+            // along with custom "player location"
+            data_ram ram(.start_button(start_button),#ROW_DIMENSION(ROW_DIMENSION), #ENCODING_AMOUNT(ENCODING_AMOUNT), #COLUMN_DIMENSION(COLUMN_DIMENSION))
+            // 0,0 is assumed to be at the top right of LED matrix: Check this with your matrix orientation
+            // right ---> x--
+            // left ---> x++ 
+            // down ---> y++ 
+            // up ---> y--
+            dff player_x_pos[$clog2(COLUMN_DIMENSION)](#INIT(3))
+            dff player_y_pos[$clog2(ROW_DIMENSION)](#INIT(0))
+            dff update_ram_flag(#INIT(0))
+            ws2812b_driver driver(#PIXEL_COUNT(PIXEL_COUNT)) 
+            dff on_off_toggle(#INIT(1))
+            dff start_game(#INIT(0))
+            dff player_collided_outf(#INIT(0))
+        }
+    }
+
+    // user inputs
+    button_conditioner left_cond(.clk(clk), #CLK_FREQ(CLK_FREQ))
+    edge_detector left_edge(.clk(clk), #RISE(1), #FALL(0))
+    
+    button_conditioner right_cond(.clk(clk), #CLK_FREQ(CLK_FREQ))
+    edge_detector right_edge(.clk(clk), #RISE(1), #FALL(0))
+    
+    button_conditioner start_cond(.clk(clk), #CLK_FREQ(CLK_FREQ))
+    edge_detector start_edge(.clk(clk), #RISE(1), #FALL(0))
+    
+    always {
+        player_collided_outf.d = player_collided_outf.q
+        led = 8h00            
+        io_led = 3x{{8h00}}
+        io_segment = 8hff
+        io_select = 4hf
+        data = 0
+        ram.start_game = 0
+
+        player_x_pos.d = player_x_pos.q
+        player_y_pos.d = player_y_pos.q
+        update_ram_flag.d = update_ram_flag.q
+        on_off_toggle.d = on_off_toggle.q
+        start_game.d = start_game.q
+
+        ram.address = 0        // address 0 selected by default
+        ram.update = 0         // do not update ram  by default
+
+        left_cond.in = left_button
+        left_edge.in = left_cond.out
+        
+        right_cond.in = right_button
+        right_edge.in = right_cond.out
+        
+        start_cond.in = start_button
+        start_edge.in = start_cond.out
+        
+        
+        driver.update = 0 // do not refresh by default
+        driver.clear = 0 // do not clear by default
+        
+        if (left_edge.out){ // player left button
+            // clamp 
+            if (player_x_pos.q < COLUMN_DIMENSION-2){
+                player_x_pos.d = player_x_pos.q + 1 // left
+            }
+        }
+        if (right_edge.out){ // player right button
+            // clamp at 0 
+            if (|player_x_pos.q){
+                player_x_pos.d = player_x_pos.q - 1 // right
+            }
+        }
+         
+        if (start_edge.out){ // player start button
+            driver.clear = 1             
+            //on_off_toggle.d = ~on_off_toggle.q // toggle the on-off to dictate update
+            //start_game.d = ~start_game.q
+            ram.start_game = ~start_game.q
+        }
+        
+        // update the ram whenever player moves or io_button[0] is pressed
+        if (left_edge.out | right_edge.out | (start_edge.out & ~on_off_toggle.q)){
+            // update_ram_flag.d = 1
+            ram.update = 1
+        }
+        
+        // connect player location to RAM, set update as 0 initially
+        ram.player_x_pos = player_x_pos.q 
+        ram.player_y_pos = player_y_pos.q
+
+        // connect reverser to led_strip 
+        index_reverser.input_address = driver.pixel_address
+        
+        // always read from ram, pass to driver 
+        driver.update = on_off_toggle.q
+        // safe to do even though ram read is sequential (+1 clock cycle)
+        // because driver always asks for address 0 data by default 
+        // and driver will ask for next address only when it is in the last cycle of the current pixel push 
+        // it gives time for RAM to load the read data 
+        ram.address = index_reverser.output_address 
+
+        driver.color = LEDCOLOR[ram.out_encoding] 
+        data = driver.data
+        
+        // debug 
+        io_led[0] = player_x_pos.q // player position 
+        io_led[1] = player_y_pos.q
+        io_led[2] = driver.pixel_address
+        debug = ram.debug_data
+        led[7:4] = ram.debug_data
+        player_collided_out = ram.player_collided
+        player_collided_outf.d = ram.player_collided
+        player_collided = player_collided_outf.q
+    }
+}

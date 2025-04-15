@@ -1,0 +1,80 @@
+module alchitry_top (
+    input clk,              // 100MHz clock
+    input rst_n,            // reset button (active low)
+    output led[8],          // 8 user controllable LEDs
+    input usb_rx,           // USB->Serial input
+    output usb_tx,          // USB->Serial output
+    output io_led[3][8],    // LEDs on IO Shield
+    output io_segment[8],   // 7-segment LEDs on IO Shield
+    output io_select[4],    // Digit select on IO Shield
+    input io_button[5],     // 5 buttons on IO Shield
+    input io_dip[3][8],      // DIP switches on IO Shield
+    output data
+    //input left_button,
+    //input right_button,
+    //input start_button
+) {
+    const COLUMN_DIMENSION = 5d8 // how many "columns"? 
+    const ROW_DIMENSION = 5d8 // how many "rows"?
+    const PIXEL_COUNT = 10d64 // how many LEDs in total?
+    const CLK_FREQ = $is_sim() ? 1000 : 100000000 // put 1000 for sim, 100M for hardware
+    sig rst                 // reset signal
+
+    .clk(clk) {
+        // The reset conditioner is used to synchronize the reset signal to the FPGA
+        // clock. This ensures the entire FPGA comes out of reset at the same time.
+        reset_conditioner reset_cond
+        edge_detector left_button_edge(#RISE(1), #FALL(0))
+        edge_detector right_button_edge(#RISE(1), #FALL(0))
+        edge_detector start_button_edge(#RISE(1), #FALL(0))
+        
+        button_conditioner left_button_cond(#CLK_FREQ(CLK_FREQ))
+        button_conditioner right_button_cond(#CLK_FREQ(CLK_FREQ)) 
+        button_conditioner start_button_cond(#CLK_FREQ(CLK_FREQ)) 
+ 
+        .rst(rst){
+            //multi_seven_seg seg(#DIV(SEVEN_SEG_DIV))
+            datapath game_datapath(#SLOW_CLOCK_DIV(5), #FAST_CLOCK_DIV(2))
+            
+            player_mode player_mode(.left_button(io_button[1]), 
+                    .right_button(io_button[0]), 
+                    .start_button(io_button[2]),
+                    #COLUMN_DIMENSION(COLUMN_DIMENSION), #ROW_DIMENSION(ROW_DIMENSION),
+                    #PIXEL_COUNT(PIXEL_COUNT)
+                )
+        }
+    }
+
+    always {
+        reset_cond.in = ~rst_n  // input raw inverted reset signal
+        rst = reset_cond.out    // conditioned reset
+        
+        led = 8h0
+        io_led = 3x{{8b0}}
+        io_segment = 8hF0
+        io_select = 4h0
+        
+        left_button_cond.in = io_button[0]
+        left_button_edge.in = left_button_cond.out
+        
+        right_button_cond.in = io_button[1]
+        right_button_edge.in = right_button_cond.out
+
+        start_button_cond.in = io_button[2]
+        start_button_edge.in = start_button_cond.out
+        
+        game_datapath.left_button = left_button_edge.out
+        game_datapath.right_button = right_button_edge.out
+        game_datapath.start_button = start_button_edge.out
+        
+        //led = game_datapath.debug_general
+        //io_led[2] = game_datapath.debug_general
+        //io_led[1] = player_mode.player_collided
+        io_led[0][2] = player_mode.debug[0]
+        io_led[0][3] = player_mode.debug[1]
+ 
+        data = player_mode.data
+        //data = game_datapath.data
+        usb_tx = usb_rx         // echo the serial data
+    }
+}
