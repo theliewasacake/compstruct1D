@@ -80,17 +80,17 @@ module motherboard (
     );
     
     
-    localparam _MP_SIZE_1641505747 = 3'h5;
-    localparam _MP_DIV_1641505747 = 1'h0;
-    localparam _MP_TOP_1641505747 = 1'h0;
-    localparam _MP_UP_1641505747 = 1'h1;
+    localparam _MP_SIZE_1484441883 = 3'h5;
+    localparam _MP_DIV_1484441883 = 1'h0;
+    localparam _MP_TOP_1484441883 = 1'h0;
+    localparam _MP_UP_1484441883 = 1'h1;
     logic [4:0] M_frequency_divider_value;
     
     counter #(
-        .SIZE(_MP_SIZE_1641505747),
-        .DIV(_MP_DIV_1641505747),
-        .TOP(_MP_TOP_1641505747),
-        .UP(_MP_UP_1641505747)
+        .SIZE(_MP_SIZE_1484441883),
+        .DIV(_MP_DIV_1484441883),
+        .TOP(_MP_TOP_1484441883),
+        .UP(_MP_UP_1484441883)
     ) frequency_divider (
         .clk(clk),
         .rst(rst),
@@ -98,12 +98,12 @@ module motherboard (
     );
     
     
-    localparam _MP_SEED_856935740 = 33'h19430f418;
+    localparam _MP_SEED_1847759998 = 33'h19430f418;
     logic M_pn_next;
     logic [31:0] M_pn_num;
     
     pn_gen #(
-        .SEED(_MP_SEED_856935740)
+        .SEED(_MP_SEED_1847759998)
     ) pn (
         .clk(clk),
         .rst(rst),
@@ -114,13 +114,13 @@ module motherboard (
     
     
     localparam MEMORY_SIZE = 11'h400;
-    localparam _MP_WORDS_670494660 = 11'h400;
+    localparam _MP_WORDS_282388924 = 11'h400;
     logic [9:0] M_instruction_unit_addr;
     logic [31:0] M_instruction_unit_out;
     logic [9:0] M_instruction_unit_numinstr;
     
     instruction_rom #(
-        .WORDS(_MP_WORDS_670494660)
+        .WORDS(_MP_WORDS_282388924)
     ) instruction_unit (
         .addr(M_instruction_unit_addr),
         .out(M_instruction_unit_out),
@@ -128,7 +128,7 @@ module motherboard (
     );
     
     
-    localparam _MP_WORDS_1134563970 = 11'h400;
+    localparam _MP_WORDS_1380111461 = 11'h400;
     logic [11:0] M_memory_unit_raddr;
     logic [11:0] M_memory_unit_waddr;
     logic [31:0] M_memory_unit_wd;
@@ -140,7 +140,7 @@ module motherboard (
     logic [31:0] M_memory_unit_id;
     
     memory_unit #(
-        .WORDS(_MP_WORDS_1134563970)
+        .WORDS(_MP_WORDS_1380111461)
     ) memory_unit (
         .clk(clk),
         .raddr(M_memory_unit_raddr),

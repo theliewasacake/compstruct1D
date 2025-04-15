@@ -9,10 +9,140 @@ module instruction_rom #(
     // Driver code, the bottommost instruction is the first instruction
     // CHECKOFF: write your own test instruction fulfilling the requirements written in the lab handout
     const INSTRUCTIONS = {
-        c{6b011101,5d31, 5d31,16hFFFF}, //BEQ R31 -2 R31 //end program
+        c{6b011101,5d31, 5d31,16hFFFF}, //BEQ R31 -1 R31 //end program
         c{6b000000,5d31, 5d31,16h0001}, //NOP
         c{6b011110,5d31, 5d04,16hFFFF}, //BNE R4 -1 R31 //end program
+        //JMP to newgame
+        c{6b011011,5d28, 5d02,16h0000}, //JMP, R28, R2 (jump to PC at R2) 
+        c{6b110000,5d02, 5d31,16h0034}, //ADDC R2<<(0x34)
+        //loop while dead
+        c{6b011110,5d31, 5d04,16hFFFD}, //BNE R4 -1 R31 //end program
+        c{6b111011,5d04, 5d20,16h0004}, //XORC R4 << R20^0x04 (startbutton)
+        c{6b101111,5d20, 5d31,16h0001}, //BTNRD //R20 = raw input reg [0xA0]
+        //JMP to regular update
+        c{6b011011,5d28, 5d02,16h0000}, //JMP, R28, R2 (jump to PC at R2) 
+        c{6b110000,5d02, 5d31,16h00AC}, //ADDC R2<<(0xAC)
+        //end logic
+        c{6b011101,5d26, 5d11,16h0001}, //BEQ R11, 1, R31 (0 lives left) 
+        c{6b110000,5d22, 5d00,16h0000}, //ADDC R22<<R0 
+        c{6b110000,5d00, 5d22,16h0008}, //ADDC R0<<R22+8//(update ball)
+        c{6b110000,5d25, 5d00,16h0000}, //ADDC R24<<R0 
+        c{6b100000,5d00, 5d25,5d24,11d0}, //ADD R0<<R25+R24 //(update position)
+        c{6b110000,5d24, 5d00,16h0000}, //ADDC R24<<R0 //(update velocity)
+        c{6b110000,5d00, 5d31,16hFFF0}, //ADDC R0<< -16
+        c{6b011101,5d31, 5d11,16h0002}, //BEQ R11, 1, R31 (skip add right vel) 
+        c{6b110000,5d24, 5d00,16h0000}, //ADDC R24<<R0//(update velocity)
+        c{6b110000,5d00, 5d31,16h0010}, //ADDC R0<< +16
+        c{6b011101,5d31, 5d10,16h0002}, //BEQ R10, 1, R31 (skip add left vel) 
+        c{6b111011,5d10, 5d20,16h0001}, //XORC R10<< R20^0x02 (rightbutton)
+        c{6b111011,5d11, 5d20,16h0002}, //XORC R11<< R20^0x02 (leftbutton)
+        //JMP to newball
+        c{6b011011,5d28, 5d02,16h0000}, //JMP, R28, R2 (jump to PC at R2) 
+        c{6b110000,5d02, 5d31,16h009C}, //ADDC R2<<(0x9C) 
+        //skip
+        c{6b011101,5d31, 5d09,16h0002}, //BEQ R9, 1, R31 (skip new ball) 
+        c{6b101000,5d09, 5d10,5d11,11d0}, //AND R9<<R10&R11 (1 if ball disappears, go to make new ball)
+        //draw score here
+        c{6b110000,5d26, 5d00,16h0000}, //ADDC R26<<R0//[life decrement]
+        c{6b110001,5d00, 5d26,16h0001}, //SUBC R0<< R26-1
+        c{6b011101,5d31, 5d11,16h0002}, //BEQ R11, 1, R31 (skip life decrement)
+        c{6b110110,5d11, 5d22,16h013F}, //CMPLEC R11<< R22<0x13F (1 if not yet loss)
+        c{6b110000,5d21, 5d00,16h0000}, //ADDC R21<<R0//[point increment]
+        c{6b110000,5d00, 5d21,16h0001}, //ADDC R0<< R21+1
+        c{6b011101,5d31, 5d10,16h0002}, //BEQ R10, 1, R31 (skip point increment) 
+        c{6b101000,5d10, 5d09,5d11,11d0}, //AND R10<< R11&R9 (check if scored)
+        c{6b111011,5d11, 5d10,16h0001}, //XORC R11<< R10^0x01 (invert R11)
+        c{6b110110,5d10, 5d22,16h0137}, //CMPLEC R10<< R22<0x137 (1 if not yet)
+        c{6b101001,5d09, 5d07,5d08,11d0}, //OR R9<< R7 | R8 
+        c{6b100110,5d08, 5d23,5d06,11d0}, //CMPLE R8<< R5>R23 
+        c{6b100110,5d07, 5d25,5d23,11d0}, //CMPLE R7<< R25<R23 
+        c{6b110000,5d06, 5d25,16h0020}, //ADDC R6<< R25+32
+        //collision checking for paddle
+        //ball drawing end
+        //control logic to fill
+        c{6b011110,5d31, 5d05,16hFFED}, //BNE R5, -19, 31
+        c{6b011110,5d31, 5d04,16hFFF0}, //BNE R4, -16, 31 [0x130]
+        //draw one black pixel
+        c{6b011010,5d31, 5d31, 5d31, 11d0}, //SPIWR 
+        c{6b011010,5d31, 5d31, 5d31, 11d2}, //SPIWR 
+        c{6b110000,5d19, 5d31,16h0180}, //ADDC (RED TEST PIX)
+        //draw one colored pixel
+        c{6b011101,5d31, 5d31,16h0002}, //BEQ R31, 2, R31 (skip black pixel) [0x120]
+        c{6b011010,5d31, 5d31, 5d19, 11d0}, //SPIWR 
+        c{6b110000,5d19, 5d31,16h011F}, //ADDC
+        c{6b011010,5d31, 5d19, 5d19, 11d2}, //SPIWR 
+        c{6b110000,5d19, 5d31,16h01F8}, //ADDC [0x110]
+        //if not paddle skip pixel color
+        c{6b011101,5d31, 5d09,16h0005}, //BEQ R9, 5, R31
+        c{6b100000,5d09, 5d07,5d08,11d0}, //ADD R9<< R7+R8 
+        c{6b100110,5d08, 5d22,5d05,11d0}, //CMPLE R8<< R5>R22 
+        c{6b100110,5d07, 5d05,5d06,11d0}, //CMPLE R7<< R5<R6(R22+8) [0x100]
+        c{6b110000,5d06, 5d22,16h0008}, //ADDC R6<< R24+32 
+        //decrement x
+        c{6b110000,5d04, 5d00,16h0000}, //ADDC R5<<R0
+        c{6b110001,5d00, 5d04,16h0001}, //SUBC R0<<R0-1
+        //decrement y
+        c{6b110000,5d05, 5d00,16h0000}, //ADDC R5<<R0 [0xF0]
+        c{6b110001,5d00, 5d05,16h0001}, //SUBC R0<<R5-1 
+        // setup counter
+        c{6b110000,5d04, 5d31,16h0010}, //ADDC R4<<(8) //Y location
+        c{6b110000,5d05, 5d31,16h0008}, //ADDC R5<<(16)  //X location in row
+        //init write
+        c{6b011010,5d31, 5d31, 5d19, 11d0}, //SPIWR 
+        c{6b110000,5d19, 5d31,16h002C}, //ADDC RAMWR
+        //ball drawing write
         
+        //JMP to Wait
+        c{6b011011,5d28, 5d02,16h0000}, //JMP, R28, R2 (jump to PC at R2) [0xE0]
+        c{6b110000,5d02, 5d31,16h0040}, //ADDC R2<<(0x40) 
+        
+        c{6b011010,5d31, 5d31, 5d19, 11d0}, //SPIWR 
+        c{6b110000,5d19, 5d05,16h0100}, //ADDC
+        c{6b011010,5d31, 5d31, 5d19, 11d0}, //SPIWR 
+        c{6b110000,5d19, 5d05,16h0100}, //ADDC 
+        
+        c{6b110000,5d05, 5d00,16h00FF}, //XORC R5<<R0^0xFF (LSB of ball end coord)
+        c{6b111010,5d04, 5d00,16h0008}, //SHRC R4<<(R0>>8) (get MSB of ball end coord)
+        c{6b110000,5d05, 5d22,16h0007}, //ADDC 
+        
+        c{6b011010,5d31, 5d31, 5d19, 11d0}, //SPIWR 
+        c{6b110000,5d19, 5d05,16h0100}, //ADDC
+        c{6b011010,5d31, 5d31, 5d19, 11d0}, //SPIWR 
+        c{6b110000,5d19, 5d05,16h0100}, //ADDC  
+        
+        
+        c{6b110000,5d05, 5d00,16h00FF}, //XORC R5<<R0^0xFF (LSB of ball end coord)
+        c{6b111010,5d04, 5d00,16h0008}, //SHRC R4<<(R0>>8) (get MSB of ball end coord)
+        c{6b110001,5d00, 5d22,16h0008}, //SUBC
+        
+        c{6b011010,5d31, 5d31, 5d19, 11d0}, //SPIWR 
+        c{6b110000,5d19, 5d31,16h002B}, //ADDC CASET
+        //ball drawing caset
+        //JMP to Wait
+        c{6b011011,5d28, 5d02,16h0000}, //JMP, R28, R2 (jump to PC at R2) 
+        c{6b110000,5d02, 5d31,16h0040}, //ADDC R2<<(0x40) 
+        
+        c{6b011010,5d31, 5d31, 5d19, 11d0}, //SPIWR 
+        c{6b110000,5d19, 5d05,16h0100}, //ADDC
+        c{6b011010,5d31, 5d31, 5d19, 11d0}, //SPIWR 
+        c{6b110000,5d19, 5d04,16h0100}, //ADDC 
+        
+        c{6b110000,5d05, 5d00,16h00FF}, //XORC R5<<R0^0xFF (LSB of ball end coord)
+        c{6b111010,5d04, 5d00,16h0008}, //SHRC R4<<(R0>>8) (get MSB of ball end coord)
+        c{6b110000,5d00, 5d23,16h000F}, //ADDC R0<<R23(ball_x)+15 (16 px wide)
+        
+        c{6b011010,5d31, 5d19, 5d19, 11d0}, //SPIWR 
+        c{6b110000,5d19, 5d05,16h0100}, //ADDC 
+        c{6b011010,5d31, 5d31, 5d19, 11d0}, //SPIWR 
+        c{6b110000,5d19, 5d04,16h0100}, //ADDC 
+        
+        c{6b110000,5d05, 5d23,16h00FF}, //XORC R5<<R23^0xFF (LSB of ball start coord)
+        c{6b111010,5d04, 5d23,16h0008}, //SHRC R4<<(R23>>8) (get MSB of ball start coord)
+        
+        c{6b011010,5d31, 5d31, 5d19, 11d0}, //SPIWR 
+        c{6b110000,5d19, 5d31,16h002B}, //ADDC RASET
+        //ball drawing raset
+        //ball drawing setup
         
         //JMP to Wait
         c{6b011011,5d28, 5d02,16h0000}, //JMP, R28, R2 (jump to PC at R2)
@@ -34,9 +164,9 @@ module instruction_rom #(
         //if not paddle skip pixel color
         c{6b011101,5d31, 5d09,16h0005}, //BEQ R9, 5, R31
         c{6b100000,5d09, 5d07,5d08,11d0}, //ADD R9<< R7+R8 
-        c{6b100110,5d08, 5d22,5d24,11d0}, //CMPLE R8<< R22>R24 
-        c{6b100110,5d07, 5d22,5d06,11d0}, //CMPLE R7<< R22<R6(R24+32) [0x100]
-        c{6b110000,5d06, 5d24,16h0020}, //ADDC R6<< R24+32 
+        c{6b100110,5d08, 5d25,5d05,11d0}, //CMPLE R8<< R5>R25 
+        c{6b100110,5d07, 5d05,5d06,11d0}, //CMPLE R7<< R5<R6(R24+32) [0x100]
+        c{6b110000,5d06, 5d25,16h0020}, //ADDC R6<< R25+32 
         //decrement x
         c{6b110000,5d04, 5d00,16h0000}, //ADDC R3<<R4
         c{6b110001,5d00, 5d04,16h0001}, //SUBC R4<<R3-1
@@ -46,6 +176,7 @@ module instruction_rom #(
         // setup counter
         c{6b110000,5d04, 5d31,16h01E0}, //ADDC R4<<(480) //X location
         c{6b110000,5d05, 5d31,16h0009}, //ADDC R5<<(8)  //Y location in row
+        //paddle drawing logic 
         
         //JMP to Wait
         c{6b011011,5d28, 5d02,16h0000}, //JMP, R28, R2 (jump to PC at R2) [0xE0]
@@ -65,18 +196,18 @@ module instruction_rom #(
         c{6b110000,5d19, 5d31,16h0100}, //ADDC 
         c{6b011010,5d31, 5d31, 5d19, 11d0}, //SPIWR [0xB0]
         c{6b110000,5d19, 5d31,16h002A}, //ADDC CASET
-        //paddle drawing
+        //paddle drawing setup
         
         c{6b110000,5d23, 5d03,16h0020}, //ADDC (random+32 pixelst to ball position) //R23 = ball X position
         c{6b111101,5d03, 5d20,16h0018}, //SHRC ({0x18}[24] ,R20, >>R3) 
         c{6b101111,5d20, 5d31,16h0001}, //BTNRD //R20 = raw input reg [0xA0]
-        c{6b110000,5d22, 5d31,16h0137}, //ADDC (ball to start at top) //R22 = ball Y position
+        c{6b110000,5d22, 5d31,16h0008}, //ADDC (ball to start at 8px from top) //R22 = ball Y position
         //ballstart
         
         c{6b110000,5d26, 5d31,16h0003}, //ADDC (lives = 3, game started) //R26 = LIVES
         c{6b110000,5d25, 5d31,16h00F0}, //ADDC (paddle_x = 240) //R25 = paddle_x 
         c{6b110000,5d24, 5d31,16h0000}, //ADDC (paddle_x_velocity = 0) //R24 = paddle_x_velocity [0x90]
-        c{6b110000,5d21, 5d31,16h0000}, //ADDC 
+        c{6b110000,5d21, 5d31,16h0000}, //ADDC R21<<0 = SCORE 
         c{6b110000,5d20, 5d31,16h0000}, //ADDC //R20 = raw input reg, clear
         //reinit game state
         //init constants
@@ -135,7 +266,7 @@ module instruction_rom #(
         c{6b011010,5d31, 5d19, 5d19, 11d0}, //SPIWR  0x08
         c{6b110000,5d19, 5d31,16h0011}, //ADDC LCD WAKE 0x04
         
-        c{6b101111,5d20, 5d31,16h0001} //BTNRD //R20 = raw input reg [0xA0]
+        c{6b101111,5d20, 5d31,16h0001} //BTNRD //R20 = raw input reg [0x00]
         //c{6b000000,5d31, 5d19, 5d19, 11d0} //NOP    [0x00]
         //LCD INIT START
         

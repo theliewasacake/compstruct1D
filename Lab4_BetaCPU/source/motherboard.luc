@@ -24,7 +24,7 @@ module motherboard (
     counter frequency_divider(#SIZE(5), .clk(clk), .rst(rst))
     pn_gen pn(.clk(clk), .rst(rst), .seed(6781203480))
     // setup and instantiate memory unit and instruction ROM
-    const MEMORY_SIZE = 1024
+    const MEMORY_SIZE = 512
     instruction_rom instruction_unit(#WORDS(MEMORY_SIZE))
     memory_unit memory_unit(#WORDS(MEMORY_SIZE), .clk(clk)) 
     

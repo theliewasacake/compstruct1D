@@ -12,8 +12,8 @@ module boolean #(
         input wire [5:0] alufn,
         output reg [(SIZE)-1:0] bool
     );
-    logic [31:0] R_05116e80_i;
-    logic [31:0] RR_05116e80_i;
+    logic [31:0] R_75243caa_i;
+    logic [31:0] RR_75243caa_i;
     logic start = 1'h0;
     logic step = 1'h1;
     logic [31:0] M_mux_4_32_s0;
@@ -21,15 +21,15 @@ module boolean #(
     logic [31:0][3:0] M_mux_4_32_in;
     logic [31:0] M_mux_4_32_out;
     
-    genvar idx_0_294039032;
+    genvar idx_0_1534390886;
     
     generate
-        for (idx_0_294039032 = 0; idx_0_294039032 < 32; idx_0_294039032 = idx_0_294039032 + 1) begin: forLoop_idx_0_294039032
+        for (idx_0_1534390886 = 0; idx_0_1534390886 < 32; idx_0_1534390886 = idx_0_1534390886 + 1) begin: forLoop_idx_0_1534390886
             mux_4 mux_4_32 (
-                .s0(M_mux_4_32_s0[idx_0_294039032]),
-                .s1(M_mux_4_32_s1[idx_0_294039032]),
-                .in(M_mux_4_32_in[idx_0_294039032]),
-                .out(M_mux_4_32_out[idx_0_294039032])
+                .s0(M_mux_4_32_s0[idx_0_1534390886]),
+                .s1(M_mux_4_32_s1[idx_0_1534390886]),
+                .in(M_mux_4_32_in[idx_0_1534390886]),
+                .out(M_mux_4_32_out[idx_0_1534390886])
             );
         end
     endgenerate
@@ -37,10 +37,10 @@ module boolean #(
     
     always @* begin
         M_mux_4_32_in = {6'h20{{alufn[2'h3:1'h0]}}};
-        for (RR_05116e80_i = 0; RR_05116e80_i < 6'h20; RR_05116e80_i = RR_05116e80_i + 1) begin
-      R_05116e80_i = (start) + RR_05116e80_i * (step);
-            M_mux_4_32_s0[R_05116e80_i] = a[R_05116e80_i];
-            M_mux_4_32_s1[R_05116e80_i] = b[R_05116e80_i];
+        for (RR_75243caa_i = 0; RR_75243caa_i < 6'h20; RR_75243caa_i = RR_75243caa_i + 1) begin
+      R_75243caa_i = (start) + RR_75243caa_i * (step);
+            M_mux_4_32_s0[R_75243caa_i] = a[R_75243caa_i];
+            M_mux_4_32_s1[R_75243caa_i] = b[R_75243caa_i];
         end
         bool = M_mux_4_32_out;
     end

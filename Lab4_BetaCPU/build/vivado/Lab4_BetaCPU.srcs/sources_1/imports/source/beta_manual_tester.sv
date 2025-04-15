@@ -58,16 +58,16 @@ module beta_manual_tester #(
     );
     
     
-    localparam _MP_CLK_FREQ_1626019546 = CLK_FREQ;
-    localparam _MP_MIN_DELAY_1626019546 = 5'h14;
-    localparam _MP_NUM_SYNC_1626019546 = 2'h2;
+    localparam _MP_CLK_FREQ_1345318242 = CLK_FREQ;
+    localparam _MP_MIN_DELAY_1345318242 = 5'h14;
+    localparam _MP_NUM_SYNC_1345318242 = 2'h2;
     logic M_next_button_conditioner_in;
     logic M_next_button_conditioner_out;
     
     button_conditioner #(
-        .CLK_FREQ(_MP_CLK_FREQ_1626019546),
-        .MIN_DELAY(_MP_MIN_DELAY_1626019546),
-        .NUM_SYNC(_MP_NUM_SYNC_1626019546)
+        .CLK_FREQ(_MP_CLK_FREQ_1345318242),
+        .MIN_DELAY(_MP_MIN_DELAY_1345318242),
+        .NUM_SYNC(_MP_NUM_SYNC_1345318242)
     ) next_button_conditioner (
         .clk(clk),
         .in(M_next_button_conditioner_in),
@@ -75,14 +75,14 @@ module beta_manual_tester #(
     );
     
     
-    localparam _MP_RISE_815534624 = 1'h1;
-    localparam _MP_FALL_815534624 = 1'h0;
+    localparam _MP_RISE_1032183182 = 1'h1;
+    localparam _MP_FALL_1032183182 = 1'h0;
     logic M_next_button_edge_in;
     logic M_next_button_edge_out;
     
     edge_detector #(
-        .RISE(_MP_RISE_815534624),
-        .FALL(_MP_FALL_815534624)
+        .RISE(_MP_RISE_1032183182),
+        .FALL(_MP_FALL_1032183182)
     ) next_button_edge (
         .clk(clk),
         .in(M_next_button_edge_in),
@@ -90,63 +90,63 @@ module beta_manual_tester #(
     );
     
     
-    localparam logic [2:0][31:0] _MP_CLK_FREQ_736747483 = {2'h3{{(6'h20)'(CLK_FREQ)}}};
-    localparam _MP_MIN_DELAY_736747483 = 5'h14;
-    localparam _MP_NUM_SYNC_736747483 = 2'h2;
+    localparam logic [2:0][31:0] _MP_CLK_FREQ_2032608229 = {2'h3{{(6'h20)'(CLK_FREQ)}}};
+    localparam _MP_MIN_DELAY_2032608229 = 5'h14;
+    localparam _MP_NUM_SYNC_2032608229 = 2'h2;
     logic [2:0] M_interrupt_button_conditioner_in;
     logic [2:0] M_interrupt_button_conditioner_out;
     logic [2:0] M_interrupt_button_conditioner_clk = {2'h3{clk}};
     
-    genvar idx_0_736747483;
+    genvar idx_0_2032608229;
     
     generate
-        for (idx_0_736747483 = 0; idx_0_736747483 < 3; idx_0_736747483 = idx_0_736747483 + 1) begin: forLoop_idx_0_736747483
+        for (idx_0_2032608229 = 0; idx_0_2032608229 < 3; idx_0_2032608229 = idx_0_2032608229 + 1) begin: forLoop_idx_0_2032608229
             button_conditioner #(
-                .CLK_FREQ(_MP_CLK_FREQ_736747483[idx_0_736747483]),
-                .MIN_DELAY(_MP_MIN_DELAY_736747483),
-                .NUM_SYNC(_MP_NUM_SYNC_736747483)
+                .CLK_FREQ(_MP_CLK_FREQ_2032608229[idx_0_2032608229]),
+                .MIN_DELAY(_MP_MIN_DELAY_2032608229),
+                .NUM_SYNC(_MP_NUM_SYNC_2032608229)
             ) interrupt_button_conditioner (
-                .clk(M_interrupt_button_conditioner_clk[idx_0_736747483]),
-                .in(M_interrupt_button_conditioner_in[idx_0_736747483]),
-                .out(M_interrupt_button_conditioner_out[idx_0_736747483])
+                .clk(M_interrupt_button_conditioner_clk[idx_0_2032608229]),
+                .in(M_interrupt_button_conditioner_in[idx_0_2032608229]),
+                .out(M_interrupt_button_conditioner_out[idx_0_2032608229])
             );
         end
     endgenerate
     
     
-    localparam logic [2:0][0:0] _MP_RISE_1716226233 = {{1'h1, 1'h1, 1'h1}};
-    localparam logic [2:0][0:0] _MP_FALL_1716226233 = {{1'h0, 1'h0, 1'h0}};
+    localparam logic [2:0][0:0] _MP_RISE_1978440969 = {{1'h1, 1'h1, 1'h1}};
+    localparam logic [2:0][0:0] _MP_FALL_1978440969 = {{1'h0, 1'h0, 1'h0}};
     logic [2:0] M_interrupt_button_edge_in;
     logic [2:0] M_interrupt_button_edge_out;
     logic [2:0] M_interrupt_button_edge_clk = {2'h3{clk}};
     
-    genvar idx_0_1716226233;
+    genvar idx_0_1978440969;
     
     generate
-        for (idx_0_1716226233 = 0; idx_0_1716226233 < 3; idx_0_1716226233 = idx_0_1716226233 + 1) begin: forLoop_idx_0_1716226233
+        for (idx_0_1978440969 = 0; idx_0_1978440969 < 3; idx_0_1978440969 = idx_0_1978440969 + 1) begin: forLoop_idx_0_1978440969
             edge_detector #(
-                .RISE(_MP_RISE_1716226233[idx_0_1716226233]),
-                .FALL(_MP_FALL_1716226233[idx_0_1716226233])
+                .RISE(_MP_RISE_1978440969[idx_0_1978440969]),
+                .FALL(_MP_FALL_1978440969[idx_0_1978440969])
             ) interrupt_button_edge (
-                .clk(M_interrupt_button_edge_clk[idx_0_1716226233]),
-                .in(M_interrupt_button_edge_in[idx_0_1716226233]),
-                .out(M_interrupt_button_edge_out[idx_0_1716226233])
+                .clk(M_interrupt_button_edge_clk[idx_0_1978440969]),
+                .in(M_interrupt_button_edge_in[idx_0_1978440969]),
+                .out(M_interrupt_button_edge_out[idx_0_1978440969])
             );
         end
     endgenerate
     
     
-    localparam _MP_SIZE_573153683 = 5'h1c;
-    localparam _MP_DIV_573153683 = 1'h0;
-    localparam _MP_TOP_573153683 = 1'h0;
-    localparam _MP_UP_573153683 = 1'h1;
+    localparam _MP_SIZE_938546616 = 5'h1c;
+    localparam _MP_DIV_938546616 = 1'h0;
+    localparam _MP_TOP_938546616 = 1'h0;
+    localparam _MP_UP_938546616 = 1'h1;
     logic [27:0] M_frequency_divider_value;
     
     counter #(
-        .SIZE(_MP_SIZE_573153683),
-        .DIV(_MP_DIV_573153683),
-        .TOP(_MP_TOP_573153683),
-        .UP(_MP_UP_573153683)
+        .SIZE(_MP_SIZE_938546616),
+        .DIV(_MP_DIV_938546616),
+        .TOP(_MP_TOP_938546616),
+        .UP(_MP_UP_938546616)
     ) frequency_divider (
         .clk(clk),
         .rst(rst),
@@ -154,14 +154,14 @@ module beta_manual_tester #(
     );
     
     
-    localparam _MP_RISE_2071785500 = 1'h1;
-    localparam _MP_FALL_2071785500 = 1'h0;
+    localparam _MP_RISE_1353152540 = 1'h1;
+    localparam _MP_FALL_1353152540 = 1'h0;
     logic M_slowclock_edge_in;
     logic M_slowclock_edge_out;
     
     edge_detector #(
-        .RISE(_MP_RISE_2071785500),
-        .FALL(_MP_FALL_2071785500)
+        .RISE(_MP_RISE_1353152540),
+        .FALL(_MP_FALL_1353152540)
     ) slowclock_edge (
         .clk(clk),
         .in(M_slowclock_edge_in),
@@ -169,14 +169,14 @@ module beta_manual_tester #(
     );
     
     
-    localparam _MP_RISE_1317586426 = 1'h1;
-    localparam _MP_FALL_1317586426 = 1'h0;
+    localparam _MP_RISE_1314307904 = 1'h1;
+    localparam _MP_FALL_1314307904 = 1'h0;
     logic M_fastclock_edge_in;
     logic M_fastclock_edge_out;
     
     edge_detector #(
-        .RISE(_MP_RISE_1317586426),
-        .FALL(_MP_FALL_1317586426)
+        .RISE(_MP_RISE_1314307904),
+        .FALL(_MP_FALL_1314307904)
     ) fastclock_edge (
         .clk(clk),
         .in(M_fastclock_edge_in),
@@ -185,15 +185,15 @@ module beta_manual_tester #(
     
     
     logic [31:0] D_id_d, D_id_q = 0;
-    localparam _MP_DIGITS_895507647 = 3'h4;
-    localparam _MP_DIV_895507647 = 5'h10;
+    localparam _MP_DIGITS_659328317 = 3'h4;
+    localparam _MP_DIV_659328317 = 5'h10;
     logic [3:0][3:0] M_seg_values;
     logic [6:0] M_seg_seg;
     logic [3:0] M_seg_sel;
     
     multi_seven_seg #(
-        .DIGITS(_MP_DIGITS_895507647),
-        .DIV(_MP_DIV_895507647)
+        .DIGITS(_MP_DIGITS_659328317),
+        .DIV(_MP_DIV_659328317)
     ) seg (
         .clk(clk),
         .rst(rst),
