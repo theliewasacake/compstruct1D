@@ -9,191 +9,138 @@ module instruction_rom #(
     // Driver code, the bottommost instruction is the first instruction
     // CHECKOFF: write your own test instruction fulfilling the requirements written in the lab handout
     const INSTRUCTIONS = {
-        c{6b011101,5d31, 5d04,16hFFFE}, //BEQ R4 -2 R31 //end program
+        c{6b011101,5d31, 5d31,16hFFFF}, //BEQ R31 -2 R31 //end program
         c{6b000000,5d31, 5d31,16h0001}, //NOP
         c{6b011110,5d31, 5d04,16hFFFF}, //BNE R4 -1 R31 //end program
         
         
+        //JMP to Wait
+        c{6b011011,5d28, 5d02,16h0000}, //JMP, R28, R2 (jump to PC at R2)
+        c{6b110000,5d02, 5d31,16h0040}, //ADDC R2<<(0x40) [0x80]
         
         //control logic to fill
         c{6b011110,5d31, 5d05,16hFFED}, //BNE R5, -19, 31
-        c{6b011110,5d31, 5d03,16hFFF0}, //BNE R3, -16, 31
+        c{6b011110,5d31, 5d04,16hFFF0}, //BNE R4, -16, 31 [0x130]
         //draw one black pixel
-        c{6b011010,5d31, 5d31, 5d19, 11d0}, //SPIWR 
-        c{6b011010,5d31, 5d19, 5d19, 11d2}, //SPIWR 
-        c{6b110000,5d19, 5d31,16h0100}, //ADDC
+        c{6b011010,5d31, 5d31, 5d31, 11d0}, //SPIWR 
+        c{6b011010,5d31, 5d31, 5d31, 11d2}, //SPIWR 
+        c{6b110000,5d19, 5d31,16h0180}, //ADDC (RED TEST PIX)
         //draw one colored pixel
-        c{6b011101,5d31, 5d31,16h0004}, //BEQ R31, 4, R31 (skip black pixel)
+        c{6b011101,5d31, 5d31,16h0002}, //BEQ R31, 2, R31 (skip black pixel) [0x120]
         c{6b011010,5d31, 5d31, 5d19, 11d0}, //SPIWR 
         c{6b110000,5d19, 5d31,16h011F}, //ADDC
         c{6b011010,5d31, 5d19, 5d19, 11d2}, //SPIWR 
-        c{6b110000,5d19, 5d31,16h01F8}, //ADDC 
+        c{6b110000,5d19, 5d31,16h01F8}, //ADDC [0x110]
         //if not paddle skip pixel color
-        c{6b011101,5d31, 5d09,16h0005}, //BEQ R9, 4, R31
+        c{6b011101,5d31, 5d09,16h0005}, //BEQ R9, 5, R31
         c{6b100000,5d09, 5d07,5d08,11d0}, //ADD R9<< R7+R8 
         c{6b100110,5d08, 5d22,5d24,11d0}, //CMPLE R8<< R22>R24 
-        c{6b100110,5d07, 5d22,5d06,11d0}, //CMPLE R7<< R22<R6(R24+32)
+        c{6b100110,5d07, 5d22,5d06,11d0}, //CMPLE R7<< R22<R6(R24+32) [0x100]
         c{6b110000,5d06, 5d24,16h0020}, //ADDC R6<< R24+32 
         //decrement x
-        c{6b110000,5d03, 5d04,16h0000}, //ADDC R3<<R4
-        c{6b110001,5d04, 5d03,16h0001}, //SUBC R4<<R3-1
+        c{6b110000,5d04, 5d00,16h0000}, //ADDC R3<<R4
+        c{6b110001,5d00, 5d04,16h0001}, //SUBC R4<<R3-1
         //decrement y
-        c{6b110000,5d05, 5d04,16h0000}, //ADDC R3<<R4
-        c{6b110001,5d04, 5d05,16h0001}, //SUBC R4<<R3-1 
+        c{6b110000,5d05, 5d00,16h0000}, //ADDC R3<<R4 [0xF0]
+        c{6b110001,5d00, 5d05,16h0001}, //SUBC R4<<R3-1 
         // setup counter
-        c{6b110000,5d03, 5d31,16h01E0}, //ADDC R3<<(480)
-        c{6b110000,5d05, 5d31,16h0009}, //ADDC R5<<(8)  
+        c{6b110000,5d04, 5d31,16h01E0}, //ADDC R4<<(480) //X location
+        c{6b110000,5d05, 5d31,16h0009}, //ADDC R5<<(8)  //Y location in row
+        
+        //JMP to Wait
+        c{6b011011,5d28, 5d02,16h0000}, //JMP, R28, R2 (jump to PC at R2) [0xE0]
+        c{6b110000,5d02, 5d31,16h0040}, //ADDC R2<<(0x40) 
         //init write
         c{6b011010,5d31, 5d31, 5d19, 11d0}, //SPIWR 
         c{6b110000,5d19, 5d31,16h002C}, //ADDC RAMWR
         
-        //control logic to wait
-        c{6b011110,5d05, 5d03,16hFFFD}, //BNE R3, -4, R5
-        //decrement
-        c{6b110000,5d03, 5d04,16h0000}, //ADDC R3<<R4
-        c{6b110001,5d04, 5d03,16h0001}, //SUBC R4<<R3-1
-        // setup counter
-        c{6b110000,5d03, 5d31,16h0020}, //ADDC R3<<(0x20)  
         
-        c{6b011010,5d31, 5d31, 5d19, 11d0}, //SPIWR 
+        c{6b011010,5d31, 5d31, 5d19, 11d0}, //SPIWR [0xD0]
         c{6b110000,5d19, 5d31,16h013F}, //ADDC
         c{6b011010,5d31, 5d31, 5d19, 11d0}, //SPIWR 
         c{6b110000,5d19, 5d31,16h0101}, //ADDC 
-        c{6b011010,5d31, 5d19, 5d19, 11d0}, //SPIWR 
+        c{6b011010,5d31, 5d19, 5d19, 11d0}, //SPIWR [0xC0]
         c{6b110000,5d19, 5d31,16h0100}, //ADDC 
         c{6b011010,5d31, 5d31, 5d19, 11d0}, //SPIWR 
         c{6b110000,5d19, 5d31,16h0100}, //ADDC 
-        c{6b011010,5d31, 5d31, 5d19, 11d0}, //SPIWR 
+        c{6b011010,5d31, 5d31, 5d19, 11d0}, //SPIWR [0xB0]
         c{6b110000,5d19, 5d31,16h002A}, //ADDC CASET
-        
-        //control logic to wait
-        c{6b011110,5d05, 5d03,16hFFFD}, //BNE R3, -4, R5
-        //decrement
-        c{6b110000,5d03, 5d04,16h0000}, //ADDC R3<<R4
-        c{6b110001,5d04, 5d03,16h0001}, //SUBC R4<<R3-1
-        // setup counter
-        c{6b110000,5d03, 5d31,16h0020}, //ADDC R3<<(0x20)  
-            
-        c{6b011010,5d31, 5d31, 5d19, 11d0}, //SPIWR 
-        c{6b110000,5d19, 5d31,16h0108}, //ADDC
-        c{6b011010,5d31, 5d19, 5d19, 11d0}, //SPIWR 
-        c{6b110000,5d19, 5d31,16h0100}, //ADDC 
-        c{6b011010,5d31, 5d31, 5d19, 11d0}, //SPIWR 
-        c{6b110000,5d19, 5d31,16h0100}, //ADDC 
-        c{6b011010,5d31, 5d31, 5d19, 11d0}, //SPIWR 
-        c{6b110000,5d19, 5d31,16h0100}, //ADDC 
-        c{6b011010,5d31, 5d19, 5d19, 11d0}, //SPIWR 
-        c{6b110000,5d19, 5d31,16h002B}, //ADDC RASET
-        
         //paddle drawing
         
-        c{6b110000,5d23, 5d03,16h0020}, //ADDC (random+32 pixelst to ball position)
-        c{6b111101,5d03, 5d20,16h0018}, //SHRC ({0x18}[24] ,R20, >>R3)
-        c{6b101011,5d20, 5d31,16h0001}, //BTNRD
-        c{6b110000,5d22, 5d31,16h0137}, //ADDC (ball to start at top)
+        c{6b110000,5d23, 5d03,16h0020}, //ADDC (random+32 pixelst to ball position) //R23 = ball X position
+        c{6b111101,5d03, 5d20,16h0018}, //SHRC ({0x18}[24] ,R20, >>R3) 
+        c{6b101111,5d20, 5d31,16h0001}, //BTNRD //R20 = raw input reg [0xA0]
+        c{6b110000,5d22, 5d31,16h0137}, //ADDC (ball to start at top) //R22 = ball Y position
         //ballstart
         
-        c{6b110000,5d26, 5d31,16h0003}, //ADDC (lives = 3, game started)
-        c{6b110000,5d24, 5d31,16h0000}, //ADDC 
-        c{6b110000,5d25, 5d31,16h00F0}, //ADDC 
+        c{6b110000,5d26, 5d31,16h0003}, //ADDC (lives = 3, game started) //R26 = LIVES
+        c{6b110000,5d25, 5d31,16h00F0}, //ADDC (paddle_x = 240) //R25 = paddle_x 
+        c{6b110000,5d24, 5d31,16h0000}, //ADDC (paddle_x_velocity = 0) //R24 = paddle_x_velocity [0x90]
         c{6b110000,5d21, 5d31,16h0000}, //ADDC 
-        c{6b110000,5d20, 5d31,16h0000}, //ADDC 
-        //reinit
-        
-        //SPIRD TEST
-        //c{6b011010,5d03, 5d05, 5d04, 11d0}, //ADD (R3, R5, >>R4)
-        //c{6b011100,5d03, 5d04,16h0008}, //SHLC ({0x08} ,R4, >>R3)
-        //c{6b011100,5d04, 5d31,16h00B3}, //SPIRD ({0x33} ,UNUSED, >>R4)
-        //c{6b011100,5d05, 5d31,16h00B2}, //SPIRD ({0x32} ,UNUSED, >>R5)
-        
-        //c{6b110000,5d04, 5d31,16h0000}, //ADDC R3<<R4
+        c{6b110000,5d20, 5d31,16h0000}, //ADDC //R20 = raw input reg, clear
+        //reinit game state
+        //init constants
         
         
+        //JMP to Wait
         
-        //control logic to wait
-        c{6b011110,5d05, 5d03,16hFFFD}, //BNE R3, -4, R5
-        //decrement
-        c{6b110000,5d03, 5d04,16h0000}, //ADDC R3<<R4
-        c{6b110001,5d04, 5d03,16h0001}, //SUBC R4<<R3-1
-        // setup counter
-        c{6b110000,5d03, 5d31,16h0020}, //ADDC R3<<(0x20)  
-        
-        c{6b011010,5d31, 5d31, 5d19, 11d0}, //SPIWR 
-        c{6b110000,5d19, 5d31,16h0109}, //ADDC
-        c{6b011010,5d31, 5d31, 5d19, 11d0}, //SPIWR 
-        c{6b110000,5d19, 5d31,16h0100}, //ADDC 
-        c{6b011010,5d31, 5d19, 5d19, 11d0}, //SPIWR 
-        c{6b110000,5d19, 5d31,16h0100}, //ADDC 
-        c{6b011010,5d31, 5d31, 5d19, 11d0}, //SPIWR 
-        c{6b110000,5d19, 5d31,16h0100}, //ADDC 
-        c{6b011010,5d31, 5d31, 5d19, 11d0}, //SPIWR 
-        c{6b110000,5d19, 5d31,16h002A}, //ADDC CASET
-        
-        //control logic to wait
-        c{6b011110,5d05, 5d03,16hFFFD}, //BNE R3, -4, R5
-        //decrement
-        c{6b110000,5d03, 5d04,16h0000}, //ADDC R3<<R4
-        c{6b110001,5d04, 5d03,16h0001}, //SUBC R4<<R3-1
-        // setup counter
-        c{6b110000,5d03, 5d31,16h0020}, //ADDC R3<<(0x20)  
-            
-        c{6b011010,5d31, 5d31, 5d19, 11d0}, //SPIWR 
-        c{6b110000,5d19, 5d31,16h0100}, //ADDC
-        c{6b011010,5d31, 5d19, 5d19, 11d0}, //SPIWR 
-        c{6b110000,5d19, 5d31,16h0100}, //ADDC 
-        c{6b011010,5d31, 5d31, 5d19, 11d0}, //SPIWR 
-        c{6b110000,5d19, 5d31,16h0100}, //ADDC 
-        c{6b011010,5d31, 5d31, 5d19, 11d0}, //SPIWR 
-        c{6b110000,5d19, 5d31,16h0100}, //ADDC 
-        c{6b011010,5d31, 5d19, 5d19, 11d0}, //SPIWR 
-        c{6b110000,5d19, 5d31,16h002B}, //ADDC RASET
-        
-        //control logic to wait
-        c{6b011110,5d05, 5d03,16hFFFD}, //BNE R3, -4, R5
-        //decrement
-        c{6b110000,5d03, 5d04,16h0000}, //ADDC R3<<R4
-        c{6b110001,5d04, 5d03,16h0001}, //SUBC R4<<R3-1
-        // setup counter
-        c{6b110000,5d03, 5d31,16h0020}, //ADDC R3<<(0x20)  
+        c{6b011011,5d28, 5d02,16h0000}, //JMP, R28, R2 (jump to PC at R2)
+        c{6b110000,5d02, 5d31,16h0040}, //ADDC R2<<(0x40) [0x80]
         
         //control logic to fill
-        c{6b011110,5d05, 5d03,16hFFFB}, //BNE R3, -7, R5
+        c{6b011110,5d31, 5d01,16hFFFA}, //BNE R1, -6, R31 
         //draw one pixel
         c{6b011010,5d31, 5d31, 5d19, 11d0}, //SPIWR 
-        c{6b011010,5d31, 5d19, 5d19, 11d2}, //SPIWR 
+        c{6b011010,5d31, 5d31, 5d19, 11d2}, //SPIWR 
+        c{6b110000,5d19, 5d31,16h0100}, //ADDC R19<<0x100 [0x70]
         //decrement
-        c{6b110000,5d03, 5d04,16h0000}, //ADDC R3<<R4
-        c{6b110001,5d04, 5d03,16h0001}, //SUBC R4<<R3-1
-        // setup counter
-        c{6b110010,5d03, 5d04,16d0320}, //MULC R3<<480 
-        c{6b110000,5d04, 5d31,16d0480}, //ADDC R4<<0d320 
+        c{6b110000,5d01, 5d00,16h0000}, //ADDC R1<<R0 
+        c{6b110001,5d00, 5d01,16h0001}, //SUBC R0<<R1-1 
         
-        c{6b110000,5d19, 5d31,16h0100}, //ADDC R19<<0x00
+        
+        // setup counter
+        c{6b110000,5d01, 5d00,16h0000}, //ADDC R1<<R0
+        c{6b110000,5d00, 5d01,16d0001}, //ADDC R0<<R1+0x1 [0x60]
+        c{6b110010,5d01, 5d00,16d0001}, //MULC R1<<R0*320 
+        c{6b110000,5d00, 5d31,16d0001}, //ADDC R0<<0d480 
+        
+        //control logic to wait (WAIT SUBROUTINE)
+        c{6b011011,5d31, 5d28,16h0000}, //JMP, R31, R28 (jump to PC at R28) 
+        //SKIP JMP
+        c{6b011101,5d31, 5d28,16h0001}, //BEQ R28, 2, R31 (skip jump if return ptr value is 0)[0x50]      
+        //[WAIT]
+        c{6b011110,5d31, 5d01,16hFFFD}, //BNE R31 << R1, -3 //decrement to loopstart
+        //decrement
+        c{6b110000,5d01, 5d00,16h0000}, //ADDC R1<<R0+0 
+        c{6b110001,5d00, 5d01,16h0001}, //SUBC R0<<R1-1 //loopstart  
+        // setup counter
+        c{6b110000,5d01, 5d31,16h0003}, //ADDC R1<<(0x30) WAIT  [0x40]
+        
+        c{6b110000,5d28, 5d31,16h0000}, //ADDC R28<<R31+0 
+        
         //init write
-        c{6b011010,5d31, 5d31, 5d19, 11d0}, //SPIWR 
-        c{6b110000,5d19, 5d31,16h002C}, //ADDC RAMWR
-        
-        //control logic to wait
-        c{6b011110,5d05, 5d03,16hFFFD}, //BNE R3, -4, R5
-        //decrement
-        c{6b110000,5d03, 5d04,16h0000}, //ADDC R3<<R4
-        c{6b110001,5d04, 5d03,16h0001}, //SUBC R4<<R3-1
-        // setup counter
-        c{6b110000,5d03, 5d31,16h0020}, //ADDC R3<<(0x20) 
-        
         c{6b011010,5d31, 5d19, 5d19, 11d0}, //SPIWR 
-        c{6b110000,5d19, 5d31,16h0029}, //ADDC LCD_ON
+        c{6b110000,5d19, 5d31,16h002C}, //ADDC RAMWR [0x34]
+        //LCD INIT END
+        c{6b011010,5d31, 5d19, 5d19, 11d0}, //SPIWR [0x30]
+        c{6b110000,5d19, 5d31,16h0029}, //ADDC LCD_ON 
         c{6b011010,5d31, 5d31, 5d19, 11d0}, //SPIWR 
         c{6b110000,5d19, 5d31,16h0155}, //ADDC PIXFMT PARAM
-        c{6b011010,5d31, 5d31, 5d19, 11d0}, //SPIWR 
-        c{6b110000,5d19, 5d31,16h003A}, //ADDC PIXFMT
+        c{6b011010,5d31, 5d31, 5d19, 11d0}, //SPIWR [0x20]
+        c{6b110000,5d19, 5d31,16h003A}, //ADDC PIXFMT 
         c{6b011010,5d31, 5d19, 5d19, 11d0}, //SPIWR 
         c{6b110000,5d19, 5d31,16h0148}, //ADDC MADCTL PARAM
-        c{6b011010,5d31, 5d19, 5d19, 11d0}, //SPIWR
-        c{6b110000,5d19, 5d31,16h0036}, //ADDC MADCTL
-        c{6b011010,5d31, 5d19, 5d19, 11d0}, //SPIWR 
-        c{6b110000,5d19, 5d31,16h0011}, //ADDC LCD WAKE
-        c{6b000000,5d31, 5d19, 5d19, 11d0} //NOP 0x000
+        c{6b011010,5d31, 5d19, 5d19, 11d0}, //SPIWR [0x10]
+        c{6b110000,5d19, 5d31,16h0036}, //ADDC MADCTL 0x0C
+        c{6b011010,5d31, 5d19, 5d19, 11d0}, //SPIWR  0x08
+        c{6b110000,5d19, 5d31,16h0011}, //ADDC LCD WAKE 0x04
+        
+        c{6b101111,5d20, 5d31,16h0001} //BTNRD //R20 = raw input reg [0xA0]
+        //c{6b000000,5d31, 5d19, 5d19, 11d0} //NOP    [0x00]
+        //LCD INIT START
+        
+        //R28 >> return pointer
+        
     }
     
     const NUM_OF_INSTRUCTIONS = $width(INSTRUCTIONS,0) // compute how many instructions are there

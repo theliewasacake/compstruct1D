@@ -29,6 +29,7 @@ module adder_32b (
             adder_4b.c[i] = ci2[i]
         }
         t = $flatten(adder_4b.s) 
+        //t = a+xb
         v = (a[-1]&xb[-1]&~t[-1])|(~a[-1]&~xb[-1]&t[-1])
         out = t
         z = ~|t

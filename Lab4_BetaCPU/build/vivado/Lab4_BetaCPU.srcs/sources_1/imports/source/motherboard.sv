@@ -80,17 +80,17 @@ module motherboard (
     );
     
     
-    localparam _MP_SIZE_1909626421 = 3'h5;
-    localparam _MP_DIV_1909626421 = 1'h0;
-    localparam _MP_TOP_1909626421 = 1'h0;
-    localparam _MP_UP_1909626421 = 1'h1;
+    localparam _MP_SIZE_1641505747 = 3'h5;
+    localparam _MP_DIV_1641505747 = 1'h0;
+    localparam _MP_TOP_1641505747 = 1'h0;
+    localparam _MP_UP_1641505747 = 1'h1;
     logic [4:0] M_frequency_divider_value;
     
     counter #(
-        .SIZE(_MP_SIZE_1909626421),
-        .DIV(_MP_DIV_1909626421),
-        .TOP(_MP_TOP_1909626421),
-        .UP(_MP_UP_1909626421)
+        .SIZE(_MP_SIZE_1641505747),
+        .DIV(_MP_DIV_1641505747),
+        .TOP(_MP_TOP_1641505747),
+        .UP(_MP_UP_1641505747)
     ) frequency_divider (
         .clk(clk),
         .rst(rst),
@@ -98,12 +98,12 @@ module motherboard (
     );
     
     
-    localparam _MP_SEED_620898034 = 33'h19430f418;
+    localparam _MP_SEED_856935740 = 33'h19430f418;
     logic M_pn_next;
     logic [31:0] M_pn_num;
     
     pn_gen #(
-        .SEED(_MP_SEED_620898034)
+        .SEED(_MP_SEED_856935740)
     ) pn (
         .clk(clk),
         .rst(rst),
@@ -113,14 +113,14 @@ module motherboard (
     );
     
     
-    localparam MEMORY_SIZE = 10'h200;
-    localparam _MP_WORDS_1498490836 = 10'h200;
-    logic [8:0] M_instruction_unit_addr;
+    localparam MEMORY_SIZE = 11'h400;
+    localparam _MP_WORDS_670494660 = 11'h400;
+    logic [9:0] M_instruction_unit_addr;
     logic [31:0] M_instruction_unit_out;
     logic [9:0] M_instruction_unit_numinstr;
     
     instruction_rom #(
-        .WORDS(_MP_WORDS_1498490836)
+        .WORDS(_MP_WORDS_670494660)
     ) instruction_unit (
         .addr(M_instruction_unit_addr),
         .out(M_instruction_unit_out),
@@ -128,19 +128,19 @@ module motherboard (
     );
     
     
-    localparam _MP_WORDS_221975715 = 10'h200;
-    logic [10:0] M_memory_unit_raddr;
-    logic [10:0] M_memory_unit_waddr;
+    localparam _MP_WORDS_1134563970 = 11'h400;
+    logic [11:0] M_memory_unit_raddr;
+    logic [11:0] M_memory_unit_waddr;
     logic [31:0] M_memory_unit_wd;
     logic M_memory_unit_we;
     logic [31:0] M_memory_unit_mrd;
-    logic [10:0] M_memory_unit_ia;
+    logic [11:0] M_memory_unit_ia;
     logic M_memory_unit_instruction_we;
     logic [31:0] M_memory_unit_instruction_wd;
     logic [31:0] M_memory_unit_id;
     
     memory_unit #(
-        .WORDS(_MP_WORDS_221975715)
+        .WORDS(_MP_WORDS_1134563970)
     ) memory_unit (
         .clk(clk),
         .raddr(M_memory_unit_raddr),
@@ -157,7 +157,7 @@ module motherboard (
     
     logic [31:0] D_system_output_buffer_d, D_system_output_buffer_q = 0;
     logic [31:0] D_system_input_buffer_d, D_system_input_buffer_q = 0;
-    logic [8:0] D_writer_counter_d, D_writer_counter_q = 0;
+    logic [9:0] D_writer_counter_d, D_writer_counter_q = 0;
     localparam E_MotherboardStates_INSTRUCTIONLOAD = 3'h0;
     localparam E_MotherboardStates_RUN = 3'h1;
     localparam E_MotherboardStates_LOAD_OUTPUT = 3'h2;
@@ -213,7 +213,7 @@ module motherboard (
                 M_memory_unit_instruction_wd = M_instruction_unit_out;
                 M_memory_unit_instruction_we = 1'h1;
                 M_memory_unit_ia = D_writer_counter_q << 2'h2;
-                if ((D_writer_counter_q + 1'h1) == 10'h200) begin
+                if ((D_writer_counter_q + 1'h1) == 11'h400) begin
                     D_motherboard_d = 3'h1;
                 end
             end
