@@ -1,9 +1,0 @@
-module mult_unit (
-    input a[32],
-    input b[32],
-    output out[32]
-) {
-    always {
-        out = a*b
-    }
-}

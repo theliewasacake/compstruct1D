@@ -1,9 +1,0 @@
-module shift_unit_1 (
-    input clk,  // clock
-    input rst,  // reset
-    output out
-) {
-    always {
-        out = 0
-    }
-}
