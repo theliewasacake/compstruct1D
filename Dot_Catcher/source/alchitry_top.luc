@@ -72,6 +72,8 @@ module alchitry_top (
         //io_led[1] = player_mode.player_collided
         io_led[0][2] = player_mode.debug[0]
         io_led[0][3] = player_mode.debug[1]
+        
+        io_led[1] = player_mode.debug_score[7:0]
  
         data = player_mode.data
         //data = game_datapath.data

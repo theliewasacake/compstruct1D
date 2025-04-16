@@ -20,11 +20,12 @@ module data_ram #(
         output reg [($clog2((5'h10)'(ROW_DIMENSION * COLUMN_DIMENSION)))-1:0] debug_address_pointer,
         input wire start_button,
         output reg [1:0] debug_data,
+        output reg [15:0] debug_score,
         input wire start_game,
         output reg player_collided
     );
-    logic [($clog2(COLUMN_DIMENSION))-1:0] L_25ef4d04_new_x_pos;
-    logic [($clog2(COLUMN_DIMENSION))-1:0] L_1efaf1ad_new_x_pos;
+    logic [($clog2(COLUMN_DIMENSION))-1:0] L_53af5358_new_x_pos;
+    logic [($clog2(COLUMN_DIMENSION))-1:0] L_65f1dcb3_new_x_pos;
     localparam DEPTH = (5'h10)'(COLUMN_DIMENSION * ROW_DIMENSION);
     localparam E_States_WAIT = 4'h0;
     localparam E_States_CLEAR = 4'h1;
@@ -60,13 +61,14 @@ module data_ram #(
     logic [1:0] D_lives_d, D_lives_q = 2'h3;
     logic D_dot_caught_d, D_dot_caught_q = 1'h0;
     logic D_game_over_flag_d, D_game_over_flag_q = 1'h0;
+    logic [15:0] D_score_counter_d, D_score_counter_q = 1'h0;
     logic [31:0] D_seed_d, D_seed_q = 1'h0;
-    localparam _MP_SEED_1395812819 = 33'h19430f418;
+    localparam _MP_SEED_1197506004 = 33'h19430f418;
     logic M_rng_next;
     logic [4:0] M_rng_num;
     
     pn_gen #(
-        .SEED(_MP_SEED_1395812819)
+        .SEED(_MP_SEED_1197506004)
     ) rng (
         .clk(clk),
         .rst(rst),
@@ -76,16 +78,16 @@ module data_ram #(
     );
     
     
-    localparam _MP_CLK_FREQ_157673401 = 24'h989680;
-    localparam _MP_MIN_DELAY_157673401 = 5'h14;
-    localparam _MP_NUM_SYNC_157673401 = 2'h2;
+    localparam _MP_CLK_FREQ_588493017 = 24'h989680;
+    localparam _MP_MIN_DELAY_588493017 = 5'h14;
+    localparam _MP_NUM_SYNC_588493017 = 2'h2;
     logic M_start_button_cond_in;
     logic M_start_button_cond_out;
     
     button_conditioner #(
-        .CLK_FREQ(_MP_CLK_FREQ_157673401),
-        .MIN_DELAY(_MP_MIN_DELAY_157673401),
-        .NUM_SYNC(_MP_NUM_SYNC_157673401)
+        .CLK_FREQ(_MP_CLK_FREQ_588493017),
+        .MIN_DELAY(_MP_MIN_DELAY_588493017),
+        .NUM_SYNC(_MP_NUM_SYNC_588493017)
     ) start_button_cond (
         .clk(clk),
         .in(M_start_button_cond_in),
@@ -93,14 +95,14 @@ module data_ram #(
     );
     
     
-    localparam _MP_RISE_1647064867 = 1'h1;
-    localparam _MP_FALL_1647064867 = 1'h0;
+    localparam _MP_RISE_1045339370 = 1'h1;
+    localparam _MP_FALL_1045339370 = 1'h0;
     logic M_start_button_edge_in;
     logic M_start_button_edge_out;
     
     edge_detector #(
-        .RISE(_MP_RISE_1647064867),
-        .FALL(_MP_FALL_1647064867)
+        .RISE(_MP_RISE_1045339370),
+        .FALL(_MP_FALL_1045339370)
     ) start_button_edge (
         .clk(clk),
         .in(M_start_button_edge_in),
@@ -108,17 +110,17 @@ module data_ram #(
     );
     
     
-    localparam _MP_WIDTH_1146248432 = $clog2(ENCODING_AMOUNT);
-    localparam _MP_ENTRIES_1146248432 = DEPTH;
-    logic [((($clog2(_MP_ENTRIES_1146248432)-1) - (0) + 1))-1:0] M_ram_waddr;
-    logic [(((_MP_WIDTH_1146248432-1) - (0) + 1))-1:0] M_ram_write_data;
+    localparam _MP_WIDTH_6649474 = $clog2(ENCODING_AMOUNT);
+    localparam _MP_ENTRIES_6649474 = DEPTH;
+    logic [((($clog2(_MP_ENTRIES_6649474)-1) - (0) + 1))-1:0] M_ram_waddr;
+    logic [(((_MP_WIDTH_6649474-1) - (0) + 1))-1:0] M_ram_write_data;
     logic M_ram_write_enable;
-    logic [((($clog2(_MP_ENTRIES_1146248432)-1) - (0) + 1))-1:0] M_ram_raddr;
-    logic [(((_MP_WIDTH_1146248432-1) - (0) + 1))-1:0] M_ram_read_data;
+    logic [((($clog2(_MP_ENTRIES_6649474)-1) - (0) + 1))-1:0] M_ram_raddr;
+    logic [(((_MP_WIDTH_6649474-1) - (0) + 1))-1:0] M_ram_read_data;
     
     simple_dual_port_ram #(
-        .WIDTH(_MP_WIDTH_1146248432),
-        .ENTRIES(_MP_ENTRIES_1146248432)
+        .WIDTH(_MP_WIDTH_6649474),
+        .ENTRIES(_MP_ENTRIES_6649474)
     ) ram (
         .rclk(clk),
         .wclk(clk),
@@ -152,6 +154,7 @@ module data_ram #(
     
     always @* begin
         D_player_col_d = D_player_col_q;
+        D_score_counter_d = D_score_counter_q;
         D_seed_d = D_seed_q;
         D_start_dot_d = D_start_dot_q;
         D_lives_d = D_lives_q;
@@ -175,6 +178,7 @@ module data_ram #(
         M_ram_write_data = 1'h0;
         M_ram_write_enable = 1'h0;
         out_encoding = M_ram_read_data;
+        D_score_counter_d = D_score_counter_q;
         M_alu_game_a = 1'h0;
         M_alu_game_b = 1'h0;
         M_alu_game_alufn = 1'h0;
@@ -211,11 +215,11 @@ module data_ram #(
                 end else begin
                     D_dot_caught_d = 1'h0;
                     D_dot_y_pos_d = ROW_DIMENSION - 1'h1;
-                    L_25ef4d04_new_x_pos = M_rng_num[$clog2(COLUMN_DIMENSION) - 1'h1:1'h0];
-                    if (L_25ef4d04_new_x_pos >= COLUMN_DIMENSION) begin
-                        D_dot_x_pos_d = L_25ef4d04_new_x_pos - (COLUMN_DIMENSION >> 1'h1);
+                    L_53af5358_new_x_pos = M_rng_num[$clog2(COLUMN_DIMENSION) - 1'h1:1'h0];
+                    if (L_53af5358_new_x_pos >= COLUMN_DIMENSION) begin
+                        D_dot_x_pos_d = L_53af5358_new_x_pos - (COLUMN_DIMENSION >> 1'h1);
                     end else begin
-                        D_dot_x_pos_d = L_25ef4d04_new_x_pos;
+                        D_dot_x_pos_d = L_53af5358_new_x_pos;
                     end
                     M_rng_next = 1'h1;
                 end
@@ -292,6 +296,10 @@ module data_ram #(
                     M_ram_write_enable = 1'h1;
                     M_ram_waddr = D_dot_y_pos_q * COLUMN_DIMENSION + D_dot_x_pos_q;
                     M_ram_write_data = 2'h3;
+                    M_alu_game_alufn = 6'h0;
+                    M_alu_game_a = D_score_counter_q;
+                    M_alu_game_b = 16'h1;
+                    D_score_counter_d = M_alu_game_out[4'hf:1'h0];
                 end else begin
                     M_ram_write_enable = 1'h1;
                     M_ram_waddr = D_dot_y_pos_q * COLUMN_DIMENSION + D_dot_x_pos_q;
@@ -320,11 +328,11 @@ module data_ram #(
                 end else begin
                     D_player_col_d = 1'h0;
                     D_dot_y_pos_d = ROW_DIMENSION - 1'h1;
-                    L_1efaf1ad_new_x_pos = M_rng_num[$clog2(COLUMN_DIMENSION) - 1'h1:1'h0];
-                    if (L_1efaf1ad_new_x_pos >= COLUMN_DIMENSION) begin
-                        D_dot_x_pos_d = L_1efaf1ad_new_x_pos - (COLUMN_DIMENSION >> 1'h1);
+                    L_65f1dcb3_new_x_pos = M_rng_num[$clog2(COLUMN_DIMENSION) - 1'h1:1'h0];
+                    if (L_65f1dcb3_new_x_pos >= COLUMN_DIMENSION) begin
+                        D_dot_x_pos_d = L_65f1dcb3_new_x_pos - (COLUMN_DIMENSION >> 1'h1);
                     end else begin
-                        D_dot_x_pos_d = L_1efaf1ad_new_x_pos;
+                        D_dot_x_pos_d = L_65f1dcb3_new_x_pos;
                     end
                     M_rng_next = 1'h1;
                     D_dot_caught_d = 1'h0;
@@ -373,6 +381,7 @@ module data_ram #(
         endcase
         debug_address_pointer = D_writer_pointer_q;
         debug_data = D_lives_q;
+        debug_score = D_score_counter_q;
     end
     
     
@@ -392,6 +401,7 @@ module data_ram #(
             D_lives_q <= 2'h3;
             D_dot_caught_q <= 1'h0;
             D_game_over_flag_q <= 1'h0;
+            D_score_counter_q <= 1'h0;
             D_player_col_q <= 1'h0;
         end else begin
             D_fsm_q <= D_fsm_d;
@@ -408,6 +418,7 @@ module data_ram #(
             D_lives_q <= D_lives_d;
             D_dot_caught_q <= D_dot_caught_d;
             D_game_over_flag_q <= D_game_over_flag_d;
+            D_score_counter_q <= D_score_counter_d;
             D_player_col_q <= D_player_col_d;
         end
     end

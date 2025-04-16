@@ -21,44 +21,46 @@ module player_mode #(
         input wire start_button,
         output reg data,
         output reg [1:0] debug,
+        output reg [15:0] debug_score,
         output reg player_collided
     );
     logic player_collided_out;
     localparam CLK_FREQ = 27'h5f5e100;
     localparam ENCODING_AMOUNT = 3'h4;
     localparam logic [3:0][23:0] LEDCOLOR = {{24'hf0f0f, 24'h30000, 24'h300, 24'h0}};
-    localparam _MP_SIZE_2005761302 = $clog2(PIXEL_COUNT);
-    localparam _MP_COLUMN_DIMENSION_2005761302 = COLUMN_DIMENSION;
-    logic [(_MP_SIZE_2005761302)-1:0] M_index_reverser_input_address;
-    logic [(_MP_SIZE_2005761302)-1:0] M_index_reverser_output_address;
+    localparam _MP_SIZE_488781615 = $clog2(PIXEL_COUNT);
+    localparam _MP_COLUMN_DIMENSION_488781615 = COLUMN_DIMENSION;
+    logic [(_MP_SIZE_488781615)-1:0] M_index_reverser_input_address;
+    logic [(_MP_SIZE_488781615)-1:0] M_index_reverser_output_address;
     
     index_reverser #(
-        .SIZE(_MP_SIZE_2005761302),
-        .COLUMN_DIMENSION(_MP_COLUMN_DIMENSION_2005761302)
+        .SIZE(_MP_SIZE_488781615),
+        .COLUMN_DIMENSION(_MP_COLUMN_DIMENSION_488781615)
     ) index_reverser (
         .input_address(M_index_reverser_input_address),
         .output_address(M_index_reverser_output_address)
     );
     
     
-    localparam _MP_ROW_DIMENSION_554989762 = ROW_DIMENSION;
-    localparam _MP_COLUMN_DIMENSION_554989762 = COLUMN_DIMENSION;
-    localparam _MP_ENCODING_AMOUNT_554989762 = 3'h4;
+    localparam _MP_ROW_DIMENSION_1352533229 = ROW_DIMENSION;
+    localparam _MP_COLUMN_DIMENSION_1352533229 = COLUMN_DIMENSION;
+    localparam _MP_ENCODING_AMOUNT_1352533229 = 3'h4;
     logic M_ram_update;
-    logic [($clog2(_MP_COLUMN_DIMENSION_554989762))-1:0] M_ram_player_x_pos;
-    logic [($clog2(_MP_ROW_DIMENSION_554989762))-1:0] M_ram_player_y_pos;
-    logic [($clog2((5'h10)'(_MP_ROW_DIMENSION_554989762 * _MP_COLUMN_DIMENSION_554989762)))-1:0] M_ram_address;
+    logic [($clog2(_MP_COLUMN_DIMENSION_1352533229))-1:0] M_ram_player_x_pos;
+    logic [($clog2(_MP_ROW_DIMENSION_1352533229))-1:0] M_ram_player_y_pos;
+    logic [($clog2((5'h10)'(_MP_ROW_DIMENSION_1352533229 * _MP_COLUMN_DIMENSION_1352533229)))-1:0] M_ram_address;
     logic [2:0] M_ram_out_encoding;
     logic M_ram_ready;
-    logic [($clog2((5'h10)'(_MP_ROW_DIMENSION_554989762 * _MP_COLUMN_DIMENSION_554989762)))-1:0] M_ram_debug_address_pointer;
+    logic [($clog2((5'h10)'(_MP_ROW_DIMENSION_1352533229 * _MP_COLUMN_DIMENSION_1352533229)))-1:0] M_ram_debug_address_pointer;
     logic [1:0] M_ram_debug_data;
+    logic [15:0] M_ram_debug_score;
     logic M_ram_start_game;
     logic M_ram_player_collided;
     
     data_ram #(
-        .ROW_DIMENSION(_MP_ROW_DIMENSION_554989762),
-        .COLUMN_DIMENSION(_MP_COLUMN_DIMENSION_554989762),
-        .ENCODING_AMOUNT(_MP_ENCODING_AMOUNT_554989762)
+        .ROW_DIMENSION(_MP_ROW_DIMENSION_1352533229),
+        .COLUMN_DIMENSION(_MP_COLUMN_DIMENSION_1352533229),
+        .ENCODING_AMOUNT(_MP_ENCODING_AMOUNT_1352533229)
     ) ram (
         .start_button(start_button),
         .clk(clk),
@@ -71,6 +73,7 @@ module player_mode #(
         .ready(M_ram_ready),
         .debug_address_pointer(M_ram_debug_address_pointer),
         .debug_data(M_ram_debug_data),
+        .debug_score(M_ram_debug_score),
         .start_game(M_ram_start_game),
         .player_collided(M_ram_player_collided)
     );
@@ -79,18 +82,18 @@ module player_mode #(
     logic [($clog2(COLUMN_DIMENSION))-1:0] D_player_x_pos_d, D_player_x_pos_q = 2'h3;
     logic [($clog2(ROW_DIMENSION))-1:0] D_player_y_pos_d, D_player_y_pos_q = 1'h0;
     logic D_update_ram_flag_d, D_update_ram_flag_q = 1'h0;
-    localparam _MP_PIXEL_COUNT_769534040 = PIXEL_COUNT;
+    localparam _MP_PIXEL_COUNT_460382401 = PIXEL_COUNT;
     logic M_driver_update;
     logic [23:0] M_driver_color;
     logic M_driver_clear;
-    logic [($clog2(_MP_PIXEL_COUNT_769534040))-1:0] M_driver_pixel_address;
+    logic [($clog2(_MP_PIXEL_COUNT_460382401))-1:0] M_driver_pixel_address;
     logic M_driver_data;
     logic M_driver_next_pixel;
     logic M_driver_reset;
     logic M_driver_done;
     
     ws2812b_driver #(
-        .PIXEL_COUNT(_MP_PIXEL_COUNT_769534040)
+        .PIXEL_COUNT(_MP_PIXEL_COUNT_460382401)
     ) driver (
         .clk(clk),
         .rst(rst),
@@ -108,16 +111,16 @@ module player_mode #(
     logic D_on_off_toggle_d, D_on_off_toggle_q = 1'h1;
     logic D_start_game_d, D_start_game_q = 1'h0;
     logic D_player_collided_outf_d, D_player_collided_outf_q = 1'h0;
-    localparam _MP_CLK_FREQ_951168707 = 27'h5f5e100;
-    localparam _MP_MIN_DELAY_951168707 = 5'h14;
-    localparam _MP_NUM_SYNC_951168707 = 2'h2;
+    localparam _MP_CLK_FREQ_59272901 = 27'h5f5e100;
+    localparam _MP_MIN_DELAY_59272901 = 5'h14;
+    localparam _MP_NUM_SYNC_59272901 = 2'h2;
     logic M_left_cond_in;
     logic M_left_cond_out;
     
     button_conditioner #(
-        .CLK_FREQ(_MP_CLK_FREQ_951168707),
-        .MIN_DELAY(_MP_MIN_DELAY_951168707),
-        .NUM_SYNC(_MP_NUM_SYNC_951168707)
+        .CLK_FREQ(_MP_CLK_FREQ_59272901),
+        .MIN_DELAY(_MP_MIN_DELAY_59272901),
+        .NUM_SYNC(_MP_NUM_SYNC_59272901)
     ) left_cond (
         .clk(clk),
         .in(M_left_cond_in),
@@ -125,14 +128,14 @@ module player_mode #(
     );
     
     
-    localparam _MP_RISE_1130116950 = 1'h1;
-    localparam _MP_FALL_1130116950 = 1'h0;
+    localparam _MP_RISE_547067669 = 1'h1;
+    localparam _MP_FALL_547067669 = 1'h0;
     logic M_left_edge_in;
     logic M_left_edge_out;
     
     edge_detector #(
-        .RISE(_MP_RISE_1130116950),
-        .FALL(_MP_FALL_1130116950)
+        .RISE(_MP_RISE_547067669),
+        .FALL(_MP_FALL_547067669)
     ) left_edge (
         .clk(clk),
         .in(M_left_edge_in),
@@ -140,16 +143,16 @@ module player_mode #(
     );
     
     
-    localparam _MP_CLK_FREQ_1991138888 = 27'h5f5e100;
-    localparam _MP_MIN_DELAY_1991138888 = 5'h14;
-    localparam _MP_NUM_SYNC_1991138888 = 2'h2;
+    localparam _MP_CLK_FREQ_1613052805 = 27'h5f5e100;
+    localparam _MP_MIN_DELAY_1613052805 = 5'h14;
+    localparam _MP_NUM_SYNC_1613052805 = 2'h2;
     logic M_right_cond_in;
     logic M_right_cond_out;
     
     button_conditioner #(
-        .CLK_FREQ(_MP_CLK_FREQ_1991138888),
-        .MIN_DELAY(_MP_MIN_DELAY_1991138888),
-        .NUM_SYNC(_MP_NUM_SYNC_1991138888)
+        .CLK_FREQ(_MP_CLK_FREQ_1613052805),
+        .MIN_DELAY(_MP_MIN_DELAY_1613052805),
+        .NUM_SYNC(_MP_NUM_SYNC_1613052805)
     ) right_cond (
         .clk(clk),
         .in(M_right_cond_in),
@@ -157,14 +160,14 @@ module player_mode #(
     );
     
     
-    localparam _MP_RISE_433623679 = 1'h1;
-    localparam _MP_FALL_433623679 = 1'h0;
+    localparam _MP_RISE_131000413 = 1'h1;
+    localparam _MP_FALL_131000413 = 1'h0;
     logic M_right_edge_in;
     logic M_right_edge_out;
     
     edge_detector #(
-        .RISE(_MP_RISE_433623679),
-        .FALL(_MP_FALL_433623679)
+        .RISE(_MP_RISE_131000413),
+        .FALL(_MP_FALL_131000413)
     ) right_edge (
         .clk(clk),
         .in(M_right_edge_in),
@@ -172,16 +175,16 @@ module player_mode #(
     );
     
     
-    localparam _MP_CLK_FREQ_486589202 = 27'h5f5e100;
-    localparam _MP_MIN_DELAY_486589202 = 5'h14;
-    localparam _MP_NUM_SYNC_486589202 = 2'h2;
+    localparam _MP_CLK_FREQ_1325273650 = 27'h5f5e100;
+    localparam _MP_MIN_DELAY_1325273650 = 5'h14;
+    localparam _MP_NUM_SYNC_1325273650 = 2'h2;
     logic M_start_cond_in;
     logic M_start_cond_out;
     
     button_conditioner #(
-        .CLK_FREQ(_MP_CLK_FREQ_486589202),
-        .MIN_DELAY(_MP_MIN_DELAY_486589202),
-        .NUM_SYNC(_MP_NUM_SYNC_486589202)
+        .CLK_FREQ(_MP_CLK_FREQ_1325273650),
+        .MIN_DELAY(_MP_MIN_DELAY_1325273650),
+        .NUM_SYNC(_MP_NUM_SYNC_1325273650)
     ) start_cond (
         .clk(clk),
         .in(M_start_cond_in),
@@ -189,14 +192,14 @@ module player_mode #(
     );
     
     
-    localparam _MP_RISE_1798046158 = 1'h1;
-    localparam _MP_FALL_1798046158 = 1'h0;
+    localparam _MP_RISE_1305123358 = 1'h1;
+    localparam _MP_FALL_1305123358 = 1'h0;
     logic M_start_edge_in;
     logic M_start_edge_out;
     
     edge_detector #(
-        .RISE(_MP_RISE_1798046158),
-        .FALL(_MP_FALL_1798046158)
+        .RISE(_MP_RISE_1305123358),
+        .FALL(_MP_FALL_1305123358)
     ) start_edge (
         .clk(clk),
         .in(M_start_edge_in),
@@ -262,6 +265,7 @@ module player_mode #(
         io_led[1'h1] = D_player_y_pos_q;
         io_led[2'h2] = M_driver_pixel_address;
         debug = M_ram_debug_data;
+        debug_score = M_ram_debug_score;
         led[3'h7:3'h4] = M_ram_debug_data;
         player_collided_out = M_ram_player_collided;
         D_player_collided_outf_d = M_ram_player_collided;

@@ -17,6 +17,7 @@ module data_ram #(
     output debug_address_pointer[$clog2($resize(ROW_DIMENSION*COLUMN_DIMENSION, 16))],
     input start_button,
     output debug_data[2],
+    output debug_score[16],
     input start_game,
     output player_collided
 ) {
@@ -96,6 +97,8 @@ module data_ram #(
     dff dot_caught(.clk(clk), .rst(rst), #INIT(0)) // Track if current dot was caught
     dff game_over_flag(.clk(clk), .rst(rst), #INIT(0)) // Flag to indicate game over state
     
+    dff score_counter[16](.clk(clk), .rst(rst), #INIT(0))
+    
     // Random number generator for dot positions
     dff seed[32](.clk(clk), #INIT(0))
     pn_gen rng(.clk(clk), .rst(rst), .seed(seed.q))
@@ -121,6 +124,7 @@ module data_ram #(
         ram.write_enable = 0
         out_encoding = ram.read_data // Output the data at the current address
         //debug_data = lives.q[1:0]  // Show lives count on debug output
+        score_counter.d = score_counter.q
         
         // alu default inputs
         alu_game.a = 0
@@ -168,7 +172,7 @@ module data_ram #(
             } else {
                 // Check if dot was missed before creating a new one
                 if (!dot_caught.q) {
-                    // Dot reached top without being caught
+                    // Dot reached bottom without being caught
                     fsm.d = States.CHECK_MISS
                 } else {
                     // Reset dot_caught for the next dot
@@ -285,6 +289,11 @@ module data_ram #(
                     ram.write_enable = 1
                     ram.waddr = dot_y_pos.q * COLUMN_DIMENSION + dot_x_pos.q
                     ram.write_data = WHITE_COLOR
+                    //Update score
+                    alu_game.alufn = 6h00
+                    alu_game.a = score_counter.q
+                    alu_game.b = 16b1
+                    score_counter.d = alu_game.out[15:0]
                 } else {
                     // No collision: draw blue dot
                     ram.write_enable = 1
@@ -304,7 +313,7 @@ module data_ram #(
                 fsm.d = States.IDLE
             
             States.CHECK_MISS:
-                // Dot reached top without being caught, decrement life
+                // Dot reached bottom without being caught, decrement life
                 alu_game.a = lives.q
                 alu_game.b = 3b001
                 alu_game.alufn = 6h01
@@ -383,5 +392,6 @@ module data_ram #(
         
         debug_address_pointer = writer_pointer.q
         debug_data = lives.q
+        debug_score = score_counter.q
     }
 }

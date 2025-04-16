@@ -91,23 +91,24 @@ module datapath #(
     );
     
     
-    localparam _MP_COLUMN_DIMENSION_1505843887 = 5'h8;
-    localparam _MP_ROW_DIMENSION_1505843887 = 5'h8;
-    localparam _MP_PIXEL_COUNT_1505843887 = 10'h40;
-    localparam _MP_BUFFER_SIZE_1505843887 = 11'h400;
+    localparam _MP_COLUMN_DIMENSION_1110952609 = 5'h8;
+    localparam _MP_ROW_DIMENSION_1110952609 = 5'h8;
+    localparam _MP_PIXEL_COUNT_1110952609 = 10'h40;
+    localparam _MP_BUFFER_SIZE_1110952609 = 11'h400;
     logic [7:0] M_player_mode_led;
     logic [2:0][7:0] M_player_mode_io_led;
     logic [7:0] M_player_mode_io_segment;
     logic [3:0] M_player_mode_io_select;
     logic M_player_mode_data;
     logic [1:0] M_player_mode_debug;
+    logic [15:0] M_player_mode_debug_score;
     logic M_player_mode_player_collided;
     
     player_mode #(
-        .COLUMN_DIMENSION(_MP_COLUMN_DIMENSION_1505843887),
-        .ROW_DIMENSION(_MP_ROW_DIMENSION_1505843887),
-        .PIXEL_COUNT(_MP_PIXEL_COUNT_1505843887),
-        .BUFFER_SIZE(_MP_BUFFER_SIZE_1505843887)
+        .COLUMN_DIMENSION(_MP_COLUMN_DIMENSION_1110952609),
+        .ROW_DIMENSION(_MP_ROW_DIMENSION_1110952609),
+        .PIXEL_COUNT(_MP_PIXEL_COUNT_1110952609),
+        .BUFFER_SIZE(_MP_BUFFER_SIZE_1110952609)
     ) player_mode (
         .left_button(left_button),
         .right_button(right_button),
@@ -120,6 +121,7 @@ module datapath #(
         .io_select(M_player_mode_io_select),
         .data(M_player_mode_data),
         .debug(M_player_mode_debug),
+        .debug_score(M_player_mode_debug_score),
         .player_collided(M_player_mode_player_collided)
     );
     

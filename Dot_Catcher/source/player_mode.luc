@@ -15,6 +15,7 @@ module player_mode #(
     input start_button,
     output data,
     output debug[2],
+    output debug_score[16],
     output player_collided
     //output player_x_data[32]
 ) {
@@ -138,6 +139,7 @@ module player_mode #(
         io_led[1] = player_y_pos.q
         io_led[2] = driver.pixel_address
         debug = ram.debug_data
+        debug_score = ram.debug_score
         led[7:4] = ram.debug_data
         player_collided_out = ram.player_collided
         player_collided_outf.d = ram.player_collided
