@@ -61,17 +61,19 @@ module data_ram #(
     //    O,O,Y,O,O,X,X,X
     //}
     
-    const GAME_OVER_BITMAP = {
-        O,X,O,X,O,Y,Y,Y,
-        X,O,X,O,X,O,O,Y,
-        X,O,X,O,X,Y,Y,Y,
-        X,O,X,O,X,Y,Y,Y,
-        O,Y,O,Y,O,X,X,X,
-        O,Y,O,Y,O,X,O,X,
-        O,Y,O,Y,O,X,O,X,
-        O,O,Y,O,O,X,X,X
-    }
     
+    //GG Bitmap
+    const GAME_OVER_BITMAP = {
+        X,X,X,X,Y,Y,Y,Y,
+        O,O,O,X,O,O,O,Y,
+        O,O,O,X,O,O,O,Y,
+        O,O,O,X,O,O,O,Y,
+        X,X,O,X,Y,Y,O,Y,
+        X,O,O,X,Y,O,O,Y,
+        X,O,O,X,Y,O,O,Y,
+        X,X,X,X,Y,Y,Y,Y
+    }
+        
     // State machine and control registers
     dff fsm[$width(States)](.clk(clk), .rst(rst), #INIT(States.WAIT))
     dff writer_pointer[$clog2(DEPTH)](.clk(clk), .rst(rst), #INIT(0))
@@ -347,13 +349,11 @@ module data_ram #(
                 fsm.d = States.CLEAR
             
             States.GAME_OVER_INIT:
-                // Initialize the game over state - Fill entire RAM with red
                 writer_pointer.d = 0
                 fsm.d = States.GAME_OVER
             
             States.GAME_OVER:
-                // 8x8 hardcoded "GO" pattern
-                // Draw "GO"
+                // 8x8 hardcoded Game over bitmap pattern
                 ram.write_enable = 1
                 ram.waddr = writer_pointer.q
                 ram.write_data = GAME_OVER_BITMAP[writer_pointer.q]

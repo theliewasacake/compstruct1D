@@ -23,8 +23,8 @@ module data_ram #(
         input wire start_game,
         output reg player_collided
     );
-    logic [($clog2(COLUMN_DIMENSION))-1:0] L_55881ac8_new_x_pos;
-    logic [($clog2(COLUMN_DIMENSION))-1:0] L_4ec71da4_new_x_pos;
+    logic [($clog2(COLUMN_DIMENSION))-1:0] L_25ef4d04_new_x_pos;
+    logic [($clog2(COLUMN_DIMENSION))-1:0] L_1efaf1ad_new_x_pos;
     localparam DEPTH = (5'h10)'(COLUMN_DIMENSION * ROW_DIMENSION);
     localparam E_States_WAIT = 4'h0;
     localparam E_States_CLEAR = 4'h1;
@@ -45,12 +45,12 @@ module data_ram #(
     localparam O = 2'h0;
     localparam X = 2'h2;
     localparam Y = 2'h1;
-    localparam logic [63:0][1:0] GAME_OVER_BITMAP = {{2'h0, 2'h2, 2'h0, 2'h2, 2'h0, 2'h1, 2'h1, 2'h1, 2'h2, 2'h0, 2'h2, 2'h0, 2'h2, 2'h0, 2'h0, 2'h1, 2'h2, 2'h0, 2'h2, 2'h0, 2'h2, 2'h1, 2'h1, 2'h1, 2'h2, 2'h0, 2'h2, 2'h0, 2'h2, 2'h1, 2'h1, 2'h1, 2'h0, 2'h1, 2'h0, 2'h1, 2'h0, 2'h2, 2'h2, 2'h2, 2'h0, 2'h1, 2'h0, 2'h1, 2'h0, 2'h2, 2'h0, 2'h2, 2'h0, 2'h1, 2'h0, 2'h1, 2'h0, 2'h2, 2'h0, 2'h2, 2'h0, 2'h0, 2'h1, 2'h0, 2'h0, 2'h2, 2'h2, 2'h2}};
+    localparam logic [63:0][1:0] GAME_OVER_BITMAP = {{2'h2, 2'h2, 2'h2, 2'h2, 2'h1, 2'h1, 2'h1, 2'h1, 2'h0, 2'h0, 2'h0, 2'h2, 2'h0, 2'h0, 2'h0, 2'h1, 2'h0, 2'h0, 2'h0, 2'h2, 2'h0, 2'h0, 2'h0, 2'h1, 2'h0, 2'h0, 2'h0, 2'h2, 2'h0, 2'h0, 2'h0, 2'h1, 2'h2, 2'h2, 2'h0, 2'h2, 2'h1, 2'h1, 2'h0, 2'h1, 2'h2, 2'h0, 2'h0, 2'h2, 2'h1, 2'h0, 2'h0, 2'h1, 2'h2, 2'h0, 2'h0, 2'h2, 2'h1, 2'h0, 2'h0, 2'h1, 2'h2, 2'h2, 2'h2, 2'h2, 2'h1, 2'h1, 2'h1, 2'h1}};
     logic [3:0] D_fsm_d, D_fsm_q = 4'h0;
     logic [($clog2(DEPTH))-1:0] D_writer_pointer_d, D_writer_pointer_q = 1'h0;
     logic D_update_flag_d, D_update_flag_q = 1'h0;
     logic [23:0] D_tick_counter_d, D_tick_counter_q = 1'h0;
-    logic [($clog2(ROW_DIMENSION))-1:0] D_dot_y_pos_d, D_dot_y_pos_q = 1'h0;
+    logic [($clog2(ROW_DIMENSION))-1:0] D_dot_y_pos_d, D_dot_y_pos_q = 3'h7;
     logic [($clog2(COLUMN_DIMENSION))-1:0] D_dot_x_pos_d, D_dot_x_pos_q = 1'h0;
     logic [($clog2(ROW_DIMENSION))-1:0] D_prev_dot_y_pos_d, D_prev_dot_y_pos_q = 1'h0;
     logic [($clog2(COLUMN_DIMENSION))-1:0] D_prev_dot_x_pos_d, D_prev_dot_x_pos_q = 1'h0;
@@ -61,12 +61,12 @@ module data_ram #(
     logic D_dot_caught_d, D_dot_caught_q = 1'h0;
     logic D_game_over_flag_d, D_game_over_flag_q = 1'h0;
     logic [31:0] D_seed_d, D_seed_q = 1'h0;
-    localparam _MP_SEED_568260663 = 33'h19430f418;
+    localparam _MP_SEED_1395812819 = 33'h19430f418;
     logic M_rng_next;
     logic [4:0] M_rng_num;
     
     pn_gen #(
-        .SEED(_MP_SEED_568260663)
+        .SEED(_MP_SEED_1395812819)
     ) rng (
         .clk(clk),
         .rst(rst),
@@ -76,16 +76,16 @@ module data_ram #(
     );
     
     
-    localparam _MP_CLK_FREQ_1109549980 = 24'h989680;
-    localparam _MP_MIN_DELAY_1109549980 = 5'h14;
-    localparam _MP_NUM_SYNC_1109549980 = 2'h2;
+    localparam _MP_CLK_FREQ_157673401 = 24'h989680;
+    localparam _MP_MIN_DELAY_157673401 = 5'h14;
+    localparam _MP_NUM_SYNC_157673401 = 2'h2;
     logic M_start_button_cond_in;
     logic M_start_button_cond_out;
     
     button_conditioner #(
-        .CLK_FREQ(_MP_CLK_FREQ_1109549980),
-        .MIN_DELAY(_MP_MIN_DELAY_1109549980),
-        .NUM_SYNC(_MP_NUM_SYNC_1109549980)
+        .CLK_FREQ(_MP_CLK_FREQ_157673401),
+        .MIN_DELAY(_MP_MIN_DELAY_157673401),
+        .NUM_SYNC(_MP_NUM_SYNC_157673401)
     ) start_button_cond (
         .clk(clk),
         .in(M_start_button_cond_in),
@@ -93,14 +93,14 @@ module data_ram #(
     );
     
     
-    localparam _MP_RISE_471843801 = 1'h1;
-    localparam _MP_FALL_471843801 = 1'h0;
+    localparam _MP_RISE_1647064867 = 1'h1;
+    localparam _MP_FALL_1647064867 = 1'h0;
     logic M_start_button_edge_in;
     logic M_start_button_edge_out;
     
     edge_detector #(
-        .RISE(_MP_RISE_471843801),
-        .FALL(_MP_FALL_471843801)
+        .RISE(_MP_RISE_1647064867),
+        .FALL(_MP_FALL_1647064867)
     ) start_button_edge (
         .clk(clk),
         .in(M_start_button_edge_in),
@@ -108,17 +108,17 @@ module data_ram #(
     );
     
     
-    localparam _MP_WIDTH_7566856 = $clog2(ENCODING_AMOUNT);
-    localparam _MP_ENTRIES_7566856 = DEPTH;
-    logic [((($clog2(_MP_ENTRIES_7566856)-1) - (0) + 1))-1:0] M_ram_waddr;
-    logic [(((_MP_WIDTH_7566856-1) - (0) + 1))-1:0] M_ram_write_data;
+    localparam _MP_WIDTH_1146248432 = $clog2(ENCODING_AMOUNT);
+    localparam _MP_ENTRIES_1146248432 = DEPTH;
+    logic [((($clog2(_MP_ENTRIES_1146248432)-1) - (0) + 1))-1:0] M_ram_waddr;
+    logic [(((_MP_WIDTH_1146248432-1) - (0) + 1))-1:0] M_ram_write_data;
     logic M_ram_write_enable;
-    logic [((($clog2(_MP_ENTRIES_7566856)-1) - (0) + 1))-1:0] M_ram_raddr;
-    logic [(((_MP_WIDTH_7566856-1) - (0) + 1))-1:0] M_ram_read_data;
+    logic [((($clog2(_MP_ENTRIES_1146248432)-1) - (0) + 1))-1:0] M_ram_raddr;
+    logic [(((_MP_WIDTH_1146248432-1) - (0) + 1))-1:0] M_ram_read_data;
     
     simple_dual_port_ram #(
-        .WIDTH(_MP_WIDTH_7566856),
-        .ENTRIES(_MP_ENTRIES_7566856)
+        .WIDTH(_MP_WIDTH_1146248432),
+        .ENTRIES(_MP_ENTRIES_1146248432)
     ) ram (
         .rclk(clk),
         .wclk(clk),
@@ -211,11 +211,11 @@ module data_ram #(
                 end else begin
                     D_dot_caught_d = 1'h0;
                     D_dot_y_pos_d = ROW_DIMENSION - 1'h1;
-                    L_55881ac8_new_x_pos = M_rng_num[$clog2(COLUMN_DIMENSION) - 1'h1:1'h0];
-                    if (L_55881ac8_new_x_pos >= COLUMN_DIMENSION) begin
-                        D_dot_x_pos_d = L_55881ac8_new_x_pos - (COLUMN_DIMENSION >> 1'h1);
+                    L_25ef4d04_new_x_pos = M_rng_num[$clog2(COLUMN_DIMENSION) - 1'h1:1'h0];
+                    if (L_25ef4d04_new_x_pos >= COLUMN_DIMENSION) begin
+                        D_dot_x_pos_d = L_25ef4d04_new_x_pos - (COLUMN_DIMENSION >> 1'h1);
                     end else begin
-                        D_dot_x_pos_d = L_55881ac8_new_x_pos;
+                        D_dot_x_pos_d = L_25ef4d04_new_x_pos;
                     end
                     M_rng_next = 1'h1;
                 end
@@ -320,11 +320,11 @@ module data_ram #(
                 end else begin
                     D_player_col_d = 1'h0;
                     D_dot_y_pos_d = ROW_DIMENSION - 1'h1;
-                    L_4ec71da4_new_x_pos = M_rng_num[$clog2(COLUMN_DIMENSION) - 1'h1:1'h0];
-                    if (L_4ec71da4_new_x_pos >= COLUMN_DIMENSION) begin
-                        D_dot_x_pos_d = L_4ec71da4_new_x_pos - (COLUMN_DIMENSION >> 1'h1);
+                    L_1efaf1ad_new_x_pos = M_rng_num[$clog2(COLUMN_DIMENSION) - 1'h1:1'h0];
+                    if (L_1efaf1ad_new_x_pos >= COLUMN_DIMENSION) begin
+                        D_dot_x_pos_d = L_1efaf1ad_new_x_pos - (COLUMN_DIMENSION >> 1'h1);
                     end else begin
-                        D_dot_x_pos_d = L_4ec71da4_new_x_pos;
+                        D_dot_x_pos_d = L_1efaf1ad_new_x_pos;
                     end
                     M_rng_next = 1'h1;
                     D_dot_caught_d = 1'h0;
@@ -382,7 +382,7 @@ module data_ram #(
             D_writer_pointer_q <= 1'h0;
             D_update_flag_q <= 1'h0;
             D_tick_counter_q <= 1'h0;
-            D_dot_y_pos_q <= 1'h0;
+            D_dot_y_pos_q <= 3'h7;
             D_dot_x_pos_q <= 1'h0;
             D_prev_dot_y_pos_q <= 1'h0;
             D_prev_dot_x_pos_q <= 1'h0;
