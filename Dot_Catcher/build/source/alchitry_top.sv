@@ -22,12 +22,12 @@ module alchitry_top (
     localparam PIXEL_COUNT = 10'h40;
     localparam CLK_FREQ = 27'h5f5e100;
     logic rst;
-    localparam _MP_STAGES_1713043624 = 3'h4;
+    localparam _MP_STAGES_271253995 = 3'h4;
     logic M_reset_cond_in;
     logic M_reset_cond_out;
     
     reset_conditioner #(
-        .STAGES(_MP_STAGES_1713043624)
+        .STAGES(_MP_STAGES_271253995)
     ) reset_cond (
         .clk(clk),
         .in(M_reset_cond_in),
@@ -35,14 +35,14 @@ module alchitry_top (
     );
     
     
-    localparam _MP_RISE_2060423336 = 1'h1;
-    localparam _MP_FALL_2060423336 = 1'h0;
+    localparam _MP_RISE_837816514 = 1'h1;
+    localparam _MP_FALL_837816514 = 1'h0;
     logic M_left_button_edge_in;
     logic M_left_button_edge_out;
     
     edge_detector #(
-        .RISE(_MP_RISE_2060423336),
-        .FALL(_MP_FALL_2060423336)
+        .RISE(_MP_RISE_837816514),
+        .FALL(_MP_FALL_837816514)
     ) left_button_edge (
         .clk(clk),
         .in(M_left_button_edge_in),
@@ -50,14 +50,14 @@ module alchitry_top (
     );
     
     
-    localparam _MP_RISE_1524370003 = 1'h1;
-    localparam _MP_FALL_1524370003 = 1'h0;
+    localparam _MP_RISE_2013522999 = 1'h1;
+    localparam _MP_FALL_2013522999 = 1'h0;
     logic M_right_button_edge_in;
     logic M_right_button_edge_out;
     
     edge_detector #(
-        .RISE(_MP_RISE_1524370003),
-        .FALL(_MP_FALL_1524370003)
+        .RISE(_MP_RISE_2013522999),
+        .FALL(_MP_FALL_2013522999)
     ) right_button_edge (
         .clk(clk),
         .in(M_right_button_edge_in),
@@ -65,14 +65,14 @@ module alchitry_top (
     );
     
     
-    localparam _MP_RISE_491393810 = 1'h1;
-    localparam _MP_FALL_491393810 = 1'h0;
+    localparam _MP_RISE_807746133 = 1'h1;
+    localparam _MP_FALL_807746133 = 1'h0;
     logic M_start_button_edge_in;
     logic M_start_button_edge_out;
     
     edge_detector #(
-        .RISE(_MP_RISE_491393810),
-        .FALL(_MP_FALL_491393810)
+        .RISE(_MP_RISE_807746133),
+        .FALL(_MP_FALL_807746133)
     ) start_button_edge (
         .clk(clk),
         .in(M_start_button_edge_in),
@@ -80,16 +80,16 @@ module alchitry_top (
     );
     
     
-    localparam _MP_CLK_FREQ_1195282416 = 27'h5f5e100;
-    localparam _MP_MIN_DELAY_1195282416 = 5'h14;
-    localparam _MP_NUM_SYNC_1195282416 = 2'h2;
+    localparam _MP_CLK_FREQ_1409687443 = 27'h5f5e100;
+    localparam _MP_MIN_DELAY_1409687443 = 5'h14;
+    localparam _MP_NUM_SYNC_1409687443 = 2'h2;
     logic M_left_button_cond_in;
     logic M_left_button_cond_out;
     
     button_conditioner #(
-        .CLK_FREQ(_MP_CLK_FREQ_1195282416),
-        .MIN_DELAY(_MP_MIN_DELAY_1195282416),
-        .NUM_SYNC(_MP_NUM_SYNC_1195282416)
+        .CLK_FREQ(_MP_CLK_FREQ_1409687443),
+        .MIN_DELAY(_MP_MIN_DELAY_1409687443),
+        .NUM_SYNC(_MP_NUM_SYNC_1409687443)
     ) left_button_cond (
         .clk(clk),
         .in(M_left_button_cond_in),
@@ -97,16 +97,16 @@ module alchitry_top (
     );
     
     
-    localparam _MP_CLK_FREQ_1472158752 = 27'h5f5e100;
-    localparam _MP_MIN_DELAY_1472158752 = 5'h14;
-    localparam _MP_NUM_SYNC_1472158752 = 2'h2;
+    localparam _MP_CLK_FREQ_491525373 = 27'h5f5e100;
+    localparam _MP_MIN_DELAY_491525373 = 5'h14;
+    localparam _MP_NUM_SYNC_491525373 = 2'h2;
     logic M_right_button_cond_in;
     logic M_right_button_cond_out;
     
     button_conditioner #(
-        .CLK_FREQ(_MP_CLK_FREQ_1472158752),
-        .MIN_DELAY(_MP_MIN_DELAY_1472158752),
-        .NUM_SYNC(_MP_NUM_SYNC_1472158752)
+        .CLK_FREQ(_MP_CLK_FREQ_491525373),
+        .MIN_DELAY(_MP_MIN_DELAY_491525373),
+        .NUM_SYNC(_MP_NUM_SYNC_491525373)
     ) right_button_cond (
         .clk(clk),
         .in(M_right_button_cond_in),
@@ -114,16 +114,16 @@ module alchitry_top (
     );
     
     
-    localparam _MP_CLK_FREQ_2131902199 = 27'h5f5e100;
-    localparam _MP_MIN_DELAY_2131902199 = 5'h14;
-    localparam _MP_NUM_SYNC_2131902199 = 2'h2;
+    localparam _MP_CLK_FREQ_2091300816 = 27'h5f5e100;
+    localparam _MP_MIN_DELAY_2091300816 = 5'h14;
+    localparam _MP_NUM_SYNC_2091300816 = 2'h2;
     logic M_start_button_cond_in;
     logic M_start_button_cond_out;
     
     button_conditioner #(
-        .CLK_FREQ(_MP_CLK_FREQ_2131902199),
-        .MIN_DELAY(_MP_MIN_DELAY_2131902199),
-        .NUM_SYNC(_MP_NUM_SYNC_2131902199)
+        .CLK_FREQ(_MP_CLK_FREQ_2091300816),
+        .MIN_DELAY(_MP_MIN_DELAY_2091300816),
+        .NUM_SYNC(_MP_NUM_SYNC_2091300816)
     ) start_button_cond (
         .clk(clk),
         .in(M_start_button_cond_in),
@@ -131,8 +131,8 @@ module alchitry_top (
     );
     
     
-    localparam _MP_SLOW_CLOCK_DIV_1940201643 = 3'h5;
-    localparam _MP_FAST_CLOCK_DIV_1940201643 = 2'h2;
+    localparam _MP_SLOW_CLOCK_DIV_371643271 = 3'h5;
+    localparam _MP_FAST_CLOCK_DIV_371643271 = 2'h2;
     logic M_game_datapath_left_button;
     logic M_game_datapath_right_button;
     logic M_game_datapath_start_button;
@@ -140,8 +140,8 @@ module alchitry_top (
     logic M_game_datapath_data;
     
     datapath #(
-        .SLOW_CLOCK_DIV(_MP_SLOW_CLOCK_DIV_1940201643),
-        .FAST_CLOCK_DIV(_MP_FAST_CLOCK_DIV_1940201643)
+        .SLOW_CLOCK_DIV(_MP_SLOW_CLOCK_DIV_371643271),
+        .FAST_CLOCK_DIV(_MP_FAST_CLOCK_DIV_371643271)
     ) game_datapath (
         .clk(clk),
         .rst(rst),
@@ -153,10 +153,10 @@ module alchitry_top (
     );
     
     
-    localparam _MP_COLUMN_DIMENSION_324059675 = 5'h8;
-    localparam _MP_ROW_DIMENSION_324059675 = 5'h8;
-    localparam _MP_PIXEL_COUNT_324059675 = 10'h40;
-    localparam _MP_BUFFER_SIZE_324059675 = 11'h400;
+    localparam _MP_COLUMN_DIMENSION_852281702 = 5'h8;
+    localparam _MP_ROW_DIMENSION_852281702 = 5'h8;
+    localparam _MP_PIXEL_COUNT_852281702 = 10'h40;
+    localparam _MP_BUFFER_SIZE_852281702 = 11'h400;
     logic [7:0] M_player_mode_led;
     logic [2:0][7:0] M_player_mode_io_led;
     logic [7:0] M_player_mode_io_segment;
@@ -166,10 +166,10 @@ module alchitry_top (
     logic M_player_mode_player_collided;
     
     player_mode #(
-        .COLUMN_DIMENSION(_MP_COLUMN_DIMENSION_324059675),
-        .ROW_DIMENSION(_MP_ROW_DIMENSION_324059675),
-        .PIXEL_COUNT(_MP_PIXEL_COUNT_324059675),
-        .BUFFER_SIZE(_MP_BUFFER_SIZE_324059675)
+        .COLUMN_DIMENSION(_MP_COLUMN_DIMENSION_852281702),
+        .ROW_DIMENSION(_MP_ROW_DIMENSION_852281702),
+        .PIXEL_COUNT(_MP_PIXEL_COUNT_852281702),
+        .BUFFER_SIZE(_MP_BUFFER_SIZE_852281702)
     ) player_mode (
         .left_button(io_button[1'h1]),
         .right_button(io_button[1'h0]),

@@ -1,7 +1,5 @@
 /*
-This module demonstrates a simple game using RAM to manage player and obstacle positions
-Player is rendered as a square (2 dots wide)
-Dots move upward and player must catch them
+Control Unit for dot catcher game*
 */
 module data_ram #(
     ROW_DIMENSION = 8 : ROW_DIMENSION > 1,
@@ -51,6 +49,18 @@ module data_ram #(
     const X = b10
     const Y = b01
     
+    //Display G M O V (game over) once game ends
+    //const GAME_OVER_BITMAP = { //Uncomment for G M O V 
+    //    O,X,O,X,O,Y,Y,Y,
+    //    X,O,X,O,X,O,O,Y,
+    //    X,O,X,O,X,Y,Y,Y,
+    //    X,O,X,O,X,Y,Y,Y,
+    //    O,Y,O,Y,O,X,X,X,
+    //    O,Y,O,Y,O,X,O,X,
+    //    O,Y,O,Y,O,X,O,X,
+    //    O,O,Y,O,O,X,X,X
+    //}
+    
     const GAME_OVER_BITMAP = {
         O,X,O,X,O,Y,Y,Y,
         X,O,X,O,X,O,O,Y,
@@ -69,7 +79,7 @@ module data_ram #(
     dff tick_counter[24](.clk(clk), .rst(rst), #INIT(0))
     
     // Dot position registers
-    dff dot_y_pos[$clog2(ROW_DIMENSION)](.clk(clk), .rst(rst), #INIT(0))
+    dff dot_y_pos[$clog2(ROW_DIMENSION)](.clk(clk), .rst(rst), #INIT(7))
     dff dot_x_pos[$clog2(COLUMN_DIMENSION)](.clk(clk), .rst(rst), #INIT(0))
     dff prev_dot_y_pos[$clog2(ROW_DIMENSION)](.clk(clk), .rst(rst), #INIT(0))
     dff prev_dot_x_pos[$clog2(COLUMN_DIMENSION)](.clk(clk), .rst(rst), #INIT(0))
@@ -108,7 +118,7 @@ module data_ram #(
         ram.write_data = 0
         ram.write_enable = 0
         out_encoding = ram.read_data // Output the data at the current address
-        debug_data = lives.q[1:0]  // Show lives count on debug output
+        //debug_data = lives.q[1:0]  // Show lives count on debug output
         
         // alu default inputs
         alu_game.a = 0
@@ -297,9 +307,9 @@ module data_ram #(
                 alu_game.b = 3b001
                 alu_game.alufn = 6h01
                 //lives.d = lives.q - 1
-                lives.d = alu_game.out[1:0] - 1
+                lives.d = alu_game.out[1:0]
                 
-                if (lives.q  == 1) {  // Will become 0 after decrement
+                if (lives.q == 1) {  // Will become 0 after decrement
                     player_col.d = 0
                     game_over_flag.d = 1  // Set game over flag
                     writer_pointer.d = 0  // Reset pointer for game over screen

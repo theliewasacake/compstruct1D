@@ -55,7 +55,7 @@ PINOUT(V1), STANDARD(LVCMOS33) {
         pin io_button[2] B23
         pin io_button[3] B24
         pin io_button[4] C49
-        
+ 
         //pin left_button B27
         //pin right_button B28
         //pin start_button B23 //DO NOT FUCKING USE THE SAME BANK, for example c5 and c6 clashes

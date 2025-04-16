@@ -23,8 +23,8 @@ module data_ram #(
         input wire start_game,
         output reg player_collided
     );
-    logic [($clog2(COLUMN_DIMENSION))-1:0] L_0c6693db_new_x_pos;
-    logic [($clog2(COLUMN_DIMENSION))-1:0] L_022a13be_new_x_pos;
+    logic [($clog2(COLUMN_DIMENSION))-1:0] L_55881ac8_new_x_pos;
+    logic [($clog2(COLUMN_DIMENSION))-1:0] L_4ec71da4_new_x_pos;
     localparam DEPTH = (5'h10)'(COLUMN_DIMENSION * ROW_DIMENSION);
     localparam E_States_WAIT = 4'h0;
     localparam E_States_CLEAR = 4'h1;
@@ -61,12 +61,12 @@ module data_ram #(
     logic D_dot_caught_d, D_dot_caught_q = 1'h0;
     logic D_game_over_flag_d, D_game_over_flag_q = 1'h0;
     logic [31:0] D_seed_d, D_seed_q = 1'h0;
-    localparam _MP_SEED_1185968368 = 33'h19430f418;
+    localparam _MP_SEED_568260663 = 33'h19430f418;
     logic M_rng_next;
     logic [4:0] M_rng_num;
     
     pn_gen #(
-        .SEED(_MP_SEED_1185968368)
+        .SEED(_MP_SEED_568260663)
     ) rng (
         .clk(clk),
         .rst(rst),
@@ -76,16 +76,16 @@ module data_ram #(
     );
     
     
-    localparam _MP_CLK_FREQ_1850715327 = 24'h989680;
-    localparam _MP_MIN_DELAY_1850715327 = 5'h14;
-    localparam _MP_NUM_SYNC_1850715327 = 2'h2;
+    localparam _MP_CLK_FREQ_1109549980 = 24'h989680;
+    localparam _MP_MIN_DELAY_1109549980 = 5'h14;
+    localparam _MP_NUM_SYNC_1109549980 = 2'h2;
     logic M_start_button_cond_in;
     logic M_start_button_cond_out;
     
     button_conditioner #(
-        .CLK_FREQ(_MP_CLK_FREQ_1850715327),
-        .MIN_DELAY(_MP_MIN_DELAY_1850715327),
-        .NUM_SYNC(_MP_NUM_SYNC_1850715327)
+        .CLK_FREQ(_MP_CLK_FREQ_1109549980),
+        .MIN_DELAY(_MP_MIN_DELAY_1109549980),
+        .NUM_SYNC(_MP_NUM_SYNC_1109549980)
     ) start_button_cond (
         .clk(clk),
         .in(M_start_button_cond_in),
@@ -93,14 +93,14 @@ module data_ram #(
     );
     
     
-    localparam _MP_RISE_275765833 = 1'h1;
-    localparam _MP_FALL_275765833 = 1'h0;
+    localparam _MP_RISE_471843801 = 1'h1;
+    localparam _MP_FALL_471843801 = 1'h0;
     logic M_start_button_edge_in;
     logic M_start_button_edge_out;
     
     edge_detector #(
-        .RISE(_MP_RISE_275765833),
-        .FALL(_MP_FALL_275765833)
+        .RISE(_MP_RISE_471843801),
+        .FALL(_MP_FALL_471843801)
     ) start_button_edge (
         .clk(clk),
         .in(M_start_button_edge_in),
@@ -108,17 +108,17 @@ module data_ram #(
     );
     
     
-    localparam _MP_WIDTH_64399023 = $clog2(ENCODING_AMOUNT);
-    localparam _MP_ENTRIES_64399023 = DEPTH;
-    logic [((($clog2(_MP_ENTRIES_64399023)-1) - (0) + 1))-1:0] M_ram_waddr;
-    logic [(((_MP_WIDTH_64399023-1) - (0) + 1))-1:0] M_ram_write_data;
+    localparam _MP_WIDTH_7566856 = $clog2(ENCODING_AMOUNT);
+    localparam _MP_ENTRIES_7566856 = DEPTH;
+    logic [((($clog2(_MP_ENTRIES_7566856)-1) - (0) + 1))-1:0] M_ram_waddr;
+    logic [(((_MP_WIDTH_7566856-1) - (0) + 1))-1:0] M_ram_write_data;
     logic M_ram_write_enable;
-    logic [((($clog2(_MP_ENTRIES_64399023)-1) - (0) + 1))-1:0] M_ram_raddr;
-    logic [(((_MP_WIDTH_64399023-1) - (0) + 1))-1:0] M_ram_read_data;
+    logic [((($clog2(_MP_ENTRIES_7566856)-1) - (0) + 1))-1:0] M_ram_raddr;
+    logic [(((_MP_WIDTH_7566856-1) - (0) + 1))-1:0] M_ram_read_data;
     
     simple_dual_port_ram #(
-        .WIDTH(_MP_WIDTH_64399023),
-        .ENTRIES(_MP_ENTRIES_64399023)
+        .WIDTH(_MP_WIDTH_7566856),
+        .ENTRIES(_MP_ENTRIES_7566856)
     ) ram (
         .rclk(clk),
         .wclk(clk),
@@ -175,7 +175,6 @@ module data_ram #(
         M_ram_write_data = 1'h0;
         M_ram_write_enable = 1'h0;
         out_encoding = M_ram_read_data;
-        debug_data = D_lives_q[1'h1:1'h0];
         M_alu_game_a = 1'h0;
         M_alu_game_b = 1'h0;
         M_alu_game_alufn = 1'h0;
@@ -212,11 +211,11 @@ module data_ram #(
                 end else begin
                     D_dot_caught_d = 1'h0;
                     D_dot_y_pos_d = ROW_DIMENSION - 1'h1;
-                    L_0c6693db_new_x_pos = M_rng_num[$clog2(COLUMN_DIMENSION) - 1'h1:1'h0];
-                    if (L_0c6693db_new_x_pos >= COLUMN_DIMENSION) begin
-                        D_dot_x_pos_d = L_0c6693db_new_x_pos - (COLUMN_DIMENSION >> 1'h1);
+                    L_55881ac8_new_x_pos = M_rng_num[$clog2(COLUMN_DIMENSION) - 1'h1:1'h0];
+                    if (L_55881ac8_new_x_pos >= COLUMN_DIMENSION) begin
+                        D_dot_x_pos_d = L_55881ac8_new_x_pos - (COLUMN_DIMENSION >> 1'h1);
                     end else begin
-                        D_dot_x_pos_d = L_0c6693db_new_x_pos;
+                        D_dot_x_pos_d = L_55881ac8_new_x_pos;
                     end
                     M_rng_next = 1'h1;
                 end
@@ -312,7 +311,7 @@ module data_ram #(
                 M_alu_game_a = D_lives_q;
                 M_alu_game_b = 3'h1;
                 M_alu_game_alufn = 6'h1;
-                D_lives_d = M_alu_game_out[1'h1:1'h0] - 1'h1;
+                D_lives_d = M_alu_game_out[1'h1:1'h0];
                 if (D_lives_q == 1'h1) begin
                     D_player_col_d = 1'h0;
                     D_game_over_flag_d = 1'h1;
@@ -321,11 +320,11 @@ module data_ram #(
                 end else begin
                     D_player_col_d = 1'h0;
                     D_dot_y_pos_d = ROW_DIMENSION - 1'h1;
-                    L_022a13be_new_x_pos = M_rng_num[$clog2(COLUMN_DIMENSION) - 1'h1:1'h0];
-                    if (L_022a13be_new_x_pos >= COLUMN_DIMENSION) begin
-                        D_dot_x_pos_d = L_022a13be_new_x_pos - (COLUMN_DIMENSION >> 1'h1);
+                    L_4ec71da4_new_x_pos = M_rng_num[$clog2(COLUMN_DIMENSION) - 1'h1:1'h0];
+                    if (L_4ec71da4_new_x_pos >= COLUMN_DIMENSION) begin
+                        D_dot_x_pos_d = L_4ec71da4_new_x_pos - (COLUMN_DIMENSION >> 1'h1);
                     end else begin
-                        D_dot_x_pos_d = L_022a13be_new_x_pos;
+                        D_dot_x_pos_d = L_4ec71da4_new_x_pos;
                     end
                     M_rng_next = 1'h1;
                     D_dot_caught_d = 1'h0;
@@ -373,7 +372,7 @@ module data_ram #(
             end
         endcase
         debug_address_pointer = D_writer_pointer_q;
-        debug_data = D_lives_q[1'h1:1'h0];
+        debug_data = D_lives_q;
     end
     
     
